@@ -1,0 +1,42 @@
+p {
+  color: #555; 
+  margin: 5px 0;
+  padding: 0 20px 0 10px;
+}
+p,
+h2 { 
+  cursor: default;
+}
+h1, 
+button {
+  cursor: pointer;
+}
+button:disabled,
+input[type=submit]:disabled {
+  opacity: 0.5;
+}
+input[name=id] {
+  display: none;
+}
+.ListInfo {
+  display: inline-block;
+  vertical-align: middle;
+  position: relative;
+  bottom: 3px;
+}
+.ListButtons {
+  display: inline-block;
+}
+ol {
+  font-size: 12px;
+}
+.P1 {
+  font-size: 20px;
+  font-weight: 500;
+}
+.P2 {
+  font-size: 16px;
+}
+.P3 {
+  font-size: 12px;
+}
