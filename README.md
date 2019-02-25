@@ -1,2 +1,2 @@
-# notes-app-react
-Notes React
+# Notes App React
+### Front End for note taking application 
