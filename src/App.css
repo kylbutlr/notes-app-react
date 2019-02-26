@@ -1,5 +1,10 @@
+body {
+  background: #eee;
+  margin: auto;
+  max-width: 40vw;
+}
 p {
-  color: #555; 
+  color: #111; 
   margin: 5px 0;
   padding: 0 20px 0 10px;
 }
