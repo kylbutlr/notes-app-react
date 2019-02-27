@@ -15,7 +15,7 @@ npm install
 npm start
 ```
 
-(Connects to API on port `3000`)
+Connects to API on port `3000`
 
 ## Contributing
 
