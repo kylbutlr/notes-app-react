@@ -1,4 +1,4 @@
-body {
+/*body {
   background: #eee;
   margin: auto;
   max-width: 40vw;
@@ -19,9 +19,6 @@ button {
 button:disabled,
 input[type=submit]:disabled {
   opacity: 0.5;
-}
-input[name=id] {
-  display: none;
 }
 .ListInfo {
   display: inline-block;
@@ -44,4 +41,113 @@ ol {
 }
 .P3 {
   font-size: 12px;
+}
+*/
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: #eee;
+  color: #111;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+button, .title {
+  cursor: pointer;
+}
+
+p {
+  cursor: default;
+}
+
+input[name=id] {
+  display: none;
+}
+
+ol {
+  display: flex;
+  flex-flow: column;
+}
+
+li {
+  margin: 1em;
+  min-width: 5em;
+  max-width: 15em;
+}
+
+.edit-button, .delete-button {
+  margin: 0.1em;
+  padding: 0.1em;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.app {
+  width: 80%;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 1em;
+}
+
+.p1 {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.p2 {
+  font-size: 1.25em;
+}
+
+.p3 {
+  font-size: 0.75em;
+}
+
+.list-info {
+  padding: 0.5em;
+}
+
+li:hover .edit-button {
+  opacity: 1;
+}
+
+li:hover .delete-button {
+  opacity: 1;
+}
+
+@media only screen and (min-width: 768px) {
+  
+  ol {
+    display: flex;
+    flex-flow: row wrap;
+  }
+  
+  .title {
+    font-size: 2em;
+  }
+
+}
+
+@media (hover: hover) {
+  
+  li:hover .edit-button {
+    opacity: 0.5;
+  }
+  
+  li:hover .delete-button {
+    opacity: 0.5;
+  }
+
+  li:hover .edit-button:hover {
+    opacity: 1;
+  }
+  
+  li:hover .delete-button:hover {
+    opacity: 1;
+  }
+
 }
