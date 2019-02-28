@@ -3,7 +3,7 @@ import React from 'react';
 export default ({ onSubmit, onChange, searchInput }) => (
   <form onSubmit={onSubmit}>
     <label>
-      Search:
+      <span>Search:</span>
       <input
         name='search'
         type='text'

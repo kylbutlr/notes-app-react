@@ -9,6 +9,18 @@ html {
   font-family: Helvetica, Arial, sans-serif;
 }
 
+.header {
+  background: #111;
+}
+
+.body {
+  padding: 0.5em 0 0;
+}
+
+.footer {
+  background: #111;
+}
+
 button, .title {
   cursor: pointer;
 }
@@ -26,21 +38,9 @@ input[type=submit]:disabled {
   opacity: 0.5;
 }
 
-ol {
-  display: flex;
-  flex-flow: column;
-}
-
-li {
-  margin: 0.5em 1em;
-  min-width: 5em;
-  max-width: 15em;
-}
-
 .edit-button, .delete-button {
   display: inline-block;
-  margin: 0.1em;
-  padding: 0.1em;
+  margin: 0;
   opacity: 0;
   transition: opacity 0.5s;
 }
@@ -58,76 +58,180 @@ li {
 
 .navigation {
   margin: 0 auto;
-  width: 60vw;
-}
-
-.navigation-wrapper {
-  background: #111;
+  width: 80vw;
   display: flex;
-  margin: 0.5em;
-  padding: 0.5em;
-}
-
-.navigation-wrapper button {
-  flex-grow: 1;
-  flex: 1;
-}
-
-.search {
-  display: flex;
-  width: 60vw;
-  margin: 0 auto;
   padding: 0.5em 0;
 }
 
-.search form {
-  margin: 0;
+.navigation button {
+  flex: 1;
+  height: 6vh;
+  margin: 0 0.25em;
 }
 
-.search label {
-  font-size: 0;
+.search {
+  width: 60vw;
+  margin: 0 auto;
+  padding: 0.5em 0 0;
 }
 
-.search input {
-  flex-grow: 1;
+.search input[type=submit] {
+ height: 4.5vh;
+ padding: 0 0.677775em;
 }
 
-.view-notes, .view-tags, .view-search {
+.search label input {
+  height: 4vh;
+  text-indent: 1.5rem;
+}
+
+.search label span {
+  display: none;
+}
+
+.login,
+.register {
   width: 80vw;
+  margin: 0 auto;
+  padding: 1em 0;
+}
+
+.login form,
+.register form {
+  width: 60vw;
   margin: 0 auto;
 }
 
+.login form input,
+.register form input {
+  height: 4vh;
+  width: 100%;
+  margin: 0.5em 0;
+}
+
+.login form input[type=submit],
+.register form input[type=submit] {
+  height: 4.5vh;
+}
+
+.login button,
+.register button {
+  height: 4.5vh;
+  width: 60vw;
+  margin: 0.5em 0 0 10vw;
+}
+
+.login form input[type=text],
+.login form input[type=password],
+.register form input[type=text],
+.register form input[type=password] {
+  width: 98%;
+}
+
+.create-note, 
+.create-tag, 
+.edit-note, 
+.edit-tag {
+  width: 80vw;
+  margin: 0 auto;
+  padding: 1em 0;
+}
+
+.create-note form, 
+.create-tag form, 
+.edit-note form, 
+.edit-tag form {
+  width: 60vw;
+  margin: 0 auto;
+}
+
+.create-note form input, 
+.create-tag form input, 
+.edit-note form input, 
+.edit-tag form input {
+  height: 4vh;
+  width: 100%;
+  margin: 0.5em 0;
+}
+
+.create-note form input[type=text], 
+.create-tag form input[type=text], 
+.edit-note form input[type=text], 
+.edit-tag form input[type=text] {
+  width: 98%;
+}
+
+.create-note form input[type=submit], 
+.create-tag form input[type=submit], 
+.edit-note form input[type=submit], 
+.edit-tag form input[type=submit] {
+  margin: 1em 0;
+  height: 6vh;
+}
+
+.view-notes, 
+.view-tags,
+.view-search {
+  width: 80vw;
+  margin: 0 auto;
+  padding: 1em 0;
+}
+
 .p1 {
-  font-size: 1.5em;
+  font-size: 1.25rem;
   font-weight: 500;
 }
 
 .p2 {
-  font-size: 1.25em;
+  font-size: 1.25rem;
 }
 
 .p3 {
-  font-size: 0.75em;
+  font-size: 1rem;
 }
 
 h1 {
-  font-size: 2em;
+  color: #eee;
+  font-size: 2rem;
 }
 
 h2 {
-  font-size: 1.5em;
+  font-size: 1.5rem;
 }
 
 h3 {
-  font-size: 1.25em;
+  font-size: 1.25rem;
+  text-indent: 5vw;
 }
 
 h4 {
-  font-size: 1em;
+  font-size: 1rem;
+}
+
+ol {
+  display: flex;
+  flex-flow: column;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
 }
 
 .list-info {
-  padding: 0.5em;
+  padding: 0.5em 1em;
+  max-width: 10rem;
+}
+
+.list-buttons {
+  display: flex;
+  height: 6vh;
+  padding: 0 0.5em 0 0;
+  align-self: center;
+}
+
+.list-buttons button {
+  width: 12vw;
 }
 
 li:hover .edit-button {
@@ -141,28 +245,38 @@ li:hover .delete-button {
 .footer-buttons {
   display: flex;
   margin: 1em auto;
-  width: 60vw;
+  width: 80vw;
+  padding: 0.5em 0;
 }
 
 .delete-notes-button,
 .delete-tags-button,
 .logout-button {
   display: flex;  
+  flex: 1;
+}
+
+.delete-notes-button button,
+.delete-tags-button button,
+.logout-button button {
+  flex: 1;
+  margin: 0 0.25em;
+  height: 4.5vh;
 }
 
 @media only screen and (min-width: 768px) {
-  
-  ol {
-    display: flex;
-    flex-flow: row wrap;
-  }
   
   .title {
     padding: 0.75em;
   }
 
   h1 {
-    font-size: 3em;
+    font-size: 3rem;
+  }
+
+  ol {
+    display: flex;
+    flex-flow: row wrap;
   }
 
 }

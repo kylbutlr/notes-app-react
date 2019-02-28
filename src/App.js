@@ -922,77 +922,42 @@ class App extends Component {
   render() {
     return (
       <div className='app'>
-        {/* Title */}
-        <div className='title'>
+        {/* Header */}
+        <div className='header'>
+          {/* Title */}
+          <div className='title'>
+            <div
+              style={{
+                display: this.state.loggedIn === false ? 'block' : 'none',
+              }}>
+              <h1 onClick={() => this.tabClick(tabs.LOGIN)}>My Notes</h1>{' '}
+            </div>
+            <div
+              style={{
+                display: this.state.loggedIn !== false ? 'block' : 'none',
+              }}>
+              <h1 onClick={() => this.tabClick(tabs.VIEW_NOTES)}>My Notes</h1>
+            </div>
+          </div>
+
+          {/* Search Form */}
           <div
+            className='search'
             style={{
-              display: this.state.loggedIn === false ? 'block' : 'none',
+              display:
+                this.state.activeTab !== tabs.LOGIN || this.state.activeTab !== tabs.REGISTER
+                  ? 'block'
+                  : 'none',
             }}>
-            <h1 onClick={() => this.tabClick(tabs.LOGIN)}>My Notes</h1>{' '}
-          </div>
-          <div
-            style={{
-              display: this.state.loggedIn !== false ? 'block' : 'none',
-            }}>
-            <h1 onClick={() => this.tabClick(tabs.VIEW_NOTES)}>My Notes</h1>
-          </div>
-        </div>
-
-        {/* Login Form */}
-        <div
-          className='login'
-          style={{
-            display: this.state.activeTab === tabs.LOGIN ? 'block' : 'none',
-          }}>
-          <div>
-            <h2>Login:</h2>
-            <LoginForm
-              onSubmit={this.onLoginFormSubmit}
-              onChange={this.onLoginFormChange}
-              {...this.state.loginInput}
-            />
-            <button onClick={() => this.tabClick(tabs.REGISTER)}>Register</button>
-          </div>
-        </div>
-
-        {/* Register Form */}
-        <div
-          className='register'
-          style={{
-            display: this.state.activeTab === tabs.REGISTER ? 'block' : 'none',
-          }}>
-          <div>
-            <h2>Register:</h2>
-            <RegisterForm
-              onSubmit={this.onRegisterFormSubmit}
-              onChange={this.onRegisterFormChange}
-              {...this.state.registerInput}
-            />
-            <button onClick={() => this.tabClick(tabs.LOGIN)}>Back to Login</button>
-          </div>
-        </div>
-
-        {/* Search Form */}
-        <div
-          className='search'
-          style={{
-            display:
-              this.state.activeTab === tabs.VIEW_NOTES || this.state.activeTab === tabs.VIEW_TAGS
-                ? 'block'
-                : 'none',
-          }}>
-          <div>
             <SearchForm
               onSubmit={this.onSearchFormSubmit}
               onChange={this.onSearchFormChange}
               searchInput={this.state.searchInput}
             />
           </div>
-        </div>
 
-        {/* Navigation Buttons */}
-        <div className='navigation'>
-          <div className='navigation-wrapper'>
+          {/* Navigation Buttons */}
+          <div className='navigation'>
             <button
               id='tabsVIEW_NOTES'
               style={{
@@ -1023,7 +988,8 @@ class App extends Component {
               style={{
                 display:
                   this.state.activeTab === tabs.VIEW_NOTES ||
-                  this.state.activeTab === tabs.CREATE_NOTE
+                  this.state.activeTab === tabs.CREATE_NOTE ||
+                  this.state.activeTab === tabs.CREATE_TAG
                     ? 'block'
                     : 'none',
               }}
@@ -1041,19 +1007,50 @@ class App extends Component {
           </div>
         </div>
 
-        {/* Search Results */}
-        <div
-          className='view-search'
-          style={{
-            display: this.state.activeTab === tabs.VIEW_NOTES ? 'block' : 'none',
-          }}>
+        {/* Body */}
+        <div className='body'>
+          {/* Login Form */}
           <div
+            className='login'
             style={{
-              display: this.state.searching === true ? 'block' : 'none',
+              display: this.state.activeTab === tabs.LOGIN ? 'block' : 'none',
             }}>
+            <h2>Login:</h2>
+            <LoginForm
+              onSubmit={this.onLoginFormSubmit}
+              onChange={this.onLoginFormChange}
+              {...this.state.loginInput}
+            />
+            <button onClick={() => this.tabClick(tabs.REGISTER)}>Register</button>
+          </div>
+
+          {/* Register Form */}
+          <div
+            className='register'
+            style={{
+              display: this.state.activeTab === tabs.REGISTER ? 'block' : 'none',
+            }}>
+            <h2>Register:</h2>
+            <RegisterForm
+              onSubmit={this.onRegisterFormSubmit}
+              onChange={this.onRegisterFormChange}
+              {...this.state.registerInput}
+            />
+            <button onClick={() => this.tabClick(tabs.LOGIN)}>Back to Login</button>
+          </div>
+
+          {/* Search Results */}
+          <div
+            className='view-search'
+            style={{
+              display:
+                this.state.activeTab === tabs.VIEW_NOTES && this.state.searching === true
+                  ? 'block'
+                  : 'none',
+            }}>
+            <h2>Search Results:</h2>
             <h3>
-              Search Results ({this.state.searchResults.length}) for{' '}
-              {this.state.searchedTag.join(', ')}:
+              {this.state.searchResults.length} found for {this.state.searchedTag.join(', ')}:
             </h3>
             <h4
               style={{
@@ -1063,42 +1060,36 @@ class App extends Component {
             </h4>
             <ol>{this.state.searchResults.map(n => this.renderNote(n))}</ol>
           </div>
-        </div>
 
-        {/* View Notes */}
-        <div
-          className='view-notes'
-          style={{
-            display: this.state.activeTab === tabs.VIEW_NOTES ? 'block' : 'none',
-          }}>
+          {/* View Notes */}
           <div
+            className='view-notes'
             style={{
-              display: this.state.searching === false ? 'block' : 'none',
+              display:
+                this.state.activeTab === tabs.VIEW_NOTES && this.state.searching === false
+                  ? 'block'
+                  : 'none',
             }}>
             <h2>Notes:</h2>
             <ol>{this.state.notes.map(n => this.renderNote(n))}</ol>
           </div>
-        </div>
 
-        {/* View Tags */}
-        <div
-          className='view-tags'
-          style={{
-            display: this.state.activeTab === tabs.VIEW_TAGS ? 'block' : 'none',
-          }}>
-          <div>
+          {/* View Tags */}
+          <div
+            className='view-tags'
+            style={{
+              display: this.state.activeTab === tabs.VIEW_TAGS ? 'block' : 'none',
+            }}>
             <h2>Tags:</h2>
             <ol>{this.state.tags.map(n => this.renderTag(n))}</ol>
           </div>
-        </div>
 
-        {/* Create Note Form */}
-        <div
-          className='create-note'
-          style={{
-            display: this.state.activeTab === tabs.CREATE_NOTE ? 'block' : 'none',
-          }}>
-          <div>
+          {/* Create Note Form */}
+          <div
+            className='create-note'
+            style={{
+              display: this.state.activeTab === tabs.CREATE_NOTE ? 'block' : 'none',
+            }}>
             <h2>Create Note:</h2>
             <CreateNoteForm
               onSubmit={this.onCreateNoteFormSubmit}
@@ -1106,15 +1097,13 @@ class App extends Component {
               {...this.state.noteInput}
             />
           </div>
-        </div>
 
-        {/* Create Tag Form */}
-        <div
-          className='create-tag'
-          style={{
-            display: this.state.activeTab === tabs.CREATE_TAG ? 'block' : 'none',
-          }}>
-          <div>
+          {/* Create Tag Form */}
+          <div
+            className='create-tag'
+            style={{
+              display: this.state.activeTab === tabs.CREATE_TAG ? 'block' : 'none',
+            }}>
             <h2>Create Tag(s):</h2>
             <CreateTagForm
               onSubmit={this.onCreateTagFormSubmit}
@@ -1122,15 +1111,13 @@ class App extends Component {
               {...this.state.tagInput}
             />
           </div>
-        </div>
 
-        {/* Edit Note Form */}
-        <div
-          className='edit-note'
-          style={{
-            display: this.state.activeTab === tabs.EDIT_NOTE ? 'block' : 'none',
-          }}>
-          <div>
+          {/* Edit Note Form */}
+          <div
+            className='edit-note'
+            style={{
+              display: this.state.activeTab === tabs.EDIT_NOTE ? 'block' : 'none',
+            }}>
             <h2>Edit Note:</h2>
             <EditNoteForm
               onSubmit={this.onEditNoteFormSubmit}
@@ -1138,15 +1125,13 @@ class App extends Component {
               {...this.state.noteInput}
             />
           </div>
-        </div>
 
-        {/* Edit Tag Form */}
-        <div
-          className='edit-tag'
-          style={{
-            display: this.state.activeTab === tabs.EDIT_TAG ? 'block' : 'none',
-          }}>
-          <div>
+          {/* Edit Tag Form */}
+          <div
+            className='edit-tag'
+            style={{
+              display: this.state.activeTab === tabs.EDIT_TAG ? 'block' : 'none',
+            }}>
             <h2>Edit Tag:</h2>
             <EditTagForm
               onSubmit={this.onEditTagFormSubmit}
@@ -1156,27 +1141,31 @@ class App extends Component {
           </div>
         </div>
 
-        {/* Footer Buttons */}
-        <div className='footer-buttons'>
-          <div
-            className='delete-notes-button'
-            style={{ display: this.state.activeTab === tabs.VIEW_NOTES ? 'flex' : 'none' }}>
-            <button onClick={this.handleDeleteAllNotes}>Delete All Notes</button>
-          </div>
-          <div
-            className='delete-tags-button'
-            style={{ display: this.state.activeTab === tabs.VIEW_TAGS ? 'flex' : 'none' }}>
-            <button onClick={this.handleDeleteAllTags}>Delete All Tags</button>
-          </div>
-          <div
-            className='logout-button'
-            style={{
-              display:
-                this.state.activeTab !== tabs.LOGIN && this.state.activeTab !== tabs.REGISTER
-                  ? 'flex'
-                  : 'none',
-            }}>
-            <button onClick={() => this.logoutClick()}>Logout</button>
+        {/* Footer */}
+        <div className='footer'>
+          {/* Footer Buttons */}
+          <div className='footer-buttons'>
+            <div
+              className='delete-notes-button'
+              style={{ display: this.state.activeTab === tabs.VIEW_NOTES ? 'flex' : 'none' }}>
+              <button onClick={this.handleDeleteAllNotes}>Delete All Notes</button>
+            </div>
+            <div
+              className='delete-tags-button'
+              style={{ display: this.state.activeTab === tabs.VIEW_TAGS ? 'flex' : 'none' }}>
+              <button onClick={this.handleDeleteAllTags}>Delete All Tags</button>
+            </div>
+            <div
+              className='logout-button'
+              style={{
+                display:
+                  this.state.activeTab === tabs.VIEW_NOTES ||
+                  this.state.activeTab === tabs.VIEW_TAGS
+                    ? 'flex'
+                    : 'none',
+              }}>
+              <button onClick={() => this.logoutClick()}>Logout</button>
+            </div>
           </div>
         </div>
       </div>
