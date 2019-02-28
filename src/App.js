@@ -972,6 +972,24 @@ class App extends Component {
           </div>
         </div>
 
+        {/* Search Form */}
+        <div
+          className='search'
+          style={{
+            display:
+              this.state.activeTab === tabs.VIEW_NOTES || this.state.activeTab === tabs.VIEW_TAGS
+                ? 'block'
+                : 'none',
+          }}>
+          <div>
+            <SearchForm
+              onSubmit={this.onSearchFormSubmit}
+              onChange={this.onSearchFormChange}
+              searchInput={this.state.searchInput}
+            />
+          </div>
+        </div>
+
         {/* Navigation Buttons */}
         <div className='navigation'>
           <div className='navigation-wrapper'>
@@ -1023,25 +1041,6 @@ class App extends Component {
           </div>
         </div>
 
-        {/* Search Form */}
-        <div
-          className='search'
-          style={{
-            display:
-              this.state.activeTab === tabs.VIEW_NOTES || this.state.activeTab === tabs.VIEW_TAGS
-                ? 'block'
-                : 'none',
-          }}>
-          <br />
-          <div>
-            <SearchForm
-              onSubmit={this.onSearchFormSubmit}
-              onChange={this.onSearchFormChange}
-              searchInput={this.state.searchInput}
-            />
-          </div>
-        </div>
-
         {/* Search Results */}
         <div
           className='view-search'
@@ -1052,16 +1051,16 @@ class App extends Component {
             style={{
               display: this.state.searching === true ? 'block' : 'none',
             }}>
-            <h2>
+            <h3>
               Search Results ({this.state.searchResults.length}) for{' '}
               {this.state.searchedTag.join(', ')}:
-            </h2>
-            <h3
+            </h3>
+            <h4
               style={{
                 display: this.state.searchResults.length === 0 ? 'block' : 'none',
               }}>
               No Results Found
-            </h3>
+            </h4>
             <ol>{this.state.searchResults.map(n => this.renderNote(n))}</ol>
           </div>
         </div>
@@ -1078,7 +1077,6 @@ class App extends Component {
             }}>
             <h2>Notes:</h2>
             <ol>{this.state.notes.map(n => this.renderNote(n))}</ol>
-            <button onClick={this.handleDeleteAllNotes}>Delete All Notes</button>
           </div>
         </div>
 
@@ -1091,7 +1089,6 @@ class App extends Component {
           <div>
             <h2>Tags:</h2>
             <ol>{this.state.tags.map(n => this.renderTag(n))}</ol>
-            <button onClick={this.handleDeleteAllTags}>Delete All Tags</button>
           </div>
         </div>
 
@@ -1159,16 +1156,28 @@ class App extends Component {
           </div>
         </div>
 
-        {/* Logout Button */}
-        <div
-          className='logout-button'
-          style={{
-            display:
-              this.state.activeTab !== tabs.LOGIN && this.state.activeTab !== tabs.REGISTER
-                ? 'block'
-                : 'none',
-          }}>
-          <button onClick={() => this.logoutClick()}>Logout</button>
+        {/* Footer Buttons */}
+        <div className='footer-buttons'>
+          <div
+            className='delete-notes-button'
+            style={{ display: this.state.activeTab === tabs.VIEW_NOTES ? 'flex' : 'none' }}>
+            <button onClick={this.handleDeleteAllNotes}>Delete All Notes</button>
+          </div>
+          <div
+            className='delete-tags-button'
+            style={{ display: this.state.activeTab === tabs.VIEW_TAGS ? 'flex' : 'none' }}>
+            <button onClick={this.handleDeleteAllTags}>Delete All Tags</button>
+          </div>
+          <div
+            className='logout-button'
+            style={{
+              display:
+                this.state.activeTab !== tabs.LOGIN && this.state.activeTab !== tabs.REGISTER
+                  ? 'flex'
+                  : 'none',
+            }}>
+            <button onClick={() => this.logoutClick()}>Logout</button>
+          </div>
         </div>
       </div>
     );
