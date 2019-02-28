@@ -119,29 +119,24 @@ class App extends Component {
         .get(`${API_ENDPOINT}/user/${user_id}/tags`, config)
         .catch(err => {
           this.logoutUser('user');
-          this.tabClick(tabs.LOGIN);
         })
         .then(tags => {
           if (tags) {
-            this.setState({ tags: this.state.tags.concat(tags.data) });
-            return tags.data;
-          }
-        })
-        .then(() => {
-          axios
-            .get(`${API_ENDPOINT}/user/${user_id}/notes`, config)
-            .catch(err => {
-              this.logoutUser('user');
-              this.tabClick(tabs.LOGIN);
-            })
-            .then(notes => {
-              if (notes) {
-                notes = this.cleanTags(notes, cb => {
-                  this.setState({ notes: this.state.notes.concat(cb.data) });
-                  return notes.data;
+            this.setState({ tags: this.state.tags.concat(tags.data) }, () => {
+              axios
+                .get(`${API_ENDPOINT}/user/${user_id}/notes`, config)
+                .catch(err => {
+                  this.logoutUser('user');
+                })
+                .then(notes => {
+                  if (notes) {
+                    notes = this.cleanTags(notes, cb => {
+                      this.setState({ notes: this.state.notes.concat(cb.data) });
+                    });
+                  }
                 });
-              }
             });
+          }
         });
     });
   }
@@ -731,6 +726,8 @@ class App extends Component {
       this.resetLoginInput();
     }
     this.tabClick(tabs.LOGIN);
+    this.resetTagInput();
+    this.resetNoteInput();
     this.setState({
       loggedIn: false,
       searching: false,
@@ -739,18 +736,15 @@ class App extends Component {
       searchResults: [],
       searchedTag: [],
       searchInput: '',
-      tagInput: {
-        id: '',
-        title: '',
-        prevTag: '',
-      },
-      noteInput: {
-        id: '',
-        title: '',
-        text: '',
-        tags: '',
-      },
     });
+    const localStorage = JSON.parse(window.localStorage.getItem('savedSession'));
+    localStorage.jwt = '';
+    window.localStorage.setItem('savedSession', JSON.stringify(localStorage));
+  }
+  logoutClick() {
+    if (window.confirm('Are you sure you want to logout?')) {
+      this.logoutUser();
+    }
   }
   getConfig(loggedIn, cb) {
     cb({
@@ -812,7 +806,7 @@ class App extends Component {
         const t = this.state.tags.findIndex(x => x.title === anInput);
         if (t < 0) {
           alert('Error: Tag (' + anInput + ') does not exist');
-          return false;
+          cb(false);
         } else {
           tags[i] = this.state.tags[t].id;
         }
@@ -834,7 +828,6 @@ class App extends Component {
       const length = id.length;
       for (let i = 0; i < length; i++) {
         const newId = id[i];
-        // eslint-disable-next-line
         const t = this.state.tags.findIndex(x => x.id === Number(newId));
         if (t >= 0) {
           const newTag = this.state.tags[t].title;
@@ -881,15 +874,18 @@ class App extends Component {
     const { id, title } = tagData;
     const newTag = title.substring(0, 1).toUpperCase() + title.substring(1);
     return (
-      <li className='ListItem' key={id}>
-        <div className='ListInfo'>
-          <p className='P2'>{newTag}</p>
+      <li key={id}>
+        <div className='list-info'>
+          <p className='p2'>{newTag}</p>
         </div>
-        <div className='ListButtons'>
-          <button data-id={id} onClick={() => this.handleEditTag(id)}>
+        <div className='list-buttons'>
+          <button className='edit-button' data-id={id} onClick={() => this.handleEditTag(id)}>
             Edit
           </button>
-          <button data-id={id} onClick={() => this.handleDeleteTag(id, title)}>
+          <button
+            className='delete-button'
+            data-id={id}
+            onClick={() => this.handleDeleteTag(id, title)}>
             Delete
           </button>
         </div>
@@ -907,16 +903,16 @@ class App extends Component {
     }
     return (
       <li key={id}>
-        <div className='ListInfo'>
-          <p className='P1'>{title}</p>
-          <p className='P2'>{text}</p>
-          <p className='P3'>Tag(s): {tags[0] ? tags.join(', ') : 'N/A'}</p>
+        <div className='list-info'>
+          <p className='p1'>{title}</p>
+          <p className='p2'>{text}</p>
+          <p className='p3'>Tag(s): {tags[0] ? tags.join(', ') : 'N/A'}</p>
         </div>
-        <div className='ListButtons'>
-          <button data-id={id} onClick={() => this.handleEditNote(id)}>
+        <div className='list-buttons'>
+          <button className='edit-button' data-id={id} onClick={() => this.handleEditNote(id)}>
             Edit
           </button>
-          <button data-id={id} onClick={() => this.handleDeleteNote(id)}>
+          <button className='delete-button' data-id={id} onClick={() => this.handleDeleteNote(id)}>
             Delete
           </button>
         </div>
@@ -925,23 +921,26 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
+      <div className='app'>
         {/* Title */}
-        <div
-          style={{
-            display: this.state.loggedIn === false ? 'block' : 'none',
-          }}>
-          <h1 onClick={() => this.tabClick(tabs.LOGIN)}>My Notes</h1>{' '}
-        </div>
-        <div
-          style={{
-            display: this.state.loggedIn !== false ? 'block' : 'none',
-          }}>
-          <h1 onClick={() => this.tabClick(tabs.VIEW_NOTES)}>My Notes</h1>
+        <div className='title'>
+          <div
+            style={{
+              display: this.state.loggedIn === false ? 'block' : 'none',
+            }}>
+            <h1 onClick={() => this.tabClick(tabs.LOGIN)}>My Notes</h1>{' '}
+          </div>
+          <div
+            style={{
+              display: this.state.loggedIn !== false ? 'block' : 'none',
+            }}>
+            <h1 onClick={() => this.tabClick(tabs.VIEW_NOTES)}>My Notes</h1>
+          </div>
         </div>
 
         {/* Login Form */}
         <div
+          className='login'
           style={{
             display: this.state.activeTab === tabs.LOGIN ? 'block' : 'none',
           }}>
@@ -958,6 +957,7 @@ class App extends Component {
 
         {/* Register Form */}
         <div
+          className='register'
           style={{
             display: this.state.activeTab === tabs.REGISTER ? 'block' : 'none',
           }}>
@@ -973,56 +973,59 @@ class App extends Component {
         </div>
 
         {/* Navigation Buttons */}
-        <div>
-          <button
-            id='tabsVIEW_NOTES'
-            style={{
-              display:
-                (this.state.activeTab !== tabs.LOGIN &&
-                  this.state.activeTab !== tabs.REGISTER &&
-                  this.state.activeTab !== tabs.VIEW_NOTES) ||
-                this.state.searching === true
-                  ? 'block'
-                  : 'none',
-            }}
-            onClick={() => this.tabClick(tabs.VIEW_NOTES)}>
-            Back to Notes
-          </button>
-          <button
-            id='tabsCREATE_NOTE'
-            style={{
-              display:
-                this.state.activeTab === tabs.VIEW_NOTES && this.state.searching === false
-                  ? 'block'
-                  : 'none',
-            }}
-            onClick={() => this.tabClick(tabs.CREATE_NOTE)}>
-            Create Note
-          </button>
-          <button
-            id='tabsVIEW_TAGS'
-            style={{
-              display:
-                this.state.activeTab === tabs.VIEW_NOTES ||
-                this.state.activeTab === tabs.CREATE_NOTE
-                  ? 'block'
-                  : 'none',
-            }}
-            onClick={() => this.tabClick(tabs.VIEW_TAGS)}>
-            View Tags
-          </button>
-          <button
-            id='tabsCREATE_TAG'
-            style={{
-              display: this.state.activeTab === tabs.VIEW_TAGS ? 'block' : 'none',
-            }}
-            onClick={() => this.tabClick(tabs.CREATE_TAG)}>
-            Create Tag
-          </button>
+        <div className='navigation'>
+          <div className='navigation-wrapper'>
+            <button
+              id='tabsVIEW_NOTES'
+              style={{
+                display:
+                  (this.state.activeTab !== tabs.LOGIN &&
+                    this.state.activeTab !== tabs.REGISTER &&
+                    this.state.activeTab !== tabs.VIEW_NOTES) ||
+                  this.state.searching === true
+                    ? 'block'
+                    : 'none',
+              }}
+              onClick={() => this.tabClick(tabs.VIEW_NOTES)}>
+              Back to Notes
+            </button>
+            <button
+              id='tabsCREATE_NOTE'
+              style={{
+                display:
+                  this.state.activeTab === tabs.VIEW_NOTES && this.state.searching === false
+                    ? 'block'
+                    : 'none',
+              }}
+              onClick={() => this.tabClick(tabs.CREATE_NOTE)}>
+              Create Note
+            </button>
+            <button
+              id='tabsVIEW_TAGS'
+              style={{
+                display:
+                  this.state.activeTab === tabs.VIEW_NOTES ||
+                  this.state.activeTab === tabs.CREATE_NOTE
+                    ? 'block'
+                    : 'none',
+              }}
+              onClick={() => this.tabClick(tabs.VIEW_TAGS)}>
+              View Tags
+            </button>
+            <button
+              id='tabsCREATE_TAG'
+              style={{
+                display: this.state.activeTab === tabs.VIEW_TAGS ? 'block' : 'none',
+              }}
+              onClick={() => this.tabClick(tabs.CREATE_TAG)}>
+              Create Tag
+            </button>
+          </div>
         </div>
 
         {/* Search Form */}
         <div
+          className='search'
           style={{
             display:
               this.state.activeTab === tabs.VIEW_NOTES || this.state.activeTab === tabs.VIEW_TAGS
@@ -1041,6 +1044,7 @@ class App extends Component {
 
         {/* Search Results */}
         <div
+          className='view-search'
           style={{
             display: this.state.activeTab === tabs.VIEW_NOTES ? 'block' : 'none',
           }}>
@@ -1060,8 +1064,14 @@ class App extends Component {
             </h3>
             <ol>{this.state.searchResults.map(n => this.renderNote(n))}</ol>
           </div>
+        </div>
 
-          {/* View Notes */}
+        {/* View Notes */}
+        <div
+          className='view-notes'
+          style={{
+            display: this.state.activeTab === tabs.VIEW_NOTES ? 'block' : 'none',
+          }}>
           <div
             style={{
               display: this.state.searching === false ? 'block' : 'none',
@@ -1074,6 +1084,7 @@ class App extends Component {
 
         {/* View Tags */}
         <div
+          className='view-tags'
           style={{
             display: this.state.activeTab === tabs.VIEW_TAGS ? 'block' : 'none',
           }}>
@@ -1086,6 +1097,7 @@ class App extends Component {
 
         {/* Create Note Form */}
         <div
+          className='create-note'
           style={{
             display: this.state.activeTab === tabs.CREATE_NOTE ? 'block' : 'none',
           }}>
@@ -1101,6 +1113,7 @@ class App extends Component {
 
         {/* Create Tag Form */}
         <div
+          className='create-tag'
           style={{
             display: this.state.activeTab === tabs.CREATE_TAG ? 'block' : 'none',
           }}>
@@ -1116,6 +1129,7 @@ class App extends Component {
 
         {/* Edit Note Form */}
         <div
+          className='edit-note'
           style={{
             display: this.state.activeTab === tabs.EDIT_NOTE ? 'block' : 'none',
           }}>
@@ -1131,6 +1145,7 @@ class App extends Component {
 
         {/* Edit Tag Form */}
         <div
+          className='edit-tag'
           style={{
             display: this.state.activeTab === tabs.EDIT_TAG ? 'block' : 'none',
           }}>
@@ -1142,6 +1157,18 @@ class App extends Component {
               {...this.state.tagInput}
             />
           </div>
+        </div>
+
+        {/* Logout Button */}
+        <div
+          className='logout-button'
+          style={{
+            display:
+              this.state.activeTab !== tabs.LOGIN && this.state.activeTab !== tabs.REGISTER
+                ? 'block'
+                : 'none',
+          }}>
+          <button onClick={() => this.logoutClick()}>Logout</button>
         </div>
       </div>
     );
