@@ -19,7 +19,7 @@ Connects to API on port `3000`
 
 ## Contributing
 
-[@KylButlr](https://github.com/kylbutlr)
+[@kylbutlr](https://github.com/kylbutlr)
 
 PRs accepted.
 
