@@ -5,7 +5,8 @@
 
 .app {
   font-family: Helvetica, Arial, sans-serif;
-  background: grey;
+  background: #ececec;
+  color: #111;
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -14,24 +15,32 @@
 }
 
 .header {
-  background: green;
+  background: #333;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1vh 0;
 }
 
 .body {
-  background: red;
+  background: #111;
   width: 100%;
   flex: 1;
-  overflow-y: scroll;
   max-height: auto;
+  overflow-y: auto;
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
+}
+
+.body::-webkit-scrollbar { 
+  width: 0;
 }
 
 .footer {
-  background: blue;
+  background: #333;
   width: 100%;
+  padding: 1vh 0;
 }
 
 button, .title {
@@ -60,7 +69,7 @@ input[name=id] {
 }
 
 .title {
-  padding: 1vh 0 0;
+  padding: 0 0 0.5vh;
 }
 
 .navigation {
@@ -75,7 +84,7 @@ input[name=id] {
 }
 
 .body div {
-  background: yellow;
+  background: #ececec;
   display: flex;
   flex-direction: column;
   width: 80vw;
@@ -90,10 +99,14 @@ input[name=id] {
 }
 
 .body li {
-  background: purple;
+  background: #333;
   display: flex;
   justify-content: space-between;
   padding: 0 0 1vh;
+}
+
+.body form {
+  padding: 1vh 0 0;
 }
 
 .p1 {
@@ -110,7 +123,7 @@ input[name=id] {
 }
 
 h1 {
-  color: #eee;
+  color: #ececec;
   font-size: 2rem;
   letter-spacing: 1vw;
 }
@@ -250,12 +263,9 @@ h4 {
 
 @media only screen and (min-width: 768px) {
 
-  .title {
-    padding: 0.5vh;
-  }
-
   h1 {
     font-size: 2.5rem;
+    letter-spacing: 0.75vw;
   }
 
   h2 {
@@ -320,7 +330,8 @@ h4 {
   }
 
   .navigation button,
-  .footer-buttons button {
+  .footer-buttons button,
+  .invisible-delete-button {
     width: 15vw;
   }
 

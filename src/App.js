@@ -80,6 +80,7 @@ class App extends Component {
       },
     };
   }
+
   componentDidMount() {
     this.setState(
       {
@@ -89,6 +90,7 @@ class App extends Component {
       this.getSavedSession()
     );
   }
+
   tabClick(activeTab) {
     if (activeTab === tabs.VIEW_NOTES) {
       this.resetTagInput();
@@ -103,6 +105,7 @@ class App extends Component {
     }
     this.setState({ activeTab });
   }
+
   getSavedSession() {
     const savedSession = JSON.parse(window.localStorage.getItem('savedSession'));
     if (savedSession) {
@@ -112,6 +115,7 @@ class App extends Component {
       });
     }
   }
+
   getSavedData(savedData) {
     const { user_id } = savedData;
     this.getConfig(this.state.loggedIn, config => {
@@ -140,6 +144,7 @@ class App extends Component {
         });
     });
   }
+
   handleEditTag(id) {
     this.getConfig(this.state.loggedIn, config => {
       axios
@@ -172,6 +177,7 @@ class App extends Component {
         });
     });
   }
+
   handleEditNote(id) {
     this.getConfig(this.state.loggedIn, config => {
       axios
@@ -219,6 +225,7 @@ class App extends Component {
         });
     });
   }
+
   handleDeleteTag(id, title) {
     this.getConfig(this.state.loggedIn, config => {
       const notes = this.state.notes;
@@ -295,6 +302,7 @@ class App extends Component {
       }
     });
   }
+
   handleDeleteNote(id) {
     this.getConfig(this.state.loggedIn, config => {
       axios
@@ -325,6 +333,7 @@ class App extends Component {
         });
     });
   }
+
   handleDeleteAllTags() {
     if (
       window.confirm(
@@ -338,6 +347,7 @@ class App extends Component {
       }
     }
   }
+
   handleDeleteAllNotes() {
     if (
       window.confirm(
@@ -353,6 +363,7 @@ class App extends Component {
       });
     }
   }
+
   resetLoginInput(user) {
     if (user) {
       if (this.state.loginInput.username) {
@@ -364,6 +375,7 @@ class App extends Component {
       this.setState({ loginInput: { username: '', password: '' } });
     }
   }
+
   resetRegisterInput(user) {
     if (user) {
       this.setState({
@@ -379,35 +391,43 @@ class App extends Component {
       });
     }
   }
+
   resetTagInput() {
     this.setState({ tagInput: { id: '', title: '', prevTag: '' } });
   }
+
   resetNoteInput() {
     this.setState({ noteInput: { id: '', title: '', text: '', tags: '' } });
   }
+
   onSearchFormChange(e) {
     this.setState({ searchInput: e.target.value });
   }
+
   onTagFormChange(field, e) {
     this.setState({
       tagInput: { ...this.state.tagInput, [field]: e.target.value },
     });
   }
+
   onNoteFormChange(field, e) {
     this.setState({
       noteInput: { ...this.state.noteInput, [field]: e.target.value },
     });
   }
+
   onLoginFormChange(field, e) {
     this.setState({
       loginInput: { ...this.state.loginInput, [field]: e.target.value },
     });
   }
+
   onRegisterFormChange(field, e) {
     this.setState({
       registerInput: { ...this.state.registerInput, [field]: e.target.value },
     });
   }
+
   onSearchFormSubmit(e) {
     e.preventDefault();
     let searchTags = [this.state.searchInput.toLowerCase()];
@@ -459,6 +479,7 @@ class App extends Component {
       });
     }
   }
+
   onCreateTagFormSubmit(e) {
     e.preventDefault();
     let newTags = [this.state.tagInput.title];
@@ -507,6 +528,7 @@ class App extends Component {
       }
     }
   }
+
   onCreateNoteFormSubmit(e) {
     e.preventDefault();
     const input = this.state.noteInput;
@@ -562,6 +584,7 @@ class App extends Component {
       });
     });
   }
+
   onEditTagFormSubmit(e) {
     e.preventDefault();
     this.getConfig(this.state.loggedIn, config => {
@@ -615,6 +638,7 @@ class App extends Component {
         });
     });
   }
+
   onEditNoteFormSubmit(e) {
     e.preventDefault();
     this.getConfig(this.state.loggedIn, config => {
@@ -664,6 +688,7 @@ class App extends Component {
       });
     });
   }
+
   onRegisterFormSubmit(e) {
     e.preventDefault();
     if (this.state.registerInput.password === this.state.registerInput.confirmPass) {
@@ -691,6 +716,7 @@ class App extends Component {
       this.resetRegisterInput();
     }
   }
+
   onLoginFormSubmit(e) {
     e.preventDefault();
     const newUser = {
@@ -719,6 +745,7 @@ class App extends Component {
         }
       });
   }
+
   logoutUser(user) {
     if (user) {
       this.resetLoginInput('user');
@@ -741,11 +768,13 @@ class App extends Component {
     localStorage.jwt = '';
     window.localStorage.setItem('savedSession', JSON.stringify(localStorage));
   }
+
   logoutClick() {
     if (window.confirm('Are you sure you want to logout?')) {
       this.logoutUser();
     }
   }
+
   getConfig(loggedIn, cb) {
     cb({
       headers: {
@@ -754,6 +783,7 @@ class App extends Component {
       },
     });
   }
+
   capitalizeFirstChar(string, cb) {
     if (string) {
       const newString = string.substring(0, 1).toUpperCase() + string.substring(1);
@@ -762,6 +792,7 @@ class App extends Component {
       cb(string);
     }
   }
+
   cleanTags(notes, cb) {
     for (let i = 0; i < notes.data.length; i++) {
       this.cleanString(notes.data[i].tags, tagArray => {
@@ -779,6 +810,7 @@ class App extends Component {
     }
     cb(notes);
   }
+
   checkTagsInput(data, cb) {
     let input = [data];
     if (input[0].indexOf(',') >= 0) {
@@ -799,6 +831,7 @@ class App extends Component {
     }
     cb(input);
   }
+
   convertTagsToId(tags, cb) {
     if (tags[0].length !== 0) {
       for (let i = 0; i < tags.length; i++) {
@@ -814,6 +847,7 @@ class App extends Component {
     }
     cb(tags);
   }
+
   convertIdToTags(anId, cb) {
     if (anId) {
       let id = anId;
@@ -839,6 +873,7 @@ class App extends Component {
       cb([null]);
     }
   }
+
   cleanString(string, cb) {
     if (string) {
       if (string.indexOf('{') >= 0 || string.indexOf('}') >= 0) {
@@ -856,6 +891,7 @@ class App extends Component {
     }
     cb(string);
   }
+
   parseTags(tags, cb) {
     if (tags) {
       let tagArray = tags;
@@ -870,6 +906,7 @@ class App extends Component {
       cb(tagArray);
     } else cb(['']);
   }
+
   renderTag(tagData) {
     const { id, title } = tagData;
     const newTag = title.substring(0, 1).toUpperCase() + title.substring(1);
@@ -892,6 +929,7 @@ class App extends Component {
       </li>
     );
   }
+
   renderNote(noteData) {
     const { id, title, text, tags } = noteData;
     if (tags[0]) {
@@ -919,6 +957,7 @@ class App extends Component {
       </li>
     );
   }
+  
   render() {
     return (
       <div className='app'>
