@@ -785,7 +785,7 @@ class App extends Component {
       input = input[0].split(',');
     }
     for (let i = 0; i < input.length; i++) {
-      const anInput = input[i].toLowerCase().trim();
+      const anInput = input[i].trim().toLowerCase();
       const t = this.state.tags.findIndex(x => x.title === anInput);
       if (input.length > 1 && anInput === '') {
         alert('Error: At least one entered tag was blank.');
@@ -886,7 +886,7 @@ class App extends Component {
             className='delete-button'
             data-id={id}
             onClick={() => this.handleDeleteTag(id, title)}>
-            Delete
+            [ X ]
           </button>
         </div>
       </li>
@@ -913,7 +913,7 @@ class App extends Component {
             Edit
           </button>
           <button className='delete-button' data-id={id} onClick={() => this.handleDeleteNote(id)}>
-            Delete
+            [ X ]
           </button>
         </div>
       </li>
@@ -1021,6 +1021,7 @@ class App extends Component {
               onChange={this.onLoginFormChange}
               {...this.state.loginInput}
             />
+            <div className='or'>or</div>
             <button onClick={() => this.tabClick(tabs.REGISTER)}>Register</button>
           </div>
 
@@ -1156,11 +1157,20 @@ class App extends Component {
               <button onClick={this.handleDeleteAllTags}>Delete All Tags</button>
             </div>
             <div
+              className='invisible-delete-button'
+              style={{
+                display:
+                  this.state.activeTab !== tabs.VIEW_NOTES &&
+                  this.state.activeTab !== tabs.VIEW_TAGS
+                    ? 'flex'
+                    : 'none',
+              }}
+            />
+            <div
               className='logout-button'
               style={{
                 display:
-                  this.state.activeTab === tabs.VIEW_NOTES ||
-                  this.state.activeTab === tabs.VIEW_TAGS
+                  this.state.activeTab !== tabs.LOGIN && this.state.activeTab !== tabs.REGISTER
                     ? 'flex'
                     : 'none',
               }}>

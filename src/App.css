@@ -3,22 +3,34 @@
   padding: 0;
 }
 
-html {
-  background: #eee;
-  color: #111;
+.app {
   font-family: Helvetica, Arial, sans-serif;
+  background: grey;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
 }
 
 .header {
-  background: #111;
+  background: green;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .body {
-  padding: 0.5em 0 0;
+  background: red;
+  width: 100%;
+  flex: 1;
+  overflow: auto;
+  max-height: auto;
 }
 
 .footer {
-  background: #111;
+  background: blue;
+  width: 100%;
 }
 
 button, .title {
@@ -33,151 +45,50 @@ input[name=id] {
   display: none;
 }
 
-button:disabled,
-input[type=submit]:disabled {
-  opacity: 0.5;
-}
-
-.edit-button, .delete-button {
-  display: inline-block;
-  margin: 0;
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-
-.app {
-  height: 100vh;
-  width: 100vw;
-  margin: 0 auto;
-  overflow-x: hidden;
-}
-
-.title {
-  text-align: center;
-}
-
-.navigation {
-  margin: 0 auto;
-  width: 80vw;
-  display: flex;
-  padding: 0.5em 0;
-}
-
-.navigation button {
-  flex: 1;
-  height: 6vh;
-  margin: 0 0.25em;
-}
-
-.search {
-  width: 60vw;
-  margin: 0 auto;
-  padding: 0.5em 0 0;
-}
-
-.search input[type=submit] {
- height: 4.5vh;
- width: 30%;
- padding: 0 0.677775em;
-}
-
-.search label input {
-  height: 4vh;
-  width: 67%;
-  text-indent: 1.5rem;
-}
-
-.search label span {
+.header span {
   display: none;
 }
 
-.login,
-.register {
-  width: 80vw;
-  margin: 0 auto;
-  padding: 1em 0;
+.header form {
+  margin: -2vh 0 0;
 }
 
-.login form,
-.register form {
+.header input[type=submit] {
+  height: 5vh;
+  width: 15vw;
+}
+
+.title div {
+  padding: 1vh 0 0;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100vw;
+}
+
+.navigation button {
+  height: 5vh;
+  width: 35vw;
+}
+
+.body div {
+  background: yellow;
+  display: flex;
+  flex-direction: column;
   width: 60vw;
-  margin: 0 auto;
 }
 
-.login form input,
-.register form input {
-  height: 4vh;
-  width: 100%;
-  margin: 0.5em 0;
+.body ol {
+  list-style: none;
 }
 
-.login form input[type=submit],
-.register form input[type=submit] {
-  height: 4.5vh;
-  width: 100%;
-}
-
-.login button,
-.register button {
-  height: 4.5vh;
-  width: 60vw;
-  margin: 0.5em 0 0 10vw;
-}
-
-.login form input[type=text],
-.login form input[type=password],
-.register form input[type=text],
-.register form input[type=password] {
-  width: 99%;
-}
-
-.create-note, 
-.create-tag, 
-.edit-note, 
-.edit-tag {
-  width: 80vw;
-  margin: 0 auto;
-  padding: 1em 0;
-}
-
-.create-note form, 
-.create-tag form, 
-.edit-note form, 
-.edit-tag form {
-  width: 60vw;
-  margin: 0 auto;
-}
-
-.create-note form input, 
-.create-tag form input, 
-.edit-note form input, 
-.edit-tag form input {
-  height: 4vh;
-  width: 100%;
-  margin: 0.5em 0;
-}
-
-.create-note form input[type=text], 
-.create-tag form input[type=text], 
-.edit-note form input[type=text], 
-.edit-tag form input[type=text] {
-  width: 99%;
-}
-
-.create-note form input[type=submit], 
-.create-tag form input[type=submit], 
-.edit-note form input[type=submit], 
-.edit-tag form input[type=submit] {
-  margin: 1em 0;
-  height: 6vh;
-}
-
-.view-notes, 
-.view-tags,
-.view-search {
-  width: 80vw;
-  margin: 0 auto;
-  padding: 1em 0;
+.body li {
+  background: purple;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0 1vh;
 }
 
 .p1 {
@@ -186,7 +97,7 @@ input[type=submit]:disabled {
 }
 
 .p2 {
-  font-size: 1.25rem;
+  font-size: 1.125rem;
 }
 
 .p3 {
@@ -196,126 +107,134 @@ input[type=submit]:disabled {
 h1 {
   color: #eee;
   font-size: 2rem;
+  letter-spacing: 1vw;
 }
 
 h2 {
   font-size: 1.5rem;
+  padding: 0 0 1vh;
+}
+
+.view-search h2 {
+  padding: 0;
 }
 
 h3 {
   font-size: 1.25rem;
   text-indent: 5vw;
+  padding: 0 0 1vh;
 }
 
 h4 {
   font-size: 1rem;
 }
 
-ol {
-  display: flex;
-  flex-flow: column;
+.view-notes h2 {
+  display: none;
 }
 
-li {
+.login,
+.register {
+  margin: 10vh auto;
+  padding: 1vh 1vw;
+}
+
+.login form,
+.register form,
+.create-note form,
+.edit-note form,
+.create-tag form,
+.edit-tag form {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login input[type=text],
+.login input[type=password],
+.register input[type=text],
+.register input[type=password],
+.create-note input[type=text],
+.edit-note input[type=text],
+.create-tag input[type=text],
+.edit-tag input[type=text],
+.header input[type=text] {
+  height: 5vh;
+  box-sizing: border-box;
+  width: 50vw;
+  text-indent: 2.5vw;
+  margin: 0.5vh 0 1vh;
+}
+
+.header input[type=text] {
+  margin: 0 0 1vh;
+}
+
+.login input[type=submit],
+.login button,
+.register input[type=submit],
+.register button,
+.create-note input[type=submit],
+.edit-note input[type=submit],
+.create-tag input[type=submit],
+.edit-tag input[type=submit] {
+  height: 5vh;
+  width: 50vw;
+  margin: 1vh 5vw 0;
+}
+
+.login button {
+  margin: 0.5vh 5vw 0;
+}
+
+.or {
+  width: auto;
+  padding: 0.5vh 0 0;
+  text-align: center;
 }
 
 .list-info {
-  padding: 0.5em 1em;
-  max-width: 10rem;
+  flex: 10;
+  align-self: flex-start;
+  padding: 1vh 1vw;
 }
 
 .list-buttons {
-  display: flex;
-  height: 6vh;
-  padding: 0 0.5em 0 0;
+  flex: 1;
   align-self: center;
 }
 
+.view-tags .list-buttons {
+  flex-direction: row;
+}
+
+.view-notes,
+.view-tags,
+.view-search,
+.create-note,
+.create-tag,
+.edit-note,
+.edit-tag {
+  padding: 1vh 1vw;
+  margin: 0 auto;
+}
+
 .list-buttons button {
-  width: 12vw;
-}
-
-li:hover .edit-button {
-  opacity: 1;
-}
-
-li:hover .delete-button {
-  opacity: 1;
+  height: 5vh;
+  width: 10vw;
+  align-self: flex-end;
 }
 
 .footer-buttons {
   display: flex;
-  margin: 1em auto;
-  width: 80vw;
-  padding: 0.5em 0;
+  justify-content: space-evenly;
 }
 
-.delete-notes-button,
-.delete-tags-button,
-.logout-button {
-  display: flex;  
-  flex: 1;
+.footer-buttons button {
+  height: 5vh;
+  width: 35vw;
 }
 
-.delete-notes-button button,
-.delete-tags-button button,
-.logout-button button {
-  flex: 1;
-  margin: 0 0.25em;
-  height: 4.5vh;
-}
-
-@media only screen and (min-width: 768px) {
-
-  .body {
-    padding: 5vw 0 10vw;
-  }
-
-  .title {
-    padding: 0.75em;
-  }
-
-  h1 {
-    font-size: 3rem;
-  }
-
-  h2 {
-    text-indent: 5vw;
-  }
-
-  ol {
-    display: flex;
-    flex-flow: row wrap;
-  }
-
-  .search input[type=submit] {
-    width: 20%;
-  }
-  
-  .search label input {
-    width: 78%;
-  }
-
-}
-
-@media (hover: hover) {
-  
-  li:hover .edit-button {
-    opacity: 0.5;
-  }
-  
-  li:hover .delete-button {
-    opacity: 0.5;
-  }
-
-  li:hover .edit-button:hover {
-    opacity: 1;
-  }
-  
-  li:hover .delete-button:hover {
-    opacity: 1;
-  }
-
+.invisible-delete-button {
+  width: 35vw;
 }
