@@ -4,6 +4,7 @@ export default ({ onSubmit, onChange, searchInput }) => (
   <form onSubmit={onSubmit}>
     <label>
       <span>Search:</span>
+      <br />
       <input
         name='search'
         type='text'

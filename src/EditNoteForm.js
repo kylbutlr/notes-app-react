@@ -3,7 +3,7 @@ import React from 'react';
 export default ({ onSubmit, onChange, title, text, tags, id }) => (
   <form onSubmit={onSubmit}>
     <label>
-      Title:
+      <span>Title:</span>
       <br />
       <input
         name='title'
@@ -14,9 +14,8 @@ export default ({ onSubmit, onChange, title, text, tags, id }) => (
         onChange={e => onChange('title', e)}
       />
     </label>
-    <br />
     <label>
-      Text:
+      <span>Text:</span>
       <br />
       <input
         name='text'
@@ -27,9 +26,8 @@ export default ({ onSubmit, onChange, title, text, tags, id }) => (
         onChange={e => onChange('text', e)}
       />
     </label>
-    <br />
     <label>
-      Tag(s):
+      <span>Tags:</span>
       <br />
       <input
         name='tags'
@@ -39,7 +37,6 @@ export default ({ onSubmit, onChange, title, text, tags, id }) => (
         onChange={e => onChange('tags', e)}
       />
     </label>
-    <br />
     <input name='id' type='text' value={id} onChange={e => onChange('id', e)} />
     <input type='submit' value='Save Note' />
   </form>

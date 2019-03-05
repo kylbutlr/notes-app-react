@@ -3,7 +3,7 @@ import React from 'react';
 export default ({ onSubmit, onChange, username, password }) => (
   <form onSubmit={onSubmit}>
     <label>
-      Username:
+      <span>Username:</span>
       <br />
       <input
         name='username'
@@ -14,9 +14,8 @@ export default ({ onSubmit, onChange, username, password }) => (
         onChange={e => onChange('username', e)}
       />
     </label>
-    <br />
     <label>
-      Password:
+      <span>Password:</span>
       <br />
       <input
         name='password'
@@ -27,7 +26,6 @@ export default ({ onSubmit, onChange, username, password }) => (
         onChange={e => onChange('password', e)}
       />
     </label>
-    <br />
     <input type='submit' value='Login' />
   </form>
 );

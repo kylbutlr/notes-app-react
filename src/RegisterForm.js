@@ -3,7 +3,7 @@ import React from 'react';
 export default ({ onSubmit, onChange, username, password, confirmPass }) => (
   <form onSubmit={onSubmit}>
     <label>
-      Username: (4-16)
+      <span>Username: (4-16)</span>
       <br />
       <input
         pattern='.{4,16}'
@@ -15,9 +15,8 @@ export default ({ onSubmit, onChange, username, password, confirmPass }) => (
         onChange={e => onChange('username', e)}
       />
     </label>
-    <br />
     <label>
-      Password: (4-16)
+      <span>Password: (4-16)</span>
       <br />
       <input
         name='password'
@@ -28,9 +27,8 @@ export default ({ onSubmit, onChange, username, password, confirmPass }) => (
         onChange={e => onChange('password', e)}
       />
     </label>
-    <br />
     <label>
-      Confirm Password:
+      <span>Confirm Password:</span>
       <br />
       <input
         name='confirmPass'
@@ -41,7 +39,6 @@ export default ({ onSubmit, onChange, username, password, confirmPass }) => (
         onChange={e => onChange('confirmPass', e)}
       />
     </label>
-    <br />
-    <input type='submit' value='Register' />
+    <input type='submit' value='Register New User' />
   </form>
 );
