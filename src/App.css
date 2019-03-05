@@ -10,6 +10,7 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
+  overflow: hidden;
 }
 
 .header {
@@ -24,7 +25,7 @@
   background: red;
   width: 100%;
   flex: 1;
-  overflow: auto;
+  overflow-y: scroll;
   max-height: auto;
 }
 
@@ -58,30 +59,34 @@ input[name=id] {
   width: 15vw;
 }
 
-.title div {
+.title {
   padding: 1vh 0 0;
 }
 
 .navigation {
   display: flex;
   justify-content: space-evenly;
-  width: 100vw;
+  width: 80vw;
 }
 
 .navigation button {
   height: 5vh;
-  width: 35vw;
+  width: 30vw;
 }
 
 .body div {
   background: yellow;
   display: flex;
   flex-direction: column;
-  width: 60vw;
+  width: 80vw;
 }
 
 .body ol {
   list-style: none;
+}
+
+.body ol li:last-child {
+  padding: 0;
 }
 
 .body li {
@@ -184,7 +189,7 @@ h4 {
 }
 
 .login button {
-  margin: 0.5vh 5vw 0;
+  margin: 0.5vh 15vw 0;
 }
 
 .or {
@@ -199,13 +204,18 @@ h4 {
   padding: 1vh 1vw;
 }
 
+.list-info p {
+  padding: 0.5vh 0 0.5vh;
+}
+
 .list-buttons {
   flex: 1;
-  align-self: center;
+  justify-content: center;
 }
 
 .view-tags .list-buttons {
   flex-direction: row;
+  align-items: center;
 }
 
 .view-notes,
@@ -222,19 +232,122 @@ h4 {
 .list-buttons button {
   height: 5vh;
   width: 10vw;
-  align-self: flex-end;
 }
 
 .footer-buttons {
   display: flex;
   justify-content: space-evenly;
+  margin: 0 auto;
+  width: 80vw;
 }
 
-.footer-buttons button {
-  height: 5vh;
-  width: 35vw;
-}
-
+.footer-buttons button,
 .invisible-delete-button {
-  width: 35vw;
+  height: 5vh;
+  width: 30vw;
+}
+
+
+@media only screen and (min-width: 768px) {
+
+  .title {
+    padding: 0.5vh;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    text-indent: 2.5rem;
+  }
+
+  .body div {
+    width: 50vw;
+  }
+
+  .view-notes li,
+  .view-search li {
+    width: 45vw;
+    margin: 0 auto;
+  }
+
+  .view-tags li {
+    width: 35vw;
+    margin: 0 auto;
+  }
+
+  .header input[type=text] {
+    width: 30vw;
+  }
+
+  .list-buttons button {
+    width: 5vw;
+  }
+
+  .header input[type=submit] {
+    width: 10vw;
+  }
+
+  .navigation button,
+  .login input[type=submit],
+  .login button,
+  .register input[type=submit],
+  .register button,
+  .create-note input[type=submit],
+  .edit-note input[type=submit],
+  .create-tag input[type=submit],
+  .edit-tag input[type=submit],
+  .footer-buttons button {
+    width: 20vw;
+  }
+
+  .login input[type=text],
+  .login input[type=password],
+  .register input[type=text],
+  .register input[type=password],
+  .create-note input[type=text],
+  .edit-note input[type=text],
+  .create-tag input[type=text],
+  .edit-tag input[type=text],
+  .header input[type=text] {
+    width: 35vw;
+  }
+
+  .navigation,
+  .footer-buttons {
+    width: 50%;
+  }
+
+  .navigation button,
+  .footer-buttons button {
+    width: 15vw;
+  }
+
+}
+
+
+@media (hover: hover) {
+  
+  .list-buttons button {
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+
+  li:hover .edit-button {
+    opacity: 0.5;
+  }
+  
+  li:hover .delete-button {
+    opacity: 0.5;
+  }
+
+  li:hover .edit-button:hover {
+    opacity: 1;
+  }
+  
+  li:hover .delete-button:hover {
+    opacity: 1;
+  }
+
 }
