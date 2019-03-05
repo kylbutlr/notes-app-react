@@ -5,7 +5,7 @@
 
 .app {
   font-family: Helvetica, Arial, sans-serif;
-  background: #ececec;
+  background: #111;
   color: #111;
   display: flex;
   flex-direction: column;
@@ -60,12 +60,12 @@ input[name=id] {
 }
 
 .header form {
-  margin: -2vh 0 0;
+  margin: -3vh 0 0;
 }
 
 .header input[type=submit] {
   height: 5vh;
-  width: 15vw;
+  width: 10vh;
 }
 
 .title {
@@ -75,34 +75,34 @@ input[name=id] {
 .navigation {
   display: flex;
   justify-content: space-evenly;
-  width: 80vw;
+  width: 60vh;
 }
 
 .navigation button {
   height: 5vh;
-  width: 30vw;
+  width: 20vh;
 }
 
 .body div {
   background: #ececec;
   display: flex;
   flex-direction: column;
-  width: 80vw;
+  width: 45vh;
 }
 
 .body ol {
   list-style: none;
 }
 
-.body ol li:last-child {
+.body .view-notes li:first-child {
   padding: 0;
 }
 
 .body li {
-  background: #333;
+  background: #111;
   display: flex;
   justify-content: space-between;
-  padding: 0 0 1vh;
+  padding: 1vh 0 0;
 }
 
 .body form {
@@ -125,12 +125,16 @@ input[name=id] {
 h1 {
   color: #ececec;
   font-size: 2rem;
-  letter-spacing: 1vw;
+  letter-spacing: 0.25em;
 }
 
 h2 {
   font-size: 1.5rem;
   padding: 0 0 1vh;
+}
+
+.view-tags h2 {
+  padding: 1vh;
 }
 
 .view-search h2 {
@@ -139,7 +143,7 @@ h2 {
 
 h3 {
   font-size: 1.25rem;
-  text-indent: 5vw;
+  text-indent: 5vh;
   padding: 0 0 1vh;
 }
 
@@ -154,7 +158,7 @@ h4 {
 .login,
 .register {
   margin: 10vh auto;
-  padding: 1vh 1vw;
+  padding: 1vh 1vh;
 }
 
 .login form,
@@ -179,12 +183,13 @@ h4 {
 .header input[type=text] {
   height: 5vh;
   box-sizing: border-box;
-  width: 50vw;
-  text-indent: 2.5vw;
+  width: 40vh;
+  text-indent: 2.5vh;
   margin: 0.5vh 0 1vh;
 }
 
 .header input[type=text] {
+  width: 30vh;
   margin: 0 0 1vh;
 }
 
@@ -197,13 +202,13 @@ h4 {
 .create-tag input[type=submit],
 .edit-tag input[type=submit] {
   height: 5vh;
-  width: 50vw;
-  margin: 1vh 5vw 0;
+  width: 30vh;
+  margin: 1vh 5vh 0;
 }
 
 .login button,
 .register button {
-  margin: 0.5vh 15vw 0;
+  margin: 0.5vh 7.5vh 0;
 }
 
 .or {
@@ -215,7 +220,7 @@ h4 {
 .list-info {
   flex: 10;
   align-self: flex-start;
-  padding: 1vh 1vw;
+  padding: 1vh 1vh;
 }
 
 .list-info p {
@@ -234,31 +239,38 @@ h4 {
 
 .view-notes,
 .view-tags,
-.view-search,
+.view-search {
+  margin: 1vh auto;
+}
+
 .create-note,
 .create-tag,
 .edit-note,
 .edit-tag {
-  padding: 1vh 1vw;
-  margin: 0 auto;
+  margin: 10vh auto;
+  padding: 2vh;
 }
 
 .list-buttons button {
-  height: 5vh;
-  width: 10vw;
+  height: 50%;
+  width: 10vh;
+}
+
+.view-tags .list-buttons button {
+  height: 100%;
 }
 
 .footer-buttons {
   display: flex;
   justify-content: space-evenly;
   margin: 0 auto;
-  width: 80vw;
+  width: 60vh;
 }
 
 .footer-buttons button,
 .invisible-delete-button {
   height: 5vh;
-  width: 30vw;
+  width: 20vh;
 }
 
 
@@ -266,41 +278,20 @@ h4 {
 
   h1 {
     font-size: 2.5rem;
-    letter-spacing: 0.75vw;
-  }
-
-  h2 {
-    text-indent: 2.5rem;
-  }
-
-  .body div {
-    width: 50vw;
-  }
-
-  .view-notes li,
-  .view-search li {
-    width: 45vw;
-    margin: 0 auto;
-  }
-
-  .view-tags li {
-    width: 35vw;
-    margin: 0 auto;
   }
 
   .header input[type=text] {
-    width: 30vw;
+    width: 30vh;
   }
 
   .list-buttons button {
-    width: 5vw;
+    width: 7.5vh;
   }
 
   .header input[type=submit] {
-    width: 10vw;
+    width: 10vh;
   }
 
-  .navigation button,
   .login input[type=submit],
   .login button,
   .register input[type=submit],
@@ -308,9 +299,13 @@ h4 {
   .create-note input[type=submit],
   .edit-note input[type=submit],
   .create-tag input[type=submit],
-  .edit-tag input[type=submit],
+  .edit-tag input[type=submit] {
+    width: 25vh;
+  }
+
+  .navigation button,
   .footer-buttons button {
-    width: 20vw;
+    width: 20vh;
   }
 
   .login input[type=text],
@@ -322,18 +317,24 @@ h4 {
   .create-tag input[type=text],
   .edit-tag input[type=text],
   .header input[type=text] {
-    width: 35vw;
+    width: 35vh;
   }
 
-  .navigation,
-  .footer-buttons {
-    width: 50%;
+  .login button,
+  .register button {
+    margin: 0.5vh 10vh 0;
   }
 
-  .navigation button,
-  .footer-buttons button,
-  .invisible-delete-button {
-    width: 15vw;
+  .header form {
+    margin: -2vh 0 0;
+  }
+
+}
+
+@media only screen and (min-height: 1024px) {
+
+  .header form {
+    margin: -1vh 0 0;
   }
 
 }
