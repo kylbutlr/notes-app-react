@@ -27,13 +27,14 @@ export default ({ onSubmit, onChange, title, text, tags, id }) => (
       />
     </label>
     <label>
-      <span>Tags:</span>
+      <span>Tag(s): (separated by commas)</span>
       <br />
       <input
         name='tags'
         type='text'
         autoComplete='off'
         value={tags || ''}
+        placeholder='Optional, tag(s) must exist'
         onChange={e => onChange('tags', e)}
       />
     </label>
