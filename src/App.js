@@ -200,9 +200,7 @@ class App extends Component {
               const newTag = tagArray[i].trim();
               // eslint-disable-next-line
               this.cleanString(newTag, cleanTag => {
-                this.capitalizeFirstChar(cleanTag, capitalizedTag => {
-                  tagArray[i] = capitalizedTag;
-                });
+                tagArray[i] = cleanTag;
               });
             }
             tagArray = tagArray.join(', ');
@@ -212,7 +210,7 @@ class App extends Component {
                   noteInput: {
                     title: data.data.title,
                     text: data.data.text,
-                    tags: newTags,
+                    tags: newTags.join(', '),
                     id: data.data.id,
                   },
                 },
@@ -335,32 +333,36 @@ class App extends Component {
   }
 
   handleDeleteAllTags() {
-    if (
-      window.confirm(
-        'Are you sure you want to delete all (' + this.state.tags.length + ') saved tags?'
-      )
-    ) {
-      if (this.state.tags) {
-        for (let i = 0; i < this.state.tags.length; i++) {
-          this.handleDeleteTag(this.state.tags[i].id, this.state.tags[i].title);
+    if (this.state.tags.length > 0) {
+      if (
+        window.confirm(
+          'Are you sure you want to delete all (' + this.state.tags.length + ') saved tags?'
+        )
+      ) {
+        if (this.state.tags) {
+          for (let i = 0; i < this.state.tags.length; i++) {
+            this.handleDeleteTag(this.state.tags[i].id, this.state.tags[i].title);
+          }
         }
       }
     }
   }
 
   handleDeleteAllNotes() {
-    if (
-      window.confirm(
-        'Are you sure you want to delete all (' + this.state.notes.length + ') saved notes?'
-      )
-    ) {
-      this.getConfig(this.state.loggedIn, config => {
-        axios.delete(`${API_ENDPOINT}/notes`, config).then(() => {
-          this.setState({
-            notes: [],
+    if (this.state.notes.length > 0) {
+      if (
+        window.confirm(
+          'Are you sure you want to delete all (' + this.state.notes.length + ') saved notes?'
+        )
+      ) {
+        this.getConfig(this.state.loggedIn, config => {
+          axios.delete(`${API_ENDPOINT}/notes`, config).then(() => {
+            this.setState({
+              notes: [],
+            });
           });
         });
-      });
+      }
     }
   }
 
@@ -957,7 +959,7 @@ class App extends Component {
       </li>
     );
   }
-  
+
   render() {
     return (
       <div className='app'>
@@ -967,15 +969,15 @@ class App extends Component {
           <div className='title'>
             <div
               style={{
-                display: this.state.loggedIn === false ? 'block' : 'none',
-              }}>
-              <h1 onClick={() => this.tabClick(tabs.LOGIN)}>My Notes</h1>{' '}
-            </div>
-            <div
-              style={{
                 display: this.state.loggedIn !== false ? 'block' : 'none',
               }}>
               <h1 onClick={() => this.tabClick(tabs.VIEW_NOTES)}>My Notes</h1>
+            </div>
+            <div
+              style={{
+                display: this.state.loggedIn === false ? 'block' : 'none',
+              }}>
+              <h1 onClick={() => this.tabClick(tabs.LOGIN)}>My Notes</h1>
             </div>
           </div>
 
@@ -984,7 +986,7 @@ class App extends Component {
             className='search'
             style={{
               display:
-                this.state.activeTab !== tabs.LOGIN || this.state.activeTab !== tabs.REGISTER
+                this.state.activeTab !== tabs.LOGIN && this.state.activeTab !== tabs.REGISTER
                   ? 'block'
                   : 'none',
             }}>
@@ -1043,6 +1045,15 @@ class App extends Component {
               onClick={() => this.tabClick(tabs.CREATE_TAG)}>
               Create Tag
             </button>
+            <div
+              className='invisible-delete-button'
+              style={{
+                display:
+                  this.state.activeTab === tabs.EDIT_NOTE || this.state.activeTab === tabs.EDIT_TAG
+                    ? 'flex'
+                    : 'none',
+              }}
+            />
           </div>
         </div>
 
@@ -1111,6 +1122,17 @@ class App extends Component {
                   : 'none',
             }}>
             <h2>Notes:</h2>
+            <ol
+              style={{
+                display: this.state.notes.length === 0 ? 'block' : 'none',
+              }}>
+              <li>
+                <div className='list-info'>
+                  <h4>No notes currently exist.</h4>
+                  <h4>Try creating a new note above!</h4>
+                </div>
+              </li>
+            </ol>
             <ol>{this.state.notes.map(n => this.renderNote(n))}</ol>
           </div>
 
@@ -1121,6 +1143,17 @@ class App extends Component {
               display: this.state.activeTab === tabs.VIEW_TAGS ? 'block' : 'none',
             }}>
             <h2>Tags:</h2>
+            <ol
+              style={{
+                display: this.state.tags.length === 0 ? 'block' : 'none',
+              }}>
+              <li>
+                <div className='list-info'>
+                  <h4>No tags currently exist.</h4>
+                  <h4>Try creating a new tag above!</h4>
+                </div>
+              </li>
+            </ol>
             <ol>{this.state.tags.map(n => this.renderTag(n))}</ol>
           </div>
 

@@ -15,7 +15,7 @@
 }
 
 .header {
-  background: #333;
+  background: #406e405b;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -38,12 +38,13 @@
 }
 
 .footer {
-  background: #333;
+  background: #406e405b;
   width: 100%;
   padding: 1vh 0;
 }
 
-button, .title {
+button, 
+.title {
   cursor: pointer;
 }
 
@@ -68,7 +69,12 @@ input[name=id] {
   width: 10vh;
 }
 
+.invisible-search {
+  height: 7vh;
+}
+
 .title {
+  letter-spacing: 0.25em;
   padding: 0 0 0.5vh;
 }
 
@@ -84,10 +90,14 @@ input[name=id] {
 }
 
 .body div {
-  background: #ececec;
+  background: #ecececec;
   display: flex;
   flex-direction: column;
   width: 45vh;
+}
+
+.body label span {
+  font-size: 90%;
 }
 
 .body ol {
@@ -123,9 +133,8 @@ input[name=id] {
 }
 
 h1 {
-  color: #ececec;
+  color: #ecececec;
   font-size: 2rem;
-  letter-spacing: 0.25em;
 }
 
 h2 {
@@ -133,26 +142,44 @@ h2 {
   padding: 0 0 1vh;
 }
 
+h3 {
+  font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 1.1rem;
+}
+
+.view-notes h2 {
+  display: none;
+}
+
 .view-tags h2 {
   padding: 1vh;
 }
 
 .view-search h2 {
-  padding: 0;
+  padding: 1vh;
 }
 
-h3 {
-  font-size: 1.25rem;
-  text-indent: 5vh;
+.view-search h3 {
+  text-align: center;
   padding: 0 0 1vh;
 }
 
-h4 {
-  font-size: 1rem;
+.view-search h4 {
+  text-align: center;
+  padding: 0 1vh 1vh;
 }
 
-.view-notes h2 {
-  display: none;
+.view-tags h4,
+.view-notes h4 {
+  text-align: center;
+}
+
+.view-tags h4:first-child,
+.view-notes h4:first-child {
+  padding: 0 0 1vh;
 }
 
 .login,
@@ -212,6 +239,7 @@ h4 {
 }
 
 .or {
+  background: transparent !important;
   width: auto;
   padding: 0.5vh 0 0;
   text-align: center;
@@ -220,7 +248,7 @@ h4 {
 .list-info {
   flex: 10;
   align-self: flex-start;
-  padding: 1vh 1vh;
+  padding: 2vh 2vh;
 }
 
 .list-info p {
@@ -247,7 +275,7 @@ h4 {
 .create-tag,
 .edit-note,
 .edit-tag {
-  margin: 10vh auto;
+  margin: 5vh auto;
   padding: 2vh;
 }
 
@@ -277,7 +305,11 @@ h4 {
 @media only screen and (min-width: 768px) {
 
   h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
+  }
+
+  .title {
+    letter-spacing: 0.5em;
   }
 
   .header input[type=text] {
@@ -331,10 +363,11 @@ h4 {
 
 }
 
+
 @media only screen and (min-height: 1024px) {
 
   .header form {
-    margin: -1vh 0 0;
+    margin: -1.5vh 0 0;
   }
 
 }
