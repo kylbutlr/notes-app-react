@@ -1,8 +1,8 @@
 # Notes App (React)
 ### Note taking application React front end
 ##### Minimal responsive CSS design with media queries
-### [Can be used with the Notes App API repo](https://github.com/kylbutlr/notes-app-api)
-##### [Previous repository with prior git commit history](https://github.com/kylbutlr/notes-app)
+### [Can be used with the Notes App API](https://github.com/kylbutlr/notes-app-api)
+##### [Previous model repository with more commit history](https://github.com/kylbutlr/notes-app)
 
 ## Install
 
