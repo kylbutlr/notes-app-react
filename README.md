@@ -1,6 +1,6 @@
 # Notes App (React)
 ### Note taking application React front end
-### [Can be used with the Notes App API](https://github.com/kylbutlr/notes-app-api)
+### [Can be used with Notes App (API)](https://github.com/kylbutlr/notes-app-api)
 ##### [Previous model repository with more commit history](https://github.com/kylbutlr/notes-app)
 
 ## Install
