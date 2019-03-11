@@ -24,9 +24,6 @@ const tabs = {
 class App extends Component {
   constructor(props) {
     super(props);
-    this.getSavedSession = this.getSavedSession.bind(this);
-    this.getSavedData = this.getSavedData.bind(this);
-    this.getConfig = this.getConfig.bind(this);
     this.handleEditTag = this.handleEditTag.bind(this);
     this.handleEditNote = this.handleEditNote.bind(this);
     this.handleDeleteTag = this.handleDeleteTag.bind(this);
@@ -45,10 +42,6 @@ class App extends Component {
     this.onCreateNoteFormSubmit = this.onCreateNoteFormSubmit.bind(this);
     this.onEditTagFormSubmit = this.onEditTagFormSubmit.bind(this);
     this.onEditNoteFormSubmit = this.onEditNoteFormSubmit.bind(this);
-    this.resetLoginInput = this.resetLoginInput.bind(this);
-    this.resetRegisterInput = this.resetRegisterInput.bind(this);
-    this.resetTagInput = this.resetTagInput.bind(this);
-    this.resetNoteInput = this.resetNoteInput.bind(this);
     this.state = {
       activeTab: tabs.LOGIN,
       loggedIn: false,
@@ -87,7 +80,9 @@ class App extends Component {
         notes: [],
         tags: [],
       },
-      this.getSavedSession()
+      () => {
+        this.getSavedSession();
+      }
     );
   }
 
