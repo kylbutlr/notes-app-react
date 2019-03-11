@@ -309,7 +309,7 @@ class App extends Component {
           }
         })
         .then(() => {
-          axios.get(`${API_ENDPOINT}/notes`, config).then(notes => {
+          axios.get(`${API_ENDPOINT}/user/${this.state.loggedIn.user_id}/notes`, config).then(notes => {
             if (notes) {
               for (let i = 0; i < notes.data.length; i++) {
                 this.cleanString(notes.data[i].tags, cleanTags => {
@@ -663,7 +663,7 @@ class App extends Component {
                   }
                 })
                 .then(() => {
-                  axios.get(`${API_ENDPOINT}/notes`, config).then(notes => {
+                  axios.get(`${API_ENDPOINT}/user/${this.state.loggedIn.user_id}/notes`, config).then(notes => {
                     for (let i = 0; i < notes.data.length; i++) {
                       this.cleanString(notes.data[i].tags, cleanTags => {
                         this.convertIdToTags(cleanTags, convertedTags => {
