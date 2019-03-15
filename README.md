@@ -7,7 +7,7 @@ This is a React front-end created to run alongside the Notes API.
 
 It features responsive web design for cross-device compatibility.
 
-[Previous model repository with more commit history](https://github.com/kylbutlr/notes-app)
+([Previous model repository with more commit history](https://github.com/kylbutlr/notes-app))
 
 ## Install
 
