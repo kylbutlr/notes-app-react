@@ -8,7 +8,7 @@ Uses: React, Axios, RWD
 
 Register and login to a personal user account (no e-mail required), then create, edit, and delete tags and notes. Note entries can be associated with created tags, allowing for later searching by tags. Both tag creation and searching can be done by entering multiple tags, separated by commas. Also features responsive web design for cross-device compatibility.
 
-([Previous depreciated model repository with more commit history](https://github.com/kylbutlr/notes-app))
+[Previous depreciated model repository](https://github.com/kylbutlr/notes-app)
 
 ## Install
 
