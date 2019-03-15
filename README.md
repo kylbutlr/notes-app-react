@@ -1,13 +1,14 @@
 # Notes App (React)
-### React front-end for a Note taking app 
-### [Created to be used with Notes App (API)](https://github.com/kylbutlr/notes-app-api)
-#### Uses: React, Axios, RWD
 
-This is a React front-end created to run alongside the Notes API.
+#### React front-end for a Note taking app, [created to be used with Notes App (API)](https://github.com/kylbutlr/notes-app-api)
 
-It features responsive web design for cross-device compatibility.
+Uses: React, Axios, RWD
 
-([Previous model repository with more commit history](https://github.com/kylbutlr/notes-app))
+## Description
+
+Register and login to a personal user account (no e-mail required), then create, edit, and delete tags and notes. Note entries can be associated with created tags, allowing for later searching by tags. Both tag creation and searching can be done by entering multiple tags, separated by commas. Also features responsive web design for cross-device compatibility.
+
+([Previous depreciated model repository with more commit history](https://github.com/kylbutlr/notes-app))
 
 ## Install
 
