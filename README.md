@@ -1,21 +1,29 @@
 # Notes App (React)
-### Note taking application React front end
-### [Can be used with Notes App (API)](https://github.com/kylbutlr/notes-app-api)
-##### [Previous model repository with more commit history](https://github.com/kylbutlr/notes-app)
+### React front-end for a Note taking app 
+### [Created to be used with Notes App (API)](https://github.com/kylbutlr/notes-app-api)
+#### Uses: React, Axios, RWD
+
+This is a React front-end created to run alongside the Notes API.
+
+It features responsive web design for cross-device compatibility.
+
+[Previous model repository with more commit history](https://github.com/kylbutlr/notes-app)
 
 ## Install
 
-```bash
+```shell
 npm install
 ```
 
 ## Usage
 
-```bash
+Connects to API on port `3000`
+
+**Make sure API server is running first**
+
+```shell
 npm start
 ```
-
-Connects to API on port `3000`
 
 ## Contributing
 
