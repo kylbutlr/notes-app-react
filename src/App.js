@@ -775,8 +775,7 @@ class App extends Component {
   getConfig(loggedIn, cb) {
     cb({
       headers: {
-        authorization: loggedIn.jwt,
-        user_id: loggedIn.user_id,
+        authorization: loggedIn.jwt
       },
     });
   }
