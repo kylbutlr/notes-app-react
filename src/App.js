@@ -7,7 +7,9 @@ import CreateNoteForm from './CreateNoteForm';
 import CreateTagForm from './CreateTagForm';
 import EditNoteForm from './EditNoteForm';
 import EditTagForm from './EditTagForm';
+import '../node_modules/bulma/css/bulma.min.css';
 import './App.css';
+
 
 const API_ENDPOINT = 'http://localhost:3000';
 const tabs = {
@@ -965,13 +967,13 @@ class App extends Component {
               style={{
                 display: this.state.loggedIn !== false ? 'block' : 'none',
               }}>
-              <h1 onClick={() => this.tabClick(tabs.VIEW_NOTES)}>My Notes</h1>
+              <h1 className='title is-size-2 has-text-light' onClick={() => this.tabClick(tabs.VIEW_NOTES)}>Notes</h1>
             </div>
             <div
               style={{
                 display: this.state.loggedIn === false ? 'block' : 'none',
               }}>
-              <h1 onClick={() => this.tabClick(tabs.LOGIN)}>My Notes</h1>
+              <h1 className='title is-size-2 has-text-light' onClick={() => this.tabClick(tabs.LOGIN)}>Notes</h1>
             </div>
           </div>
 
@@ -995,6 +997,7 @@ class App extends Component {
           <div className='navigation'>
             <button
               id='tabsVIEW_NOTES'
+              className='button'
               style={{
                 display:
                   (this.state.activeTab !== tabs.LOGIN &&
@@ -1009,6 +1012,7 @@ class App extends Component {
             </button>
             <button
               id='tabsCREATE_NOTE'
+              className='button'
               style={{
                 display:
                   this.state.activeTab === tabs.VIEW_NOTES && this.state.searching === false
@@ -1020,6 +1024,7 @@ class App extends Component {
             </button>
             <button
               id='tabsVIEW_TAGS'
+              className='button'
               style={{
                 display:
                   this.state.activeTab === tabs.VIEW_NOTES ||
@@ -1033,6 +1038,7 @@ class App extends Component {
             </button>
             <button
               id='tabsCREATE_TAG'
+              className='button'
               style={{
                 display: this.state.activeTab === tabs.VIEW_TAGS ? 'block' : 'none',
               }}
@@ -1157,7 +1163,7 @@ class App extends Component {
             style={{
               display: this.state.activeTab === tabs.CREATE_NOTE ? 'block' : 'none',
             }}>
-            <h2>Create Note:</h2>
+            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Create Note:</h2>
             <CreateNoteForm
               onSubmit={this.onCreateNoteFormSubmit}
               onChange={this.onNoteFormChange}
@@ -1215,12 +1221,12 @@ class App extends Component {
             <div
               className='delete-notes-button'
               style={{ display: this.state.activeTab === tabs.VIEW_NOTES ? 'flex' : 'none' }}>
-              <button onClick={this.handleDeleteAllNotes}>Delete All Notes</button>
+              <button className='button' onClick={this.handleDeleteAllNotes}>Delete All Notes</button>
             </div>
             <div
               className='delete-tags-button'
               style={{ display: this.state.activeTab === tabs.VIEW_TAGS ? 'flex' : 'none' }}>
-              <button onClick={this.handleDeleteAllTags}>Delete All Tags</button>
+              <button className='button' onClick={this.handleDeleteAllTags}>Delete All Tags</button>
             </div>
             <div
               className='invisible-delete-button'
@@ -1240,7 +1246,7 @@ class App extends Component {
                     ? 'flex'
                     : 'none',
               }}>
-              <button onClick={() => this.logoutClick()}>Logout</button>
+              <button className='button' onClick={() => this.logoutClick()}>Logout</button>
             </div>
           </div>
         </div>

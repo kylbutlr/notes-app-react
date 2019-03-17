@@ -2,11 +2,11 @@ import React from 'react';
 
 export default ({ onSubmit, onChange, title, text, tags }) => (
   <form onSubmit={onSubmit}>
-    <label>
-      <span>Title:</span>
-      <br />
+    <label className='field'>
+      <span className='label'>Title:</span>
       <input
         name='title'
+        className='input'
         type='text'
         autoComplete='off'
         required
@@ -14,11 +14,11 @@ export default ({ onSubmit, onChange, title, text, tags }) => (
         onChange={e => onChange('title', e)}
       />
     </label>
-    <label>
-      <span>Text:</span>
-      <br />
+    <label className='field'>
+      <span className='label'>Text:</span>
       <input
         name='text'
+        className='input'
         type='text'
         autoComplete='off'
         required
@@ -26,11 +26,11 @@ export default ({ onSubmit, onChange, title, text, tags }) => (
         onChange={e => onChange('text', e)}
       />
     </label>
-    <label>
-      <span>Tag(s): (separated by commas)</span>
-      <br />
+    <label className='field'>
+      <span className='label'>Tag(s): (separated by commas)</span>
       <input
         name='tags'
+        className='input'
         type='text'
         autoComplete='off'
         value={tags || ''}
@@ -38,6 +38,10 @@ export default ({ onSubmit, onChange, title, text, tags }) => (
         onChange={e => onChange('tags', e)}
       />
     </label>
-    <input type='submit' value='Create Note' />
+    <input
+      className='button is-dark is-fullwidth is-text-light has-text-weight-semibold'
+      type='submit'
+      value='Create Note'
+    />
   </form>
 );

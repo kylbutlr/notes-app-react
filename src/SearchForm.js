@@ -7,6 +7,7 @@ export default ({ onSubmit, onChange, searchInput }) => (
       <br />
       <input
         name='search'
+        className='input'
         type='text'
         autoComplete='off'
         required
@@ -15,6 +16,6 @@ export default ({ onSubmit, onChange, searchInput }) => (
         onChange={e => onChange(e)}
       />
     </label>
-    <input type='submit' value='Search' />
+    <input className='button' type='submit' value='Search' />
   </form>
 );
