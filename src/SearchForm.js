@@ -3,8 +3,7 @@ import React from 'react';
 export default ({ onSubmit, onChange, searchInput }) => (
   <form onSubmit={onSubmit}>
     <label>
-      <span>Search:</span>
-      <br />
+      <span className='search-span'>Search:</span>
       <input
         name='search'
         className='input'
@@ -16,6 +15,6 @@ export default ({ onSubmit, onChange, searchInput }) => (
         onChange={e => onChange(e)}
       />
     </label>
-    <input className='button' type='submit' value='Search' />
+    <input className='button is-light has-text-dark' type='submit' value='Search' />
   </form>
 );

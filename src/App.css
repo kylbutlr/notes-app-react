@@ -9,43 +9,41 @@
   color: #111;
   display: flex;
   flex-direction: column;
-  height: calc(100%);
+  height: calc(100vh);
   width: 100vw;
   overflow: hidden;
 }
 
 .header {
-  background: #406e405b;
+  background-image: linear-gradient(to bottom, #406e405b, #355c355b);
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 1vh 0;
-  height: 20vh;
 }
 
 .body {
   background: #111;
   width: 100%;
   flex: 1;
-  height: 70vh;
   overflow-y: auto;
 }
 
-.body::-webkit-scrollbar { 
-  width: 0;
-}
-
 .footer {
-  background: #406e405b;
+  background: #111;
+  background-image: linear-gradient(to bottom, #406e405b, #355c355b);  
   width: 100%;
-  padding: 1vh 0;
-  height: 10vh;
+  padding: 1vh 0 1vh;
 }
 
 button, 
 .title {
   cursor: pointer;
+}
+
+h1 {
+  font-size: 2.5rem !important;
 }
 
 h2, p {
@@ -56,12 +54,8 @@ input[name=id] {
   display: none;
 }
 
-.header span {
+.search-span {
   display: none;
-}
-
-.header form {
-  margin: -3.5vh 0 0;
 }
 
 .header input[type=submit] {
@@ -80,8 +74,8 @@ input[name=id] {
 
 .navigation {
   display: flex;
-  justify-content: space-evenly;
-  width: 60vh;
+  justify-content: space-between;
+  width: 41vh;
 }
 
 .navigation button {
@@ -90,7 +84,6 @@ input[name=id] {
 }
 
 .body div {
-  background: #ecececec;
   display: flex;
   flex-direction: column;
   width: 45vh;
@@ -109,10 +102,11 @@ input[name=id] {
 }
 
 .body li {
-  background: #111;
+  background: #ecececec;
+  border-radius: 1rem;
   display: flex;
   justify-content: space-between;
-  padding: 1vh 0 0;
+  margin: 1vh 0;
 }
 
 .body form {
@@ -124,17 +118,16 @@ input[name=id] {
   font-weight: 500;
 }
 
+.list-info > .p1 {
+  white-space: nowrap;
+}
+
 .p2 {
   font-size: 1.125rem;
 }
 
 .p3 {
   font-size: 1rem;
-}
-
-h1 {
-  color: #ecececec;
-  font-size: 2rem;
 }
 
 h2 {
@@ -164,13 +157,18 @@ h4 {
   display: none;
 }
 
-.view-tags h2 {
-  margin: 0.5vh auto !important;
-  padding: 1vh 0;
-}
-
+.view-tags h2,
 .view-search h2 {
   margin: 1vh auto 0 !important;
+  padding-top: 1vh;
+}
+
+.view-tags-title {
+  border-radius: 1rem;
+}
+
+.view-tags h2:before {
+  border-radius: 1rem;
 }
 
 .view-search h3 {
@@ -195,6 +193,8 @@ h4 {
 
 .login,
 .register {
+  background: #ecececec;
+  border-radius: 1rem;
   margin: 2.5vh auto 0;
   padding: 1vh 1vh;
 }
@@ -230,6 +230,11 @@ h4 {
   margin: 0 0 1vh;
 }
 
+.button,
+input[type=submit] {
+  line-height: 0;
+}
+
 .login input[type=submit],
 .login button,
 .register input[type=submit],
@@ -241,6 +246,11 @@ h4 {
   height: 5vh;
   width: 30vh;
   margin: 1vh 5vh 0;
+}
+
+.login h2,
+.register h2 {
+  margin-bottom: 0 !important;
 }
 
 .login button,
@@ -255,10 +265,14 @@ h4 {
   text-align: center;
 }
 
+.note {
+  flex-direction: column;
+}
+
 .list-info {
-  flex: 10;
+  flex: 1;
   align-self: flex-start;
-  padding: 2vh 2vh;
+  padding: 1vh 2vh;
 }
 
 .list-info p {
@@ -268,11 +282,13 @@ h4 {
 .list-buttons {
   flex: 1;
   justify-content: center;
+  align-items: center;
 }
 
+.view-search .list-buttons,
+.view-notes .list-buttons,
 .view-tags .list-buttons {
   flex-direction: row;
-  align-items: center;
 }
 
 .view-notes,
@@ -285,6 +301,7 @@ h4 {
 .create-tag,
 .edit-note,
 .edit-tag {
+  background: #ecececec;
   margin: 5vh auto;
   padding: 2vh;
   border-radius: 1rem;
@@ -298,19 +315,43 @@ h4 {
 }
 
 .list-buttons button {
-  height: 50%;
-  width: 10vh;
+  flex: 1;
+  height: 6vh;
+  border: 1px solid #dbdbdb !important;
+}
+
+.view-search .list-buttons button:first-child,
+.view-notes .list-buttons button:first-child {
+  margin: 0 0 0.5vh 0.5vh;
+  border-radius: 1rem 0 0 1rem;
+}
+
+.view-search .list-buttons button:nth-child(2),
+.view-notes .list-buttons button:nth-child(2) {
+  margin: 0 0.5vh 0.5vh 0;
+  border-radius: 0 1rem 1rem 0;
 }
 
 .view-tags .list-buttons button {
-  height: 100%;
+  height: 6vh;
+  width: 12.5vh;
+}
+
+.view-tags .list-buttons button:first-child {
+  margin: 0.5vh 0 0.5vh 0.5vh;
+  border-radius: 1rem 0 0 1rem;
+}
+
+.view-tags .list-buttons button:nth-child(2) {
+  margin: 0.5vh 0.5vh 0.5vh 0;
+  border-radius: 0 1rem 1rem 0;
 }
 
 .footer-buttons {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin: 0 auto;
-  width: 60vh;
+  width: 41vh;
 }
 
 .footer-buttons button,
@@ -319,11 +360,39 @@ h4 {
   width: 20vh;
 }
 
+label.field:not(:last-child) {
+  margin-bottom: 0.25rem;
+}
+
+span.label:not(:last-child) {
+  margin-bottom: 0.25rem;
+}
+
+.list-info {
+  border-radius: 1rem 0 0 1rem;
+}
+
+.list-buttons {
+  border-radius: 0 1rem 1rem 0;
+}
+
+.search-title,
+.tags-title {
+  background: #ecececec;
+  border-radius: 1rem;
+  padding-bottom: 1vh;
+}
+
+::-webkit-scrollbar {
+  width: 0px;  /* remove scrollbar space */
+  background: transparent;  /* optional: just make scrollbar invisible */
+}
+
 
 @media only screen and (min-width: 768px) {
 
   h1 {
-    font-size: 3rem;
+    font-size: 3.5rem !important;
   }
 
   .title {
@@ -334,12 +403,12 @@ h4 {
     width: 30vh;
   }
 
-  .list-buttons button {
-    width: 7.5vh;
-  }
-
   .header input[type=submit] {
     width: 10vh;
+  }
+
+  .list-buttons button {
+    width: 7.5vh;
   }
 
   .login input[type=submit],
@@ -381,6 +450,15 @@ h4 {
     padding: 1vh 1vh;
   }
 
+  .list-buttons button {
+    height: 5vh;
+  }
+  
+  .view-tags .list-buttons button {
+    height: 5vh;
+    width: 10vh;
+  }
+
 }
 
 
@@ -392,13 +470,22 @@ h4 {
     padding: 1vh 1vh;
   }
 
+  .list-buttons button {
+    height: 6vh;
+  }
+  
+  .view-tags .list-buttons button {
+    height: 6vh;
+    width: 7.5vh;
+  }
+
 }
 
 
 @media (hover: hover) {
-  
+
   .list-buttons button {
-    opacity: 0;
+    opacity: 0.25;
     transition: opacity 0.5s;
   }
 

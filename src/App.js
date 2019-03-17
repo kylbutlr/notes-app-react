@@ -12,7 +12,6 @@ import './App.css';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-
 const API_ENDPOINT = 'http://localhost:3000';
 const tabs = {
   LOGIN: 1,
@@ -313,20 +312,22 @@ class App extends Component {
           }
         })
         .then(() => {
-          axios.get(`${API_ENDPOINT}/user/${this.state.loggedIn.user_id}/notes`, config).then(notes => {
-            if (notes) {
-              for (let i = 0; i < notes.data.length; i++) {
-                this.cleanString(notes.data[i].tags, cleanTags => {
-                  this.convertIdToTags(cleanTags, convertedTags => {
-                    this.parseTags(convertedTags, stringTags => {
-                      notes.data[i].tags = stringTags;
+          axios
+            .get(`${API_ENDPOINT}/user/${this.state.loggedIn.user_id}/notes`, config)
+            .then(notes => {
+              if (notes) {
+                for (let i = 0; i < notes.data.length; i++) {
+                  this.cleanString(notes.data[i].tags, cleanTags => {
+                    this.convertIdToTags(cleanTags, convertedTags => {
+                      this.parseTags(convertedTags, stringTags => {
+                        notes.data[i].tags = stringTags;
+                      });
                     });
                   });
-                });
+                }
+                this.setState({ notes: notes.data });
               }
-              this.setState({ notes: notes.data });
-            }
-          });
+            });
         });
     });
   }
@@ -667,21 +668,23 @@ class App extends Component {
                   }
                 })
                 .then(() => {
-                  axios.get(`${API_ENDPOINT}/user/${this.state.loggedIn.user_id}/notes`, config).then(notes => {
-                    for (let i = 0; i < notes.data.length; i++) {
-                      this.cleanString(notes.data[i].tags, cleanTags => {
-                        this.convertIdToTags(cleanTags, convertedTags => {
-                          this.parseTags(convertedTags, parsedTags => {
-                            notes.data[i].tags = parsedTags;
+                  axios
+                    .get(`${API_ENDPOINT}/user/${this.state.loggedIn.user_id}/notes`, config)
+                    .then(notes => {
+                      for (let i = 0; i < notes.data.length; i++) {
+                        this.cleanString(notes.data[i].tags, cleanTags => {
+                          this.convertIdToTags(cleanTags, convertedTags => {
+                            this.parseTags(convertedTags, parsedTags => {
+                              notes.data[i].tags = parsedTags;
+                            });
                           });
                         });
+                      }
+                      this.setState({ notes: notes.data }, () => {
+                        this.resetNoteInput();
+                        this.tabClick(tabs.VIEW_NOTES);
                       });
-                    }
-                    this.setState({ notes: notes.data }, () => {
-                      this.resetNoteInput();
-                      this.tabClick(tabs.VIEW_NOTES);
                     });
-                  });
                 });
             }
           }
@@ -779,7 +782,7 @@ class App extends Component {
   getConfig(loggedIn, cb) {
     cb({
       headers: {
-        authorization: loggedIn.jwt
+        authorization: loggedIn.jwt,
       },
     });
   }
@@ -913,17 +916,20 @@ class App extends Component {
     return (
       <li key={id}>
         <div className='list-info'>
-          <p className='p2 has-text-dark has-text-weight-semibold'>{newTag}</p>
+          <p className='p2 has-text-centered has-text-dark'>{newTag}</p>
         </div>
         <div className='list-buttons'>
-          <button className='edit-button' data-id={id} onClick={() => this.handleEditTag(id)}>
+          <button
+            className='edit-button button is-dark has-text-light'
+            data-id={id}
+            onClick={() => this.handleEditTag(id)}>
             <FontAwesomeIcon icon={faEdit} data-id={id} />
           </button>
           <button
-            className='delete-button'
+            className='delete-button button is-dark has-text-light'
             data-id={id}
             onClick={() => this.handleDeleteTag(id, title)}>
-              <FontAwesomeIcon icon={faTrashAlt} data-id={id} />
+            <FontAwesomeIcon icon={faTrashAlt} data-id={id} />
           </button>
         </div>
       </li>
@@ -940,17 +946,25 @@ class App extends Component {
       }
     }
     return (
-      <li key={id} className='card'>
+      <li key={id} className='note'>
         <div className='list-info'>
-          <p className='p1 has-text-dark has-text-weight-semibold'>{title}</p>
-          <p className='p2 has-text-dark'>{text}</p>
-          <p className='p3 has-text-grey'>Tag(s): {tags[0] ? tags.join(', ') : 'N/A'}</p>
+          <p className='p1 has-text-centered has-text-dark has-text-weight-semibold'>{title}</p>
+          <p className='p2 has-text-centered has-text-dark'>{text}</p>
+          <p className='p3 has-text-centered has-text-grey'>
+            Tag(s): {tags[0] ? tags.join(', ') : 'N/A'}
+          </p>
         </div>
         <div className='list-buttons'>
-          <button className='edit-button' data-id={id} onClick={() => this.handleEditNote(id)}>
+          <button
+            className='edit-button button is-dark has-text-light'
+            data-id={id}
+            onClick={() => this.handleEditNote(id)}>
             <FontAwesomeIcon icon={faEdit} />
           </button>
-          <button className='delete-button' data-id={id} onClick={() => this.handleDeleteNote(id)}>
+          <button
+            className='delete-button button is-dark has-text-light'
+            data-id={id}
+            onClick={() => this.handleDeleteNote(id)}>
             <FontAwesomeIcon icon={faTrashAlt} />
           </button>
         </div>
@@ -969,15 +983,19 @@ class App extends Component {
               style={{
                 display: this.state.loggedIn !== false ? 'block' : 'none',
               }}>
-              <h1 className='title is-size-2 has-text-light' onClick={() => this.tabClick(tabs.VIEW_NOTES)}>Notes</h1>
+              <h1 className='title has-text-light' onClick={() => this.tabClick(tabs.VIEW_NOTES)}>
+                Notes
+              </h1>
             </div>
             <div
               style={{
                 display: this.state.loggedIn === false ? 'block' : 'none',
               }}>
-              <h1 className='title is-size-2 has-text-light' onClick={() => this.tabClick(tabs.LOGIN)}>Notes</h1>
+              <h1 className='title has-text-light' onClick={() => this.tabClick(tabs.LOGIN)}>
+                Notes
+              </h1>
             </div>
-            </div>
+          </div>
 
           {/* Search Form */}
           <div
@@ -999,7 +1017,7 @@ class App extends Component {
           <div className='navigation'>
             <button
               id='tabsVIEW_NOTES'
-              className='button'
+              className='button is-light has-text-dark'
               style={{
                 display:
                   (this.state.activeTab !== tabs.LOGIN &&
@@ -1014,7 +1032,7 @@ class App extends Component {
             </button>
             <button
               id='tabsCREATE_NOTE'
-              className='button'
+              className='button is-light has-text-dark'
               style={{
                 display:
                   this.state.activeTab === tabs.VIEW_NOTES && this.state.searching === false
@@ -1026,12 +1044,20 @@ class App extends Component {
             </button>
             <button
               id='tabsVIEW_TAGS'
-              className='button'
+              className='button is-light has-text-dark'
+              style={{
+                display: this.state.activeTab === tabs.CREATE_TAG ? 'block' : 'none',
+              }}
+              onClick={() => this.tabClick(tabs.VIEW_TAGS)}>
+              Back to Tags
+            </button>
+            <button
+              id='tabsVIEW_TAGS'
+              className='button is-light has-text-dark'
               style={{
                 display:
                   this.state.activeTab === tabs.VIEW_NOTES ||
-                  this.state.activeTab === tabs.CREATE_NOTE ||
-                  this.state.activeTab === tabs.CREATE_TAG
+                  this.state.activeTab === tabs.CREATE_NOTE
                     ? 'block'
                     : 'none',
               }}
@@ -1040,7 +1066,7 @@ class App extends Component {
             </button>
             <button
               id='tabsCREATE_TAG'
-              className='button'
+              className='button is-light has-text-dark'
               style={{
                 display: this.state.activeTab === tabs.VIEW_TAGS ? 'block' : 'none',
               }}
@@ -1074,7 +1100,11 @@ class App extends Component {
               {...this.state.loginInput}
             />
             <div className='or'>or</div>
-            <button className='button is-dark is-text-light has-text-weight-semibold' onClick={() => this.tabClick(tabs.REGISTER)}>Register</button>
+            <button
+              className='button is-dark is-text-light has-text-weight-semibold'
+              onClick={() => this.tabClick(tabs.REGISTER)}>
+              Register
+            </button>
           </div>
 
           {/* Register Form */}
@@ -1089,7 +1119,12 @@ class App extends Component {
               onChange={this.onRegisterFormChange}
               {...this.state.registerInput}
             />
-            <button className='button is-dark is-text-light has-text-weight-semibold' onClick={() => this.tabClick(tabs.LOGIN)}>Back to Login</button>
+            <div className='or'>or</div>
+            <button
+              className='button is-dark is-text-light has-text-weight-semibold'
+              onClick={() => this.tabClick(tabs.LOGIN)}>
+              Back to Login
+            </button>
           </div>
 
           {/* Search Results */}
@@ -1101,17 +1136,19 @@ class App extends Component {
                   ? 'block'
                   : 'none',
             }}>
-            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Search Results:</h2>
-            <h3 className='subtitle is-4 has-text-dark has-text-centered'>
-              {this.state.searchResults.length} found for {this.state.searchedTag.join(', ')}:
-            </h3>
-            <h4
-              className='subtitle is-3 has-text-dark has-text-centered'
-              style={{
-                display: this.state.searchResults.length === 0 ? 'block' : 'none',
-              }}>
-              No Results Found
-            </h4>
+            <div className='search-title'>
+              <h2 className='subtitle is-3 has-text-dark has-text-centered'>Search Results:</h2>
+              <h3 className='subtitle is-4 has-text-dark has-text-centered'>
+                {this.state.searchResults.length} found for {this.state.searchedTag.join(', ')}:
+              </h3>
+              <h4
+                className='subtitle is-3 has-text-dark has-text-centered'
+                style={{
+                  display: this.state.searchResults.length === 0 ? 'block' : 'none',
+                }}>
+                No Results Found
+              </h4>
+            </div>
             <ol>{this.state.searchResults.map(n => this.renderNote(n))}</ol>
           </div>
 
@@ -1145,7 +1182,11 @@ class App extends Component {
             style={{
               display: this.state.activeTab === tabs.VIEW_TAGS ? 'block' : 'none',
             }}>
-            <h2 className='subtitle is-3 has-text-dark has-text-centered'>All Tags:</h2>
+            <div className='tags-title'>
+              <h2 className='subtitle is-3 has-text-dark has-text-centered has-text-weight-semibold'>
+                All Tags:
+              </h2>
+            </div>
             <ol
               style={{
                 display: this.state.tags.length === 0 ? 'block' : 'none',
@@ -1222,14 +1263,18 @@ class App extends Component {
           {/* Footer Buttons */}
           <div className='footer-buttons'>
             <div
-              className='delete-notes-button'
+              className='delete-notes-button is-light has-text-dark'
               style={{ display: this.state.activeTab === tabs.VIEW_NOTES ? 'flex' : 'none' }}>
-              <button className='button' onClick={this.handleDeleteAllNotes}>Delete All Notes</button>
+              <button className='button' onClick={this.handleDeleteAllNotes}>
+                Delete All
+              </button>
             </div>
             <div
-              className='delete-tags-button'
+              className='delete-tags-button is-light has-text-dark'
               style={{ display: this.state.activeTab === tabs.VIEW_TAGS ? 'flex' : 'none' }}>
-              <button className='button' onClick={this.handleDeleteAllTags}>Delete All Tags</button>
+              <button className='button' onClick={this.handleDeleteAllTags}>
+                Delete All
+              </button>
             </div>
             <div
               className='invisible-delete-button'
@@ -1242,14 +1287,16 @@ class App extends Component {
               }}
             />
             <div
-              className='logout-button'
+              className='logout-button is-light has-text-dark'
               style={{
                 display:
                   this.state.activeTab !== tabs.LOGIN && this.state.activeTab !== tabs.REGISTER
                     ? 'flex'
                     : 'none',
               }}>
-              <button className='button' onClick={() => this.logoutClick()}>Logout</button>
+              <button className='button' onClick={() => this.logoutClick()}>
+                Logout
+              </button>
             </div>
           </div>
         </div>
