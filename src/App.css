@@ -195,7 +195,7 @@ h4 {
 
 .login,
 .register {
-  margin: 10vh auto;
+  margin: 2.5vh auto 0;
   padding: 1vh 1vh;
 }
 
@@ -372,20 +372,24 @@ h4 {
 
   .login button,
   .register button {
-    margin: 0.5vh 10vh 0;
+    margin: 0.5vh 9vh 0;
   }
 
-  .header form {
-    margin: -2vh 0 0;
+  .login,
+  .register {
+    margin: 7.5vh auto 0;
+    padding: 1vh 1vh;
   }
 
 }
 
 
-@media only screen and (min-height: 1024px) {
+@media only screen and (min-width: 1024px) {
 
-  .header form {
-    margin: -1.5vh 0 0;
+  .login,
+  .register {
+    margin: 2.5vh auto 0;
+    padding: 1vh 1vh;
   }
 
 }

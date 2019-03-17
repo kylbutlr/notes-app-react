@@ -9,6 +9,8 @@ import EditNoteForm from './EditNoteForm';
 import EditTagForm from './EditTagForm';
 import '../node_modules/bulma/css/bulma.min.css';
 import './App.css';
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const API_ENDPOINT = 'http://localhost:3000';
@@ -911,17 +913,17 @@ class App extends Component {
     return (
       <li key={id}>
         <div className='list-info'>
-          <p className='p2'>{newTag}</p>
+          <p className='p2 has-text-dark has-text-weight-semibold'>{newTag}</p>
         </div>
         <div className='list-buttons'>
           <button className='edit-button' data-id={id} onClick={() => this.handleEditTag(id)}>
-            Edit
+            <FontAwesomeIcon icon={faEdit} data-id={id} />
           </button>
           <button
             className='delete-button'
             data-id={id}
             onClick={() => this.handleDeleteTag(id, title)}>
-            [ X ]
+              <FontAwesomeIcon icon={faTrashAlt} data-id={id} />
           </button>
         </div>
       </li>
@@ -938,18 +940,18 @@ class App extends Component {
       }
     }
     return (
-      <li key={id}>
+      <li key={id} className='card'>
         <div className='list-info'>
-          <p className='p1'>{title}</p>
-          <p className='p2'>{text}</p>
-          <p className='p3'>Tag(s): {tags[0] ? tags.join(', ') : 'N/A'}</p>
+          <p className='p1 has-text-dark has-text-weight-semibold'>{title}</p>
+          <p className='p2 has-text-dark'>{text}</p>
+          <p className='p3 has-text-grey'>Tag(s): {tags[0] ? tags.join(', ') : 'N/A'}</p>
         </div>
         <div className='list-buttons'>
           <button className='edit-button' data-id={id} onClick={() => this.handleEditNote(id)}>
-            Edit
+            <FontAwesomeIcon icon={faEdit} />
           </button>
           <button className='delete-button' data-id={id} onClick={() => this.handleDeleteNote(id)}>
-            [ X ]
+            <FontAwesomeIcon icon={faTrashAlt} />
           </button>
         </div>
       </li>
@@ -975,7 +977,7 @@ class App extends Component {
               }}>
               <h1 className='title is-size-2 has-text-light' onClick={() => this.tabClick(tabs.LOGIN)}>Notes</h1>
             </div>
-          </div>
+            </div>
 
           {/* Search Form */}
           <div
@@ -1087,7 +1089,7 @@ class App extends Component {
               onChange={this.onRegisterFormChange}
               {...this.state.registerInput}
             />
-            <button onClick={() => this.tabClick(tabs.LOGIN)}>Back to Login</button>
+            <button className='button is-dark is-text-light has-text-weight-semibold' onClick={() => this.tabClick(tabs.LOGIN)}>Back to Login</button>
           </div>
 
           {/* Search Results */}
@@ -1143,7 +1145,7 @@ class App extends Component {
             style={{
               display: this.state.activeTab === tabs.VIEW_TAGS ? 'block' : 'none',
             }}>
-            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Tags:</h2>
+            <h2 className='subtitle is-3 has-text-dark has-text-centered'>All Tags:</h2>
             <ol
               style={{
                 display: this.state.tags.length === 0 ? 'block' : 'none',

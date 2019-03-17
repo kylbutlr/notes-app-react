@@ -2,12 +2,12 @@ import React from 'react';
 
 export default ({ onSubmit, onChange, username, password, confirmPass }) => (
   <form onSubmit={onSubmit}>
-    <label>
-      <span>Username: (4-16)</span>
-      <br />
+    <label className='field'>
+      <span className='label'>Username: (4-16)</span>
       <input
         pattern='.{4,16}'
         name='username'
+        className='input'
         type='text'
         autoComplete='off'
         required
@@ -15,11 +15,11 @@ export default ({ onSubmit, onChange, username, password, confirmPass }) => (
         onChange={e => onChange('username', e)}
       />
     </label>
-    <label>
-      <span>Password: (4-16)</span>
-      <br />
+    <label className='field'>
+      <span className='label'>Password: (4-16)</span>
       <input
         name='password'
+        className='input'
         type='password'
         autoComplete='off'
         required
@@ -27,11 +27,11 @@ export default ({ onSubmit, onChange, username, password, confirmPass }) => (
         onChange={e => onChange('password', e)}
       />
     </label>
-    <label>
-      <span>Confirm Password:</span>
-      <br />
+    <label className='field'>
+      <span className='label'>Confirm Password:</span>
       <input
         name='confirmPass'
+        className='input'
         type='password'
         autoComplete='off'
         required
@@ -39,6 +39,6 @@ export default ({ onSubmit, onChange, username, password, confirmPass }) => (
         onChange={e => onChange('confirmPass', e)}
       />
     </label>
-    <input type='submit' value='Register New User' />
+    <input className='button is-dark is-text-light has-text-weight-semibold' type='submit' value='Register New User' />
   </form>
 );
