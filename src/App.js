@@ -1065,14 +1065,14 @@ class App extends Component {
             style={{
               display: this.state.activeTab === tabs.LOGIN ? 'block' : 'none',
             }}>
-            <h2>Login:</h2>
+            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Login:</h2>
             <LoginForm
               onSubmit={this.onLoginFormSubmit}
               onChange={this.onLoginFormChange}
               {...this.state.loginInput}
             />
             <div className='or'>or</div>
-            <button onClick={() => this.tabClick(tabs.REGISTER)}>Register</button>
+            <button className='button is-dark is-text-light has-text-weight-semibold' onClick={() => this.tabClick(tabs.REGISTER)}>Register</button>
           </div>
 
           {/* Register Form */}
@@ -1081,7 +1081,7 @@ class App extends Component {
             style={{
               display: this.state.activeTab === tabs.REGISTER ? 'block' : 'none',
             }}>
-            <h2>Register:</h2>
+            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Register:</h2>
             <RegisterForm
               onSubmit={this.onRegisterFormSubmit}
               onChange={this.onRegisterFormChange}
@@ -1099,11 +1099,12 @@ class App extends Component {
                   ? 'block'
                   : 'none',
             }}>
-            <h2>Search Results:</h2>
-            <h3>
+            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Search Results:</h2>
+            <h3 className='subtitle is-4 has-text-dark has-text-centered'>
               {this.state.searchResults.length} found for {this.state.searchedTag.join(', ')}:
             </h3>
             <h4
+              className='subtitle is-3 has-text-dark has-text-centered'
               style={{
                 display: this.state.searchResults.length === 0 ? 'block' : 'none',
               }}>
@@ -1121,7 +1122,7 @@ class App extends Component {
                   ? 'block'
                   : 'none',
             }}>
-            <h2>Notes:</h2>
+            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Notes:</h2>
             <ol
               style={{
                 display: this.state.notes.length === 0 ? 'block' : 'none',
@@ -1142,7 +1143,7 @@ class App extends Component {
             style={{
               display: this.state.activeTab === tabs.VIEW_TAGS ? 'block' : 'none',
             }}>
-            <h2>Tags:</h2>
+            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Tags:</h2>
             <ol
               style={{
                 display: this.state.tags.length === 0 ? 'block' : 'none',
@@ -1177,7 +1178,7 @@ class App extends Component {
             style={{
               display: this.state.activeTab === tabs.CREATE_TAG ? 'block' : 'none',
             }}>
-            <h2>Create Tag(s):</h2>
+            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Create Tag(s):</h2>
             <CreateTagForm
               onSubmit={this.onCreateTagFormSubmit}
               onChange={this.onTagFormChange}
@@ -1191,7 +1192,7 @@ class App extends Component {
             style={{
               display: this.state.activeTab === tabs.EDIT_NOTE ? 'block' : 'none',
             }}>
-            <h2>Edit Note:</h2>
+            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Edit Note:</h2>
             <EditNoteForm
               onSubmit={this.onEditNoteFormSubmit}
               onChange={this.onNoteFormChange}
@@ -1205,7 +1206,7 @@ class App extends Component {
             style={{
               display: this.state.activeTab === tabs.EDIT_TAG ? 'block' : 'none',
             }}>
-            <h2>Edit Tag:</h2>
+            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Edit Tag:</h2>
             <EditTagForm
               onSubmit={this.onEditTagFormSubmit}
               onChange={this.onTagFormChange}

@@ -39,7 +39,7 @@ export default ({ onSubmit, onChange, title, text, tags }) => (
       />
     </label>
     <input
-      className='button is-dark is-fullwidth is-text-light has-text-weight-semibold'
+      className='button is-dark is-text-light has-text-weight-semibold'
       type='submit'
       value='Create Note'
     />

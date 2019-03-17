@@ -2,11 +2,11 @@ import React from 'react';
 
 export default ({ onSubmit, onChange, username, password }) => (
   <form onSubmit={onSubmit}>
-    <label>
-      <span>Username:</span>
-      <br />
+    <label className='field'>
+      <span className='label'>Username:</span>
       <input
         name='username'
+        className='input'
         type='text'
         autoComplete='off'
         required
@@ -14,11 +14,11 @@ export default ({ onSubmit, onChange, username, password }) => (
         onChange={e => onChange('username', e)}
       />
     </label>
-    <label>
-      <span>Password:</span>
-      <br />
+    <label className='field'>
+      <span className='label'>Password:</span>
       <input
         name='password'
+        className='input'
         type='password'
         autoComplete='off'
         required
@@ -26,6 +26,10 @@ export default ({ onSubmit, onChange, username, password }) => (
         onChange={e => onChange('password', e)}
       />
     </label>
-    <input type='submit' value='Login' />
+    <input
+      className='button is-dark is-text-light has-text-weight-semibold'
+      type='submit'
+      value='Login'
+    />
   </form>
 );
