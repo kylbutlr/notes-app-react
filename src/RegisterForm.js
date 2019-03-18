@@ -7,6 +7,7 @@ export default ({ onSubmit, onChange, username, password, confirmPass }) => (
       <input
         pattern='.{4,16}'
         name='username'
+        id='register-input'
         className='input'
         type='text'
         autoComplete='off'
@@ -19,6 +20,7 @@ export default ({ onSubmit, onChange, username, password, confirmPass }) => (
       <span className='label'>Password: (4-16)</span>
       <input
         name='password'
+        id='register-password-input'
         className='input'
         type='password'
         autoComplete='off'

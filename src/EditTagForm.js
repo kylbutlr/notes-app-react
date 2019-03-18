@@ -6,6 +6,7 @@ export default ({ onSubmit, onChange, title, id }) => (
       <span className='label'>Name:</span>
       <input
         name='title'
+        id='edit-tag-input'
         className='input'
         type='text'
         autoComplete='off'

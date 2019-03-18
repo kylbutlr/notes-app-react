@@ -101,7 +101,21 @@ class App extends Component {
     if (activeTab === tabs.REGISTER) {
       this.resetLoginInput('user');
     }
-    this.setState({ activeTab });
+    this.setState({ activeTab }, () => {
+      if (activeTab === tabs.LOGIN) {
+        document.getElementById('login-input').focus();
+      } else if (activeTab === tabs.REGISTER) {
+        document.getElementById('register-input').focus();
+      } else if (activeTab === tabs.CREATE_NOTE) {
+        document.getElementById('create-note-input').focus();
+      } else if (activeTab === tabs.CREATE_TAG) {
+        document.getElementById('create-tag-input').focus();
+      } else if (activeTab === tabs.EDIT_NOTE) {
+        document.getElementById('edit-note-input').focus();
+      } else if (activeTab === tabs.EDIT_TAG) {
+        document.getElementById('edit-tag-input').focus();
+      }
+    });
   }
 
   getSavedSession() {
@@ -121,6 +135,7 @@ class App extends Component {
         .get(`${API_ENDPOINT}/user/${user_id}/tags`, config)
         .catch(err => {
           this.logoutUser('user');
+          document.getElementById('login-password-input').focus();
         })
         .then(tags => {
           if (tags) {
@@ -129,6 +144,7 @@ class App extends Component {
                 .get(`${API_ENDPOINT}/user/${user_id}/notes`, config)
                 .catch(err => {
                   this.logoutUser('user');
+                  document.getElementById('login-password-input').focus();
                 })
                 .then(notes => {
                   if (notes) {
@@ -704,8 +720,9 @@ class App extends Component {
         .post(`${API_ENDPOINT}/register`, newUser)
         .catch(err => {
           if (err.response.status === 422) {
-            alert('Error: Username (' + this.state.registerInput.username + ') already exists.');
-            this.resetRegisterInput('user');
+            alert('Sorry, that username (' + this.state.registerInput.username + ') already exists.');
+            this.resetRegisterInput();
+            document.getElementById('register-input').focus();
           } else {
             alert('Error: ' + err.message);
           }
@@ -716,8 +733,9 @@ class App extends Component {
           }
         });
     } else {
-      alert('Passwords did not match.');
-      this.resetRegisterInput();
+      alert('Sorry, passwords did not match. Please try again.');
+      this.resetRegisterInput('user');
+      document.getElementById('register-password-input').focus();
     }
   }
 
@@ -733,7 +751,9 @@ class App extends Component {
       .catch(err => {
         if (err) {
           if (err.response.status === 404) {
-            alert('Error: Invalid username/password, please try again.');
+            alert('Sorry, invalid username/password, please try again.');
+            this.resetLoginInput('user');
+            document.getElementById('login-password-input').focus();
           } else {
             alert('Error: ' + err.message);
           }
@@ -1020,9 +1040,11 @@ class App extends Component {
               className='button is-light has-text-dark'
               style={{
                 display:
-                  (this.state.activeTab !== tabs.LOGIN &&
-                    this.state.activeTab !== tabs.REGISTER &&
-                    this.state.activeTab !== tabs.VIEW_NOTES) ||
+                  this.state.activeTab === tabs.VIEW_TAGS ||
+                  this.state.activeTab === tabs.CREATE_NOTE ||
+                  this.state.activeTab === tabs.CREATE_TAG ||
+                  this.state.activeTab === tabs.EDIT_NOTE ||
+                  this.state.activeTab === tabs.EDIT_TAG ||
                   this.state.searching === true
                     ? 'block'
                     : 'none',
@@ -1046,7 +1068,8 @@ class App extends Component {
               id='tabsVIEW_TAGS'
               className='button is-light has-text-dark'
               style={{
-                display: this.state.activeTab === tabs.CREATE_TAG ? 'block' : 'none',
+                display: this.state.activeTab === tabs.CREATE_TAG ||
+                this.state.activeTab === tabs.EDIT_TAG ? 'block' : 'none',
               }}
               onClick={() => this.tabClick(tabs.VIEW_TAGS)}>
               Back to Tags
@@ -1057,7 +1080,8 @@ class App extends Component {
               style={{
                 display:
                   this.state.activeTab === tabs.VIEW_NOTES ||
-                  this.state.activeTab === tabs.CREATE_NOTE
+                  this.state.activeTab === tabs.CREATE_NOTE ||
+                  this.state.activeTab === tabs.EDIT_NOTE
                     ? 'block'
                     : 'none',
               }}
@@ -1073,15 +1097,15 @@ class App extends Component {
               onClick={() => this.tabClick(tabs.CREATE_TAG)}>
               Create Tag
             </button>
-            <div
+            {/*<div
               className='invisible-delete-button'
               style={{
                 display:
-                  this.state.activeTab === tabs.EDIT_NOTE || this.state.activeTab === tabs.EDIT_TAG
+                  this.state.activeTab === tabs.EDIT_TAG
                     ? 'flex'
                     : 'none',
               }}
-            />
+            />*/}
           </div>
         </div>
 

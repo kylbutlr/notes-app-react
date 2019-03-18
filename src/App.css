@@ -58,6 +58,19 @@ input[name=id] {
   display: none;
 }
 
+.search .input {
+  z-index: 1;
+}
+
+.search input[type=submit]:hover {
+  z-index: 2;
+}
+
+.input:focus {
+  border-color: #ececec !important;
+  box-shadow: 0 0 1vh #111;
+}
+
 .header input[type=submit] {
   height: 5vh;
   width: 10vh;
@@ -485,7 +498,7 @@ span.label:not(:last-child) {
 @media (hover: hover) {
 
   .list-buttons button {
-    opacity: 0.25;
+    opacity: 0.5;
     transition: opacity 0.5s;
   }
 
@@ -503,6 +516,21 @@ span.label:not(:last-child) {
   
   li:hover .delete-button:hover {
     opacity: 1;
+  }
+
+  .header input[type=submit],
+  .navigation button,
+  .footer-buttons button {
+    opacity: 0.9;
+    transition: all 0.25s;
+  }
+
+  .header input[type=submit]:hover,
+  .navigation button:hover,
+  .footer-buttons button:hover {
+    opacity: 1;
+    border-color: #ececec;
+    box-shadow: 0 0 0.5vh #ececec;
   }
 
 }

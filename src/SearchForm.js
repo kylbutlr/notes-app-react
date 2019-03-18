@@ -6,6 +6,7 @@ export default ({ onSubmit, onChange, searchInput }) => (
       <span className='search-span'>Search:</span>
       <input
         name='search'
+        id='search-input'
         className='input'
         type='text'
         autoComplete='off'
