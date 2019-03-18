@@ -28,16 +28,17 @@ export default ({ onSubmit, onChange, title, text, tags }) => (
       />
     </label>
     <label className='field'>
-      <span className='label'>Tag(s): (separated by commas)</span>
+      <span className='label'>Tag(s):</span>
       <input
         name='tags'
         className='input'
         type='text'
         autoComplete='off'
         value={tags || ''}
-        placeholder='Optional, tag(s) must exist'
+        placeholder='Optional; Tag(s) must exist'
         onChange={e => onChange('tags', e)}
       />
+      <p className='help is-dark has-text-centered'>(Separate by commas)</p>
     </label>
     <input
       className='button is-dark is-text-light has-text-weight-semibold'

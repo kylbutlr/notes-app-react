@@ -12,7 +12,6 @@ export default ({ onSubmit, onChange, title, id }) => (
         autoComplete='off'
         required
         value={title}
-        placeholder='Separate tags by commas'
         onChange={e => onChange('title', e)}
       />
     </label>

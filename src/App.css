@@ -21,6 +21,7 @@
   flex-direction: column;
   align-items: center;
   padding: 1vh 0;
+  box-shadow: 0 0.1rem 0.5rem  red;
 }
 
 .body {
@@ -208,7 +209,7 @@ h4 {
 .register {
   background: #ecececec;
   border-radius: 1rem;
-  margin: 2.5vh auto 0;
+  margin: 10vh auto 0;
   padding: 1vh 1vh;
 }
 
@@ -236,6 +237,11 @@ h4 {
   box-sizing: border-box;
   width: 40vh;
   margin: 0 0 2vh;
+}
+
+.create-note input[name=tags],
+.edit-note input[name=tags] {
+  margin: 0;
 }
 
 .header input[type=text] {
@@ -276,6 +282,11 @@ input[type=submit] {
   margin: 0.5vh auto 0;
   width: 5vh !important;
   text-align: center;
+}
+
+.help {
+  opacity: 0.5;
+  margin-top: 0.1rem;
 }
 
 .note {
@@ -459,7 +470,7 @@ span.label:not(:last-child) {
 
   .login,
   .register {
-    margin: 7.5vh auto 0;
+    margin: 15vh auto 0;
     padding: 1vh 1vh;
   }
 
@@ -479,7 +490,7 @@ span.label:not(:last-child) {
 
   .login,
   .register {
-    margin: 2.5vh auto 0;
+    margin: 10vh auto 0;
     padding: 1vh 1vh;
   }
 

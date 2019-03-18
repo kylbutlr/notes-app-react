@@ -3,7 +3,7 @@ import React from 'react';
 export default ({ onSubmit, onChange, username, password, confirmPass }) => (
   <form onSubmit={onSubmit}>
     <label className='field'>
-      <span className='label'>Username: (4-16)</span>
+      <span className='label'>Username:</span>
       <input
         pattern='.{4,16}'
         name='username'
@@ -12,12 +12,13 @@ export default ({ onSubmit, onChange, username, password, confirmPass }) => (
         type='text'
         autoComplete='off'
         required
+        placeholder='4 - 16 characters'
         value={username}
         onChange={e => onChange('username', e)}
       />
     </label>
     <label className='field'>
-      <span className='label'>Password: (4-16)</span>
+      <span className='label'>Password:</span>
       <input
         name='password'
         id='register-password-input'
@@ -25,6 +26,7 @@ export default ({ onSubmit, onChange, username, password, confirmPass }) => (
         type='password'
         autoComplete='off'
         required
+        placeholder='4 - 16 characters'
         value={password}
         onChange={e => onChange('password', e)}
       />

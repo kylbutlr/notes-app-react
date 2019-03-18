@@ -165,7 +165,7 @@ class App extends Component {
         .get(`${API_ENDPOINT}/tags/${id}`, config)
         .catch(err => {
           if (err.response.status === 401) {
-            alert('Error: Session has expired, please log in again.');
+            alert('Error: Session has expired. Please log in again.');
             this.logoutUser('user');
           } else {
             alert('Error: ' + err.message);
@@ -198,7 +198,7 @@ class App extends Component {
         .get(`${API_ENDPOINT}/notes/${id}`, config)
         .catch(err => {
           if (err.response.status === 401) {
-            alert('Error: Session has expired, please log in again.');
+            alert('Error: Session has expired. Please log in again.');
             this.logoutUser('user');
           } else {
             alert('Error: ' + err.message);
@@ -278,7 +278,7 @@ class App extends Component {
                 notes[i].user_id = this.state.loggedIn.user_id;
                 axios.put(`${API_ENDPOINT}/notes/${notes[i].id}`, notes[i], config).catch(err => {
                   if (err.response.status === 401) {
-                    alert('Error: Session has expired, please log in again.');
+                    alert('Error: Session has expired. Please log in again.');
                     this.logoutUser('user');
                   } else {
                     alert('Error: ' + err.message);
@@ -294,7 +294,7 @@ class App extends Component {
           .delete(`${API_ENDPOINT}/tags/${id}`, config)
           .catch(err => {
             if (err.response.status === 401) {
-              alert('Error: Session has expired, please log in again.');
+              alert('Error: Session has expired. Please log in again.');
               this.logoutUser('user');
             } else {
               alert('Error: ' + err.message);
@@ -321,7 +321,7 @@ class App extends Component {
         .delete(`${API_ENDPOINT}/notes/${id}`, config)
         .catch(err => {
           if (err.response.status === 401) {
-            alert('Error: Session has expired, please log in again.');
+            alert('Error: Session has expired. Please log in again.');
             this.logoutUser('user');
           } else {
             alert('Error: ' + err.message);
@@ -410,8 +410,12 @@ class App extends Component {
     }
   }
 
-  resetTagInput() {
-    this.setState({ tagInput: { id: '', title: '', prevTag: '' } });
+  resetTagInput(id, title, prevTag) {
+    if (id || title || prevTag) {
+      this.setState({ tagInput: { id: id || '', title: title || '', prevTag: prevTag || '' } });
+    } else {
+      this.setState({ tagInput: { id: '', title: '', prevTag: '' } });
+    }
   }
 
   resetNoteInput() {
@@ -458,7 +462,8 @@ class App extends Component {
       this.capitalizeFirstChar(searchTag, capitalizedTag => {
         searchTags[i] = capitalizedTag;
         if (searchTag === '') {
-          alert('At least one searched tag was blank.');
+          searchTags.splice(i, 1);
+          alert('Warning: At least one searched tag was blank.');
         } else {
           searchTags[i] = '"' + searchTags[i] + '"';
           const t = this.state.tags.findIndex(x => x.title === searchTag);
@@ -507,7 +512,9 @@ class App extends Component {
     for (let i = 0; i < newTags.length; i++) {
       const newTag = newTags[i].trim();
       if (newTag === '') {
-        alert('New tag must not be blank.');
+        alert('Error: New tag must not be blank.');
+        this.resetTagInput();
+        document.getElementById('create-tag-input').focus();
       } else {
         newTags[i] = {
           title: newTag.toLowerCase(),
@@ -518,10 +525,12 @@ class App extends Component {
             .post(`${API_ENDPOINT}/tags`, newTags[i], config)
             .catch(err => {
               if (err.response.status === 401) {
-                alert('Error: Session has expired, please log in again.');
+                alert('Error: Session has expired. Please log in again.');
                 this.logoutUser('user');
               } else if (err.response.status === 422) {
                 alert('Error: Tag (' + newTags[i].title + ') already exists.');
+                this.resetTagInput();
+                document.getElementById('create-tag-input').focus();
               } else {
                 alert('Error: ' + err.message);
               }
@@ -552,109 +561,130 @@ class App extends Component {
     const input = this.state.noteInput;
     input.user_id = this.state.loggedIn.user_id;
     this.checkTagsInput(input.tags, tags => {
-      this.convertTagsToId(tags, newTags => {
-        input.tags = newTags;
-        if (input.tags !== false) {
-          if (input.title === ' ' || input.text === ' ') {
-            alert('New note must not contain a blank title or text.');
-            this.resetNoteInput();
-          } else {
-            this.getConfig(this.state.loggedIn, config => {
-              axios
-                .post(`${API_ENDPOINT}/notes`, input, config)
-                .catch(err => {
-                  if (err.response.status === 401) {
-                    alert('Error: Session has expired, please log in again.');
-                    this.logoutUser('user');
-                  } else {
-                    alert('Error: ' + err.message);
-                  }
-                })
-                .then(res => {
-                  if (res) {
-                    this.cleanString(res.data.tags, cleanTags => {
-                      this.convertIdToTags(cleanTags, convertedTags => {
-                        this.parseTags(convertedTags, parsedTags => {
-                          const newNote = {
-                            title: res.data.title,
-                            text: res.data.text,
-                            tags: parsedTags,
-                            id: res.data.id,
-                          };
-                          this.setState(
-                            {
-                              noteInput: newNote,
-                              notes: this.state.notes.concat(newNote),
-                            },
-                            () => {
-                              this.resetNoteInput();
-                              this.tabClick(tabs.VIEW_NOTES);
-                            }
-                          );
+      if (tags !== false) {
+        this.convertTagsToId(tags, newTags => {
+          if (newTags !== false) {
+            input.tags = newTags;
+            if (input.tags !== false) {
+              if (input.title === ' ' || input.text === ' ') {
+                alert('Error: New note must not contain a blank title or text.');
+                this.resetNoteInput();
+                document.getElementById('create-note-input').focus();
+              } else {
+                this.getConfig(this.state.loggedIn, config => {
+                  axios
+                    .post(`${API_ENDPOINT}/notes`, input, config)
+                    .catch(err => {
+                      if (err.response.status === 401) {
+                        alert('Error: Session has expired. Please log in again.');
+                        this.logoutUser('user');
+                      } else {
+                        alert('Error: ' + err.message);
+                      }
+                    })
+                    .then(res => {
+                      if (res) {
+                        this.cleanString(res.data.tags, cleanTags => {
+                          this.convertIdToTags(cleanTags, convertedTags => {
+                            this.parseTags(convertedTags, parsedTags => {
+                              const newNote = {
+                                title: res.data.title,
+                                text: res.data.text,
+                                tags: parsedTags,
+                                id: res.data.id,
+                              };
+                              this.setState(
+                                {
+                                  noteInput: newNote,
+                                  notes: this.state.notes.concat(newNote),
+                                },
+                                () => {
+                                  this.resetNoteInput();
+                                  this.tabClick(tabs.VIEW_NOTES);
+                                }
+                              );
+                            });
+                          });
                         });
-                      });
+                      }
                     });
-                  }
                 });
-            });
+              }
+            }
           }
-        }
-      });
+        });
+      }
     });
   }
 
   onEditTagFormSubmit(e) {
     e.preventDefault();
-    this.getConfig(this.state.loggedIn, config => {
-      const newTag = this.state.tagInput.title.toLowerCase();
-      const prevTag = this.state.tagInput.prevTag;
-      const notes = this.state.notes;
-      for (let i = 0; i < notes.length; i++) {
-        if (notes[i].tags[0]) {
-          const t = notes[i].tags.findIndex(x => x.toLowerCase() === prevTag);
-          if (t >= 0) {
-            notes[i].tags[t] = newTag;
-            notes[i].user_id = this.state.loggedIn.user_id;
-            axios.put(`${API_ENDPOINT}/notes/${notes[i].id}`, notes[i], config).catch(err => {
-              if (err.response.status === 401) {
-                alert('Error: Session has expired, please log in again.');
-                this.logoutUser('user');
-              } else {
-                alert('Error: ' + err.message);
-              }
-            });
+    if (this.state.tagInput.title.indexOf(',') >= 0) {
+      alert('Sorry, multiple tags not allowed when editing a tag. Please try again.');
+      this.capitalizeFirstChar(this.state.tagInput.prevTag, cb => {
+        this.resetTagInput(this.state.tagInput.id, cb, this.state.tagInput.prevTag);
+        this.tabClick(tabs.EDIT_TAG, () => {
+          document.getElementById('edit-tag-input').focus();
+        });
+      });
+    } else {
+      this.getConfig(this.state.loggedIn, config => {
+        const newTag = this.state.tagInput.title.toLowerCase();
+        const prevTag = this.state.tagInput.prevTag;
+        const notes = this.state.notes;
+        for (let i = 0; i < notes.length; i++) {
+          if (notes[i].tags[0]) {
+            const t = notes[i].tags.findIndex(x => x.toLowerCase() === prevTag);
+            if (t >= 0) {
+              notes[i].tags[t] = newTag;
+              notes[i].user_id = this.state.loggedIn.user_id;
+              axios.put(`${API_ENDPOINT}/notes/${notes[i].id}`, notes[i], config).catch(err => {
+                if (err.response.status === 401) {
+                  alert('Error: Session has expired. Please log in again.');
+                  this.logoutUser('user');
+                } else {
+                  alert('Error: ' + err.message);
+                }
+              });
+            }
           }
         }
-      }
-      const updatedTag = {
-        title: newTag,
-        user_id: this.state.loggedIn.user_id,
-      };
-      axios
-        .put(`${API_ENDPOINT}/tags/${this.state.tagInput.id}`, updatedTag, config)
-        .catch(err => {
-          if (err.response.status === 401) {
-            alert('Error: Session has expired, please log in again.');
-            this.logoutUser('user');
-          } else if (err.response.status === 422) {
-            alert('Error: Tag (' + newTag + ') already exists.');
-          } else {
-            alert('Error: ' + err.message);
-          }
-        })
-        .then(res => {
-          if (res) {
-            axios
-              .get(`${API_ENDPOINT}/user/${this.state.loggedIn.user_id}/tags`, config)
-              .then(tags => {
-                this.setState({ tags: tags.data }, () => {
-                  this.resetTagInput();
-                  this.tabClick(tabs.VIEW_TAGS);
+        const updatedTag = {
+          title: newTag,
+          user_id: this.state.loggedIn.user_id,
+        };
+        axios
+          .put(`${API_ENDPOINT}/tags/${this.state.tagInput.id}`, updatedTag, config)
+          .catch(err => {
+            if (err.response.status === 401) {
+              alert('Error: Session has expired. Please log in again.');
+              this.logoutUser('user');
+            } else if (err.response.status === 422) {
+              alert('Error: Tag (' + newTag + ') already exists.');
+              this.resetTagInput(
+                this.state.tagInput.id,
+                this.state.tagInput.title,
+                this.state.tagInput.prevTag
+              );
+              document.getElementById('edit-tag-input');
+            } else {
+              alert('Error: ' + err.message);
+            }
+          })
+          .then(res => {
+            if (res) {
+              axios
+                .get(`${API_ENDPOINT}/user/${this.state.loggedIn.user_id}/tags`, config)
+                .then(tags => {
+                  this.setState({ tags: tags.data }, () => {
+                    this.resetTagInput();
+                    this.tabClick(tabs.VIEW_TAGS);
+                  });
                 });
-              });
-          }
-        });
-    });
+            }
+          });
+      });
+    }
   }
 
   onEditNoteFormSubmit(e) {
@@ -666,45 +696,50 @@ class App extends Component {
         input.tags = '';
       }
       this.checkTagsInput(input.tags, tags => {
-        this.convertTagsToId(tags, newTags => {
-          input.tags = newTags;
-          if (input.tags !== false) {
-            if (input.title === ' ' || input.text === ' ') {
-              alert('New note must not contain a blank title or text.');
-              this.resetNoteInput();
-            } else {
-              axios
-                .put(`${API_ENDPOINT}/notes/${this.state.noteInput.id}`, input, config)
-                .catch(err => {
-                  if (err.response.status === 401) {
-                    alert('Error: Session has expired, please log in again.');
-                    this.logoutUser('user');
-                  } else {
-                    alert('Error: ' + err.message);
-                  }
-                })
-                .then(() => {
+        if (input.tags !== false) {
+          this.convertTagsToId(tags, newTags => {
+            if (tags !== false) {
+              input.tags = newTags;
+              if (input.tags !== false) {
+                if (input.title === ' ' || input.text === ' ') {
+                  alert('New note must not contain a blank title or text.');
+                  this.resetNoteInput();
+                  document.getElementById('edit-note-input').focus();
+                } else {
                   axios
-                    .get(`${API_ENDPOINT}/user/${this.state.loggedIn.user_id}/notes`, config)
-                    .then(notes => {
-                      for (let i = 0; i < notes.data.length; i++) {
-                        this.cleanString(notes.data[i].tags, cleanTags => {
-                          this.convertIdToTags(cleanTags, convertedTags => {
-                            this.parseTags(convertedTags, parsedTags => {
-                              notes.data[i].tags = parsedTags;
+                    .put(`${API_ENDPOINT}/notes/${this.state.noteInput.id}`, input, config)
+                    .catch(err => {
+                      if (err.response.status === 401) {
+                        alert('Error: Session has expired. Please log in again.');
+                        this.logoutUser('user');
+                      } else {
+                        alert('Error: ' + err.message);
+                      }
+                    })
+                    .then(() => {
+                      axios
+                        .get(`${API_ENDPOINT}/user/${this.state.loggedIn.user_id}/notes`, config)
+                        .then(notes => {
+                          for (let i = 0; i < notes.data.length; i++) {
+                            this.cleanString(notes.data[i].tags, cleanTags => {
+                              this.convertIdToTags(cleanTags, convertedTags => {
+                                this.parseTags(convertedTags, parsedTags => {
+                                  notes.data[i].tags = parsedTags;
+                                });
+                              });
                             });
+                          }
+                          this.setState({ notes: notes.data }, () => {
+                            this.resetNoteInput();
+                            this.tabClick(tabs.VIEW_NOTES);
                           });
                         });
-                      }
-                      this.setState({ notes: notes.data }, () => {
-                        this.resetNoteInput();
-                        this.tabClick(tabs.VIEW_NOTES);
-                      });
                     });
-                });
+                }
+              }
             }
-          }
-        });
+          });
+        }
       });
     });
   }
@@ -720,7 +755,9 @@ class App extends Component {
         .post(`${API_ENDPOINT}/register`, newUser)
         .catch(err => {
           if (err.response.status === 422) {
-            alert('Sorry, that username (' + this.state.registerInput.username + ') already exists.');
+            alert(
+              'Sorry, that username (' + this.state.registerInput.username + ') already exists.'
+            );
             this.resetRegisterInput();
             document.getElementById('register-input').focus();
           } else {
@@ -839,36 +876,46 @@ class App extends Component {
     if (input[0].indexOf(',') >= 0) {
       input = input[0].split(',');
     }
+    const length = input.length;
     for (let i = 0; i < input.length; i++) {
       const anInput = input[i].trim().toLowerCase();
       const t = this.state.tags.findIndex(x => x.title === anInput);
       if (input.length > 1 && anInput === '') {
         alert('Error: At least one entered tag was blank.');
-        input = false;
+        input.splice(i, 1);
       } else if (input.length > 1 && t < 0) {
         alert('Error: Tag (' + anInput + ') does not exist.');
-        input = false;
+        input.splice(i, 1);
       } else {
         input[i] = anInput;
       }
     }
-    cb(input);
+    if (input.length === length) {
+      cb(input);
+    } else {
+      cb(false);
+    }
   }
 
   convertTagsToId(tags, cb) {
+    const length = tags.length;
     if (tags[0].length !== 0) {
       for (let i = 0; i < tags.length; i++) {
         const anInput = tags[i];
         const t = this.state.tags.findIndex(x => x.title === anInput);
         if (t < 0) {
           alert('Error: Tag (' + anInput + ') does not exist');
-          cb(false);
+          tags.splice(i, 1);
         } else {
           tags[i] = this.state.tags[t].id;
         }
       }
     }
-    cb(tags);
+    if (tags.length === length) {
+      cb(tags);
+    } else {
+      cb(false);
+    }
   }
 
   convertIdToTags(anId, cb) {
@@ -1068,8 +1115,10 @@ class App extends Component {
               id='tabsVIEW_TAGS'
               className='button is-light has-text-dark'
               style={{
-                display: this.state.activeTab === tabs.CREATE_TAG ||
-                this.state.activeTab === tabs.EDIT_TAG ? 'block' : 'none',
+                display:
+                  this.state.activeTab === tabs.CREATE_TAG || this.state.activeTab === tabs.EDIT_TAG
+                    ? 'block'
+                    : 'none',
               }}
               onClick={() => this.tabClick(tabs.VIEW_TAGS)}>
               Back to Tags
