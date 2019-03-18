@@ -4,12 +4,12 @@
 }
 
 html {
-  min-width: 100vw !important;
+  min-width: 0px !important;
 }
 
 html, body {
   width: 100vw;
-  height: calc(100vh);
+  height: calc(100%);
   overflow: hidden;
 }
 
