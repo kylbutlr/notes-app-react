@@ -77,7 +77,7 @@ input[name=id] {
 
 .header input[type=submit] {
   height: 5vh;
-  width: 10vh;
+  width: 15vw;
 }
 
 .invisible-search {
@@ -92,18 +92,18 @@ input[name=id] {
 .navigation {
   display: flex;
   justify-content: space-between;
-  width: 41vh;
+  width: 72.5vw;
 }
 
 .navigation button {
   height: 5vh;
-  width: 20vh;
+  width: 35vw;
 }
 
 .body div {
   display: flex;
   flex-direction: column;
-  width: 45vh;
+  width: 85vw;
 }
 
 .body label span {
@@ -238,7 +238,7 @@ h4 {
 .header input[type=text] {
   height: 5vh;
   box-sizing: border-box;
-  width: 40vh;
+  width: 75vw;
   margin: 0 0 2vh;
 }
 
@@ -248,7 +248,7 @@ h4 {
 }
 
 .header input[type=text] {
-  width: 30vh;
+  width: 57.5vw;
   margin: 0 0 0.5rem;
 }
 
@@ -266,7 +266,7 @@ input[type=submit] {
 .create-tag input[type=submit],
 .edit-tag input[type=submit] {
   height: 5vh;
-  width: 30vh;
+  width: 50vw;
   margin: 0.5rem 5vh 0;
 }
 
@@ -283,7 +283,7 @@ input[type=submit] {
 .or {
   background: transparent !important;
   margin: 0.25rem auto 0;
-  width: 5vh !important;
+  width: 5vw !important;
   text-align: center;
 }
 
@@ -366,7 +366,7 @@ input[type=submit] {
 
 .view-tags .list-buttons button {
   height: 6vh;
-  width: 12.5vh;
+  width: 25vw;
 }
 
 .view-tags .list-buttons button:first-child {
@@ -383,13 +383,13 @@ input[type=submit] {
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-  width: 41vh;
+  width: 72.5vw;
 }
 
 .footer-buttons button,
 .invisible-delete-button {
   height: 5vh;
-  width: 20vh;
+  width: 35vw;
 }
 
 label.field:not(:last-child) {
@@ -432,38 +432,32 @@ span.label:not(:last-child) {
   }
 
   .header input[type=text] {
-    width: 30vh;
+    width: 60vw;
   }
 
   .header input[type=submit] {
-    width: 10vh;
+    width: 15vw;
+  }
+
+  .body div {
+    width: 60vw;
   }
 
   .list-buttons button {
     opacity: 0.75;
-    width: 7.5vh;
     height: 4vh;
   }
 
   .view-tags .list-buttons button {
     height: 4vh;
-    width: 10vh;
+    width: 15vw;
   }
 
-  .login input[type=submit],
-  .login button,
-  .register input[type=submit],
-  .register button,
-  .create-note input[type=submit],
-  .edit-note input[type=submit],
-  .create-tag input[type=submit],
-  .edit-tag input[type=submit] {
-    width: 25vh;
-  }
-
-  .navigation button,
-  .footer-buttons button {
-    width: 20vh;
+  .create-note,
+  .create-tag,
+  .edit-note,
+  .edit-tag {
+    width: 55vw !important;
   }
 
   .login input[type=text],
@@ -475,7 +469,28 @@ span.label:not(:last-child) {
   .create-tag input[type=text],
   .edit-tag input[type=text],
   .header input[type=text] {
-    width: 35vh;
+    width: 45vw;
+  }
+  
+  .login input[type=submit],
+  .login button,
+  .register input[type=submit],
+  .register button,
+  .create-note input[type=submit],
+  .edit-note input[type=submit],
+  .create-tag input[type=submit],
+  .edit-tag input[type=submit] {
+    width: 30vw;
+  }
+
+  .navigation,
+  .footer-buttons {
+    width: 51vw;
+  }
+
+  .navigation button,
+  .footer-buttons button {
+    width: 25vw;
   }
 
   .login button,
@@ -494,6 +509,18 @@ span.label:not(:last-child) {
 
 @media only screen and (min-width: 1024px) {
 
+  .body div {
+    width: 40vw;
+  }
+
+  .header input[type=text] {
+    width: 17.5vw;
+  }
+
+  .header input[type=submit] {
+    width: 7.5vw;
+  }
+
   .login,
   .register {
     margin: 10vh auto 0;
@@ -507,6 +534,45 @@ span.label:not(:last-child) {
   .view-tags .list-buttons button {
     height: 6vh;
     width: 7.5vh;
+  }
+
+  .create-note,
+  .create-tag,
+  .edit-note,
+  .edit-tag {
+    width: 35vw !important;
+  }
+
+  .login input[type=text],
+  .login input[type=password],
+  .register input[type=text],
+  .register input[type=password],
+  .create-note input[type=text],
+  .edit-note input[type=text],
+  .create-tag input[type=text],
+  .edit-tag input[type=text] {
+    width: 30vw;
+  }
+
+  .login input[type=submit],
+  .login button,
+  .register input[type=submit],
+  .register button,
+  .create-note input[type=submit],
+  .edit-note input[type=submit],
+  .create-tag input[type=submit],
+  .edit-tag input[type=submit] {
+    width: 20vw;
+  }
+
+  .navigation,
+  .footer-buttons {
+    width: 31vw;
+  }
+
+  .navigation button,
+  .footer-buttons button {
+    width: 15vw;
   }
 
 }
