@@ -4,6 +4,8 @@
 
 Uses: React, Axios, RWD
 
+### [Click Here for a Live Preview](https://kylbutlr-notes-react.herokuapp.com/) (No e-mail required to Register)
+
 ## Description
 
 Register and login to a personal user account (no e-mail required), then create, edit, and delete tags and notes. Note entries can be associated with created tags, allowing for later searching by tags. Both tag creation and searching can be done by entering multiple tags, separated by commas. Also features responsive web design for cross-device compatibility.
