@@ -1165,7 +1165,7 @@ class App extends Component {
           <div
             className='login'
             style={{
-              display: this.state.activeTab === tabs.LOGIN ? 'block' : 'none',
+              display: this.state.activeTab === tabs.LOGIN ? 'flex' : 'none',
             }}>
             <h2 className='subtitle is-3 has-text-dark has-text-centered'>Login:</h2>
             <LoginForm
@@ -1185,7 +1185,7 @@ class App extends Component {
           <div
             className='register'
             style={{
-              display: this.state.activeTab === tabs.REGISTER ? 'block' : 'none',
+              display: this.state.activeTab === tabs.REGISTER ? 'flex' : 'none',
             }}>
             <h2 className='subtitle is-3 has-text-dark has-text-centered'>Register:</h2>
             <RegisterForm
