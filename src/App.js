@@ -12,7 +12,7 @@ import './App.css';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const API_ENDPOINT = 'http://localhost:3000';
+const API_ENDPOINT = 'https://kylbutlr-notes-api.herokuapp.com';
 const tabs = {
   LOGIN: 1,
   REGISTER: 2,
