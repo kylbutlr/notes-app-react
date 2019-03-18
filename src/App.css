@@ -440,7 +440,14 @@ span.label:not(:last-child) {
   }
 
   .list-buttons button {
+    opacity: 0.75;
     width: 7.5vh;
+    height: 4vh;
+  }
+
+  .view-tags .list-buttons button {
+    height: 4vh;
+    width: 10vh;
   }
 
   .login input[type=submit],
@@ -480,15 +487,6 @@ span.label:not(:last-child) {
   .register {
     margin: 15vh auto 0;
     padding: 1vh 1vh;
-  }
-
-  .list-buttons button {
-    height: 5vh;
-  }
-  
-  .view-tags .list-buttons button {
-    height: 5vh;
-    width: 10vh;
   }
 
 }
