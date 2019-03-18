@@ -20,7 +20,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1vh 0;
+  padding: 0.5rem 0;
   z-index: 1;
   box-shadow: 0 0.1rem 0.5rem #111;
 }
@@ -36,7 +36,7 @@
   background: #111;
   background-image: linear-gradient(to bottom, #406e405b, #355c355b);  
   width: 100%;
-  padding: 1vh 0 1vh;
+  padding: 0.5rem 0 0.5rem;
   z-index: 1;
   box-shadow: 0 0.1rem 0.5rem #111;
 }
@@ -72,7 +72,7 @@ input[name=id] {
 
 .input:focus {
   border-color: #ececec !important;
-  box-shadow: 0 0 1vh #111;
+  box-shadow: 0 0 0.5rem #111;
 }
 
 .header input[type=submit] {
@@ -123,11 +123,11 @@ input[name=id] {
   border-radius: 1rem;
   display: flex;
   justify-content: space-between;
-  margin: 1vh 0;
+  margin: 0.5rem 0;
 }
 
 .body form {
-  padding: 1vh 0 0;
+  padding: 0.5rem 0 0;
 }
 
 .p1 {
@@ -149,7 +149,7 @@ input[name=id] {
 
 h2 {
   font-size: 1.5rem;
-  padding: 0 0 1vh;
+  padding: 0 0 0.5rem;
 }
 
 h3 {
@@ -176,7 +176,7 @@ h4 {
 
 .view-tags h2,
 .view-search h2 {
-  margin: 1vh auto 0 !important;
+  margin: 0.5rem auto 0 !important;
   padding: 0;
 }
 
@@ -190,12 +190,12 @@ h4 {
 
 .view-search h3 {
   text-align: center;
-  margin: 0 auto 1vh !important;
+  margin: 0 auto 0.5rem !important;
 }
 
 .view-search h4 {
   text-align: center;
-  padding: 0 0 1vh;
+  padding: 0 0 0.5rem;
 }
 
 .view-tags h4,
@@ -205,7 +205,7 @@ h4 {
 
 .view-tags h4:first-child,
 .view-notes h4:first-child {
-  padding: 0 0 1vh;
+  padding: 0 0 0.5rem;
 }
 
 .login,
@@ -213,7 +213,7 @@ h4 {
   background: #ecececec;
   border-radius: 1rem;
   margin: 10vh auto 0;
-  padding: 1vh 1vh;
+  padding: 0.5rem;
 }
 
 .login form,
@@ -249,7 +249,7 @@ h4 {
 
 .header input[type=text] {
   width: 30vh;
-  margin: 0 0 1vh;
+  margin: 0 0 0.5rem;
 }
 
 .button,
@@ -267,7 +267,7 @@ input[type=submit] {
 .edit-tag input[type=submit] {
   height: 5vh;
   width: 30vh;
-  margin: 1vh 5vh 0;
+  margin: 0.5rem 5vh 0;
 }
 
 .login h2,
@@ -277,12 +277,12 @@ input[type=submit] {
 
 .login button,
 .register button {
-  margin: 0.5vh 6.5vh 0;
+  margin: 0.25rem 6.5vh 0;
 }
 
 .or {
   background: transparent !important;
-  margin: 0.5vh auto 0;
+  margin: 0.25rem auto 0;
   width: 5vh !important;
   text-align: center;
 }
@@ -299,11 +299,11 @@ input[type=submit] {
 .list-info {
   flex: 1;
   align-self: flex-start;
-  padding: 1vh 2vh;
+  padding: 0.5rem 2vh;
 }
 
 .list-info p {
-  padding: 0.5vh 0 0.5vh;
+  padding: 0.25rem 0 0.25rem;
 }
 
 .list-buttons {
@@ -321,7 +321,7 @@ input[type=submit] {
 .view-notes,
 .view-tags,
 .view-search {
-  margin: 1vh auto;
+  margin: 0.5rem auto;
 }
 
 .create-note,
@@ -354,13 +354,13 @@ input[type=submit] {
 
 .view-search .list-buttons button:first-child,
 .view-notes .list-buttons button:first-child {
-  margin: 0 0 0.5vh 0.5vh;
+  margin: 0 0 0.25rem 0.25rem;
   border-radius: 1rem 0 0 1rem;
 }
 
 .view-search .list-buttons button:nth-child(2),
 .view-notes .list-buttons button:nth-child(2) {
-  margin: 0 0.5vh 0.5vh 0;
+  margin: 0 0.25rem 0.25rem 0;
   border-radius: 0 1rem 1rem 0;
 }
 
@@ -370,12 +370,12 @@ input[type=submit] {
 }
 
 .view-tags .list-buttons button:first-child {
-  margin: 0.5vh 0 0.5vh 0.5vh;
+  margin: 0.25rem 0 0.25rem 0.25rem;
   border-radius: 1rem 0 0 1rem;
 }
 
 .view-tags .list-buttons button:nth-child(2) {
-  margin: 0.5vh 0.5vh 0.5vh 0;
+  margin: 0.25rem 0.25rem 0.25rem 0;
   border-radius: 0 1rem 1rem 0;
 }
 
@@ -412,7 +412,7 @@ span.label:not(:last-child) {
 .tags-title {
   background: #ecececec;
   border-radius: 1rem;
-  padding-bottom: 1vh;
+  padding-bottom: 0.5rem;
 }
 
 ::-webkit-scrollbar {
@@ -480,13 +480,13 @@ span.label:not(:last-child) {
 
   .login button,
   .register button {
-    margin: 0.5vh 9vh 0;
+    margin: 0.25rem 9vh 0;
   }
 
   .login,
   .register {
     margin: 15vh auto 0;
-    padding: 1vh 1vh;
+    padding: 0.5rem;
   }
 
 }
@@ -497,7 +497,7 @@ span.label:not(:last-child) {
   .login,
   .register {
     margin: 10vh auto 0;
-    padding: 1vh 1vh;
+    padding: 0.5rem;
   }
 
   .list-buttons button {
@@ -547,7 +547,7 @@ span.label:not(:last-child) {
   .footer-buttons button:hover {
     opacity: 1;
     border-color: #ececec;
-    box-shadow: 0 0 0.5vh #ececec;
+    box-shadow: 0 0 0.25rem #ececec;
   }
 
 }
