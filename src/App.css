@@ -21,7 +21,8 @@
   flex-direction: column;
   align-items: center;
   padding: 1vh 0;
-  box-shadow: 0 0.1rem 0.5rem  red;
+  z-index: 1;
+  box-shadow: 0 0.1rem 0.5rem #111;
 }
 
 .body {
@@ -36,6 +37,8 @@
   background-image: linear-gradient(to bottom, #406e405b, #355c355b);  
   width: 100%;
   padding: 1vh 0 1vh;
+  z-index: 1;
+  box-shadow: 0 0.1rem 0.5rem #111;
 }
 
 button, 
@@ -174,7 +177,7 @@ h4 {
 .view-tags h2,
 .view-search h2 {
   margin: 1vh auto 0 !important;
-  padding-top: 1vh;
+  padding: 0;
 }
 
 .view-tags-title {
@@ -342,6 +345,11 @@ input[type=submit] {
   flex: 1;
   height: 6vh;
   border: 1px solid #dbdbdb !important;
+}
+
+.view-tags ol {
+  width: 90%;
+  margin: 0 auto;
 }
 
 .view-search .list-buttons button:first-child,
