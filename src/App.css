@@ -5,6 +5,9 @@
 
 html {
   min-width: 100vw !important;
+  width: 100vw;
+  height: calc(100vh);
+  overflow: hidden;
 }
 
 .app {
