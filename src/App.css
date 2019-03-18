@@ -89,10 +89,6 @@ input[name=id] {
   width: 15vw;
 }
 
-.invisible-search {
-  height: 7vh;
-}
-
 .title {
   letter-spacing: 0.25rem;
   margin-bottom: 0 !important;
@@ -243,7 +239,7 @@ h4 {
 .create-tag input[type=text],
 .edit-tag input[type=text],
 .header input[type=text] {
-  height: 5vh;
+  height: 2rem;
   box-sizing: border-box;
   width: 75vw;
   margin: 0 0 2vh;
@@ -289,6 +285,15 @@ input[type=submit] {
   text-align: center;
 }
 
+.loading-ol {
+  margin: auto;
+  width: 10vw;
+}
+
+.loading-li {
+  padding-top: 0.5rem !important;
+}
+
 .help {
   opacity: 0.5;
   margin-top: 0.1rem;
@@ -306,12 +311,6 @@ input[type=submit] {
 
 .list-info p {
   padding: 0.25rem 0 0.25rem;
-}
-
-.list-buttons {
-  flex: 1;
-  justify-content: center;
-  align-items: center;
 }
 
 .view-search .list-buttons,
@@ -343,10 +342,27 @@ input[type=submit] {
   margin-bottom: 0 !important;
 }
 
-.list-buttons button {
+.list-buttons {
   flex: 1;
-  height: 6vh;
-  border: 1px solid #dbdbdb !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.list-buttons button {
+  width: 8rem;
+  height: 2.5rem;
+}
+
+.list-buttons button:first-child {
+  margin-right: 0.5rem;
+  border-radius: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.list-buttons button:nth-child(2) {
+  margin-left: 0.5rem;
+  border-radius: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .view-tags ol {
@@ -354,21 +370,9 @@ input[type=submit] {
   margin: 0 auto;
 }
 
-.view-search .list-buttons button:first-child,
-.view-notes .list-buttons button:first-child {
-  margin: 0 0 0.25rem 0.25rem;
-  border-radius: 1rem 0 0 1rem;
-}
-
-.view-search .list-buttons button:nth-child(2),
-.view-notes .list-buttons button:nth-child(2) {
-  margin: 0 0.25rem 0.25rem 0;
-  border-radius: 0 1rem 1rem 0;
-}
-
 .view-tags .list-buttons button {
-  height: 6vh;
-  width: 25vw;
+  height: 2.5rem;
+  width: 4rem
 }
 
 .view-tags .list-buttons button:first-child {
@@ -390,7 +394,7 @@ input[type=submit] {
 
 .footer-buttons button,
 .invisible-delete-button {
-  height: 5vh;
+  height: 2rem;
   width: 35vw;
 }
 
@@ -447,11 +451,11 @@ span.label:not(:last-child) {
 
   .list-buttons button {
     opacity: 0.75;
-    height: 4vh;
+    height: 2rem;
   }
 
   .view-tags .list-buttons button {
-    height: 4vh;
+    height: 2rem;
     width: 15vw;
   }
 
@@ -534,7 +538,7 @@ span.label:not(:last-child) {
   }
   
   .view-tags .list-buttons button {
-    height: 6vh;
+    height: 2rem;
     width: 7.5vh;
   }
 

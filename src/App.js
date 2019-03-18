@@ -139,7 +139,7 @@ class App extends Component {
         })
         .then(tags => {
           if (tags) {
-            this.setState({ tags: this.state.tags.concat(tags.data) }, () => {
+            this.setState({ tags: tags.data }, () => {
               axios
                 .get(`${API_ENDPOINT}/user/${user_id}/notes`, config)
                 .catch(err => {
@@ -149,7 +149,7 @@ class App extends Component {
                 .then(notes => {
                   if (notes) {
                     notes = this.cleanTags(notes, cb => {
-                      this.setState({ notes: this.state.notes.concat(cb.data) });
+                      this.setState({ notes: cb.data });
                     });
                   }
                 });
@@ -1147,15 +1147,6 @@ class App extends Component {
               onClick={() => this.tabClick(tabs.CREATE_TAG)}>
               Create Tag
             </button>
-            {/*<div
-              className='invisible-delete-button'
-              style={{
-                display:
-                  this.state.activeTab === tabs.EDIT_TAG
-                    ? 'flex'
-                    : 'none',
-              }}
-            />*/}
           </div>
         </div>
 
@@ -1236,17 +1227,6 @@ class App extends Component {
                   : 'none',
             }}>
             <h2 className='subtitle is-3 has-text-dark has-text-centered'>Notes:</h2>
-            <ol
-              style={{
-                display: this.state.notes.length === 0 ? 'block' : 'none',
-              }}>
-              <li>
-                <div className='list-info'>
-                  <h4>No notes currently exist.</h4>
-                  <h4>Try creating a new note above!</h4>
-                </div>
-              </li>
-            </ol>
             <ol>{this.state.notes.map(n => this.renderNote(n))}</ol>
           </div>
 
