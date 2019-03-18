@@ -462,13 +462,14 @@ class App extends Component {
       this.capitalizeFirstChar(searchTag, capitalizedTag => {
         searchTags[i] = capitalizedTag;
         if (searchTag === '') {
-          searchTags.splice(i, 1);
           alert('Warning: At least one searched tag was blank.');
+          searchTags.splice(i, 1);
         } else {
           searchTags[i] = '"' + searchTags[i] + '"';
           const t = this.state.tags.findIndex(x => x.title === searchTag);
           if (t < 0) {
-            alert('Error: Tag (' + searchTag + ') does not exist.');
+            alert('Error: Tag (' + capitalizedTag + ') does not exist.');
+            searchTags.splice(i, 1);
           } else {
             for (let j = 0; j < this.state.notes.length; j++) {
               this.cleanString(this.state.notes[j].tags, cleanTags => {
