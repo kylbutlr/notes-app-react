@@ -159,6 +159,13 @@ class App extends Component {
     });
   }
 
+  notifyRegisterSuccessful() {
+    document.getElementById('register-notification').classList.add('show');
+    setTimeout(() => {
+      document.getElementById('register-notification').classList.remove('show');
+    }, 3000);
+  }
+
   handleEditTag(id) {
     this.getConfig(this.state.loggedIn, config => {
       axios
@@ -386,8 +393,10 @@ class App extends Component {
     if (user) {
       if (this.state.loginInput.username) {
         this.setState({ loginInput: { username: this.state.loginInput.username, password: '' } });
-      } else {
+      } else if (this.state.loggedIn.username) {
         this.setState({ loginInput: { username: this.state.loggedIn.username, password: '' } });
+      } else {
+        this.setState({ loginInput: { username: '', password: '' } });
       }
     } else {
       this.setState({ loginInput: { username: '', password: '' } });
@@ -396,13 +405,15 @@ class App extends Component {
 
   resetRegisterInput(user) {
     if (user) {
-      this.setState({
-        registerInput: {
-          ...this.state.registerInput,
-          password: '',
-          confirmPass: '',
-        },
-      });
+      if (this.state.registerInput.username) {
+        this.setState({
+          registerInput: {
+            username: this.state.registerInput.username,
+            password: '',
+            confirmPass: '',
+          },
+        });
+      }
     } else {
       this.setState({
         registerInput: { username: '', password: '', confirmPass: '' },
@@ -768,6 +779,7 @@ class App extends Component {
         .then(res => {
           if (res) {
             this.tabClick(tabs.LOGIN);
+            this.notifyRegisterSuccessful();
           }
         });
     } else {
@@ -1190,6 +1202,14 @@ class App extends Component {
               onClick={() => this.tabClick(tabs.LOGIN)}>
               Back to Login
             </button>
+          </div>
+          <div
+            id='register-notification'
+            className='notification'
+            style={{
+              display: this.state.activeTab === tabs.LOGIN ? 'block' : 'none',
+            }}>
+            <h2>Register Successful</h2>
           </div>
 
           {/* Search Results */}

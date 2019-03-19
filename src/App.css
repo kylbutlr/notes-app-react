@@ -421,6 +421,24 @@ span.label:not(:last-child) {
   padding-bottom: 0.5rem;
 }
 
+.notification {
+  background: #ececec80;
+  color: #111111bf;
+  box-shadow: 0 0 0.5rem #111;
+  z-index: 10;
+  position: absolute;
+  margin: 10vh 35vw;
+  width: 30vw !important;
+  text-align: center;
+  padding: 1rem 0 0.5rem;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.show {
+  opacity: 1;
+}
+
 ::-webkit-scrollbar {
   width: 0px;  /* remove scrollbar space */
   background: transparent;  /* optional: just make scrollbar invisible */
