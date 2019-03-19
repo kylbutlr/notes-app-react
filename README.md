@@ -32,13 +32,11 @@ npm start
 
 ## Contributing
 
-[@kylbutlr](https://github.com/kylbutlr)
+Kyle Butler [@kylbutlr](https://github.com/kylbutlr)
 
-PRs accepted.
+#### Special Thanks: 
 
-## Special Thanks
-
-[@NoumanSaleem](https://github.com/NoumanSaleem])
+Nouman Saleem [@NoumanSaleem](https://github.com/NoumanSaleem)
 
 ## License
 
