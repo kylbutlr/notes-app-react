@@ -1,12 +1,10 @@
 # Notes App (React)
 
-#### React front-end for a Note taking application
+React front-end for a note-taking application
 
 Created to be used with my [Notes App (API)](https://github.com/kylbutlr/notes-app-api)
 
 Uses: React, Axios, RWD
-
-## Preview
 
 ### [Click here for a live preview](https://kylbutlr-notes-react.herokuapp.com/)
 
