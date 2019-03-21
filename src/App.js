@@ -132,7 +132,7 @@ class App extends Component {
     const { user_id } = savedData;
     this.getConfig(this.state.loggedIn, config => {
       axios
-        .get(`${API_ENDPOINT}/user/${user_id}/tags`, config)
+        .get(`${API_ENDPOINT}/tags/user/${user_id}`, config)
         .catch(err => {
           this.logoutUser('user');
           document.getElementById('login-password-input').focus();
@@ -141,7 +141,7 @@ class App extends Component {
           if (tags) {
             this.setState({ tags: tags.data }, () => {
               axios
-                .get(`${API_ENDPOINT}/user/${user_id}/notes`, config)
+                .get(`${API_ENDPOINT}/notes/user/${user_id}`, config)
                 .catch(err => {
                   this.logoutUser('user');
                   document.getElementById('login-password-input').focus();
@@ -309,7 +309,7 @@ class App extends Component {
           })
           .then(() => {
             axios
-              .get(`${API_ENDPOINT}/user/${this.state.loggedIn.user_id}/tags`, config)
+              .get(`${API_ENDPOINT}/tags/user/${this.state.loggedIn.user_id}`, config)
               .then(tags => {
                 if (tags) {
                   this.setState({
@@ -336,7 +336,7 @@ class App extends Component {
         })
         .then(() => {
           axios
-            .get(`${API_ENDPOINT}/user/${this.state.loggedIn.user_id}/notes`, config)
+            .get(`${API_ENDPOINT}/notes/user/${this.state.loggedIn.user_id}`, config)
             .then(notes => {
               if (notes) {
                 for (let i = 0; i < notes.data.length; i++) {
@@ -686,7 +686,7 @@ class App extends Component {
           .then(res => {
             if (res) {
               axios
-                .get(`${API_ENDPOINT}/user/${this.state.loggedIn.user_id}/tags`, config)
+                .get(`${API_ENDPOINT}/tags/user/${this.state.loggedIn.user_id}`, config)
                 .then(tags => {
                   this.setState({ tags: tags.data }, () => {
                     this.resetTagInput();
@@ -730,7 +730,7 @@ class App extends Component {
                     })
                     .then(() => {
                       axios
-                        .get(`${API_ENDPOINT}/user/${this.state.loggedIn.user_id}/notes`, config)
+                        .get(`${API_ENDPOINT}/notes/user/${this.state.loggedIn.user_id}`, config)
                         .then(notes => {
                           for (let i = 0; i < notes.data.length; i++) {
                             this.cleanString(notes.data[i].tags, cleanTags => {
