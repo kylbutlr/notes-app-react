@@ -379,7 +379,7 @@ class App extends Component {
         )
       ) {
         this.getConfig(this.state.loggedIn, config => {
-          axios.delete(`${API_ENDPOINT}/notes`, config).then(() => {
+          axios.delete(`${API_ENDPOINT}/notes/user/${this.state.loggedIn.user_id}`, config).then(() => {
             this.setState({
               notes: [],
             });
