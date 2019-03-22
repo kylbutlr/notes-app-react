@@ -2,7 +2,7 @@
 
 React front-end for a note-taking application
 
-Created to be used with my [Notes App (API)](https://github.com/kylbutlr/notes-app-api) server
+Created to be used with my [Notes App (API)](https://github.com/kylbutlr/notes-app-api)
 
 Uses: React, Axios, RWD
 
