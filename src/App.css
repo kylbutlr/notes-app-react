@@ -217,7 +217,7 @@ h4 {
 .register {
   background: #ecececec;
   border-radius: 1rem;
-  margin: 2.5rem auto 0;
+  margin: 1.5rem auto 0;
   padding: 1rem;
   flex-direction: column;
   align-items: center;
@@ -334,7 +334,7 @@ input[type=submit] {
 .edit-note,
 .edit-tag {
   background: #ecececec;
-  margin: 2.5rem auto;
+  margin: 1.5rem auto;
   padding: 1rem;
   border-radius: 1rem;
 }
