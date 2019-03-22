@@ -1061,14 +1061,14 @@ class App extends Component {
         <div className='header'>
           {/* Title */}
           <div className='title'>
-            <div
+            {/*<div
               style={{
                 display: this.state.loggedIn !== false ? 'block' : 'none',
               }}>
               <h1 className='title has-text-light' onClick={() => this.tabClick(tabs.VIEW_NOTES)}>
                 Notes
               </h1>
-            </div>
+            </div>*/}
             <div
               style={{
                 display: this.state.loggedIn === false ? 'block' : 'none',

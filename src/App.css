@@ -217,7 +217,7 @@ h4 {
 .register {
   background: #ecececec;
   border-radius: 1rem;
-  margin: 10vh auto 0;
+  margin: 2.5rem auto 0;
   padding: 1rem;
   flex-direction: column;
   align-items: center;
@@ -334,7 +334,7 @@ input[type=submit] {
 .edit-note,
 .edit-tag {
   background: #ecececec;
-  margin: 5vh auto;
+  margin: 2.5rem auto;
   padding: 1rem;
   border-radius: 1rem;
 }
@@ -431,7 +431,7 @@ span.label:not(:last-child) {
   box-shadow: 0 0 0.5rem #111;
   z-index: 10;
   position: absolute;
-  margin: 10vh 35vw;
+  margin: 2.5rem 35vw;
   width: 30vw !important;
   text-align: center;
   padding: 1rem 0 0.5rem;
