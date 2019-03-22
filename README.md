@@ -6,9 +6,13 @@ Created to be used with my [Notes App (API)](https://github.com/kylbutlr/notes-a
 
 Uses: React, Axios, RWD
 
+***
+
 ### [Click here for a live preview](https://kylbutlr-notes-react.herokuapp.com/)
 
 No e-mail required to register a new user account. Feel free to "sign up" and test things out!
+
+***
 
 ## Description
 
@@ -22,13 +26,11 @@ npm install
 
 ## Usage
 
-Connects to API on port `3000`
-
-**Make sure API server is running first**
-
 ```shell
 npm start
 ```
+
+***
 
 ## Contributing
 
