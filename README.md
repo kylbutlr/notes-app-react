@@ -16,7 +16,7 @@ No e-mail required to register a new user. Or use the public test account (usern
 
 ## Description
 
-Register and login to a personal user account (no e-mail required), then create, edit, and delete tags and notes. Note entries can be associated with created tags, allowing for later searching by tags. Both tag creation and searching can be done by entering multiple tags, separated by commas. Also features responsive web design for cross-device compatibility.
+Register and login to a personal user account (no e-mail required), then create, edit, and delete tags and notes. Note entries can be associated with created tags, allowing for later searching by tags. Both tag creation and searching can be done by entering multiple tags, separated by commas. All notes and tags will be private and only saved/displayed for the corresponding logged in user account. Also features responsive web design for cross-device compatibility.
 
 ## Install
 
