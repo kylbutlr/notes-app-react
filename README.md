@@ -10,7 +10,7 @@ Uses: React, Axios, RWD
 
 ### [Click here for a live preview](https://kylbutlr-notes-react.herokuapp.com/)
 
-No e-mail required to register a new user account. Or use the public test account (username: test, password: test).
+No e-mail required to register a new user. Or use the public test account (username: test, password: test).
 
 ***
 
