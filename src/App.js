@@ -78,6 +78,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.runResize();
     this.setState(
       {
         notes: [],
@@ -87,6 +88,15 @@ class App extends Component {
         this.getSavedSession();
       }
     );
+  }
+
+  runResize() {
+    let vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty('--vh', `${vh}px`);
+    window.addEventListener('resize', () => {
+      let vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    });
   }
 
   tabClick(activeTab) {
