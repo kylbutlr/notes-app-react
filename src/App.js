@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import '../node_modules/bulma/css/bulma.min.css';
+import './App.css';
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import SearchForm from './components/SearchForm';
@@ -7,10 +11,12 @@ import CreateNoteForm from './components/CreateNoteForm';
 import CreateTagForm from './components/CreateTagForm';
 import EditNoteForm from './components/EditNoteForm';
 import EditTagForm from './components/EditTagForm';
-import '../node_modules/bulma/css/bulma.min.css';
-import './App.css';
-import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Title from './components/Title';
+import Navigation from './components/Navigation';
+import RegisterNotification from './components/RegisterNotification';
+import SearchResults from './components/SearchResults';
+import ViewNotes from './components/ViewNotes';
+import ViewTags from './components/ViewTags';
 
 const API_ENDPOINT = 'https://kylbutlr-notes-api.herokuapp.com';
 const tabs = {
@@ -45,6 +51,9 @@ class App extends Component {
     this.onCreateNoteFormSubmit = this.onCreateNoteFormSubmit.bind(this);
     this.onEditTagFormSubmit = this.onEditTagFormSubmit.bind(this);
     this.onEditNoteFormSubmit = this.onEditNoteFormSubmit.bind(this);
+    this.renderNote = this.renderNote.bind(this);
+    this.tabClick = this.tabClick.bind(this);
+    this.capitalizeFirstChar = this.capitalizeFirstChar.bind(this);
     this.state = {
       activeTab: tabs.LOGIN,
       loggedIn: false,
@@ -1067,254 +1076,76 @@ class App extends Component {
   render() {
     return (
       <div className='app'>
-        {/* Header */}
         <div className='header'>
-          {/* Title */}
-          <div className='title'>
-            {/*<div
-              style={{
-                display: this.state.loggedIn !== false ? 'block' : 'none',
-              }}>
-              <h1 className='title has-text-light' onClick={() => this.tabClick(tabs.VIEW_NOTES)}>
-                Notes
-              </h1>
-            </div>*/}
-            <div
-              style={{
-                display: this.state.loggedIn === false ? 'block' : 'none',
-              }}>
-              <h1 className='title has-text-light' onClick={() => this.tabClick(tabs.LOGIN)}>
-                Notes
-              </h1>
-            </div>
-          </div>
-
-          {/* Search Form */}
-          <div
-            className='search'
-            style={{
-              display:
-                this.state.activeTab !== tabs.LOGIN && this.state.activeTab !== tabs.REGISTER
-                  ? 'block'
-                  : 'none',
-            }}>
-            <SearchForm
-              onSubmit={this.onSearchFormSubmit}
-              onChange={this.onSearchFormChange}
-              searchInput={this.state.searchInput}
-            />
-          </div>
-
-          {/* Navigation Buttons */}
-          <div className='navigation'>
-            <button
-              id='tabsVIEW_NOTES'
-              className='button is-light has-text-dark'
-              style={{
-                display:
-                  this.state.activeTab === tabs.VIEW_TAGS ||
-                  this.state.activeTab === tabs.CREATE_NOTE ||
-                  this.state.activeTab === tabs.CREATE_TAG ||
-                  this.state.activeTab === tabs.EDIT_NOTE ||
-                  this.state.activeTab === tabs.EDIT_TAG ||
-                  this.state.searching === true
-                    ? 'block'
-                    : 'none',
-              }}
-              onClick={() => this.tabClick(tabs.VIEW_NOTES)}>
-              Back to Notes
-            </button>
-            <button
-              id='tabsCREATE_NOTE'
-              className='button is-light has-text-dark'
-              style={{
-                display:
-                  this.state.activeTab === tabs.VIEW_NOTES && this.state.searching === false
-                    ? 'block'
-                    : 'none',
-              }}
-              onClick={() => this.tabClick(tabs.CREATE_NOTE)}>
-              Create Note
-            </button>
-            <button
-              id='tabsVIEW_TAGS'
-              className='button is-light has-text-dark'
-              style={{
-                display:
-                  this.state.activeTab === tabs.CREATE_TAG || this.state.activeTab === tabs.EDIT_TAG
-                    ? 'block'
-                    : 'none',
-              }}
-              onClick={() => this.tabClick(tabs.VIEW_TAGS)}>
-              Back to Tags
-            </button>
-            <button
-              id='tabsVIEW_TAGS'
-              className='button is-light has-text-dark'
-              style={{
-                display:
-                  this.state.activeTab === tabs.VIEW_NOTES ||
-                  this.state.activeTab === tabs.CREATE_NOTE ||
-                  this.state.activeTab === tabs.EDIT_NOTE
-                    ? 'block'
-                    : 'none',
-              }}
-              onClick={() => this.tabClick(tabs.VIEW_TAGS)}>
-              View Tags
-            </button>
-            <button
-              id='tabsCREATE_TAG'
-              className='button is-light has-text-dark'
-              style={{
-                display: this.state.activeTab === tabs.VIEW_TAGS ? 'block' : 'none',
-              }}
-              onClick={() => this.tabClick(tabs.CREATE_TAG)}>
-              Create Tag
-            </button>
-          </div>
+          <Title tabs={tabs} tabClick={this.tabClick} loggedIn={this.state.loggedIn} />
+          <SearchForm
+            tabs={tabs}
+            activeTab={this.state.activeTab}
+            onSubmit={this.onSearchFormSubmit}
+            onChange={this.onSearchFormChange}
+            searchInput={this.state.searchInput}
+          />
+          <Navigation
+            tabs={tabs}
+            activeTab={this.state.activeTab}
+            tabClick={this.tabClick}
+            searching={this.state.searching}
+          />
         </div>
 
-        {/* Body */}
         <div className='body'>
-          {/* Login Form */}
-          <div
-            className='login'
-            style={{
-              display: this.state.activeTab === tabs.LOGIN ? 'flex' : 'none',
-            }}>
-            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Login:</h2>
-            <LoginForm
-              onSubmit={this.onLoginFormSubmit}
-              onChange={this.onLoginFormChange}
-              {...this.state.loginInput}
-            />
-            <div className='or'>or</div>
-            <button
-              className='button is-dark is-text-light has-text-weight-semibold'
-              onClick={() => this.tabClick(tabs.REGISTER)}>
-              Register
-            </button>
-          </div>
-
-          {/* Register Form */}
-          <div
-            className='register'
-            style={{
-              display: this.state.activeTab === tabs.REGISTER ? 'flex' : 'none',
-            }}>
-            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Register:</h2>
-            <RegisterForm
-              onSubmit={this.onRegisterFormSubmit}
-              onChange={this.onRegisterFormChange}
-              {...this.state.registerInput}
-            />
-            <div className='or'>or</div>
-            <button
-              className='button is-dark is-text-light has-text-weight-semibold'
-              onClick={() => this.tabClick(tabs.LOGIN)}>
-              Back to Login
-            </button>
-          </div>
-          <div
-            id='register-notification'
-            className='notification'
-            style={{
-              display: this.state.activeTab === tabs.LOGIN ? 'block' : 'none',
-            }}>
-            <h2>Register Successful</h2>
-          </div>
-
-          {/* Search Results */}
-          <div
-            className='view-search'
-            style={{
-              display:
-                this.state.activeTab === tabs.VIEW_NOTES && this.state.searching === true
-                  ? 'block'
-                  : 'none',
-            }}>
-            <div className='search-title'>
-              <h2 className='subtitle is-3 has-text-dark has-text-centered'>Search Results:</h2>
-              <h3 className='subtitle is-4 has-text-dark has-text-centered'>
-                {this.state.searchResults.length} found for {this.state.searchedTag.join(', ')}:
-              </h3>
-              <h4
-                className='subtitle is-3 has-text-dark has-text-centered'
-                style={{
-                  display: this.state.searchResults.length === 0 ? 'block' : 'none',
-                }}>
-                No Results Found
-              </h4>
-            </div>
-            <ol>{this.state.searchResults.map(n => this.renderNote(n))}</ol>
-          </div>
-
-          {/* View Notes */}
-          <div
-            className='view-notes'
-            style={{
-              display:
-                this.state.activeTab === tabs.VIEW_NOTES && this.state.searching === false
-                  ? 'block'
-                  : 'none',
-            }}>
-            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Notes:</h2>
-            <ol>{this.state.notes.map(n => this.renderNote(n))}</ol>
-          </div>
-
-          {/* View Tags */}
-          <div
-            className='view-tags'
-            style={{
-              display: this.state.activeTab === tabs.VIEW_TAGS ? 'block' : 'none',
-            }}>
-            <div className='tags-title'>
-              <h2 className='subtitle is-3 has-text-dark has-text-centered has-text-weight-semibold'>
-                All Tags:
-              </h2>
-            </div>
-            <ol
-              style={{
-                display: this.state.tags.length === 0 ? 'block' : 'none',
-              }}>
-              <li>
-                <div className='list-info'>
-                  <h4>No tags currently exist.</h4>
-                  <h4>Try creating a new tag above!</h4>
-                </div>
-              </li>
-            </ol>
-            <ol>{this.state.tags.map(n => this.renderTag(n))}</ol>
-          </div>
-
-          {/* Create Note Form */}
-          <div
-            className='create-note'
-            style={{
-              display: this.state.activeTab === tabs.CREATE_NOTE ? 'block' : 'none',
-            }}>
-            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Create Note:</h2>
-            <CreateNoteForm
-              onSubmit={this.onCreateNoteFormSubmit}
-              onChange={this.onNoteFormChange}
-              {...this.state.noteInput}
-            />
-          </div>
-
-          {/* Create Tag Form */}
-          <div
-            className='create-tag'
-            style={{
-              display: this.state.activeTab === tabs.CREATE_TAG ? 'block' : 'none',
-            }}>
-            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Create Tag(s):</h2>
-            <CreateTagForm
-              onSubmit={this.onCreateTagFormSubmit}
-              onChange={this.onTagFormChange}
-              {...this.state.tagInput}
-            />
-          </div>
-
+          <LoginForm
+            tabs={tabs}
+            activeTab={this.state.activeTab}
+            tabClick={this.tabClick}
+            onSubmit={this.onLoginFormSubmit}
+            onChange={this.onLoginFormChange}
+            {...this.state.loginInput}
+          />
+          <RegisterForm
+            tabs={tabs}
+            activeTab={this.state.activeTab}
+            tabClick={this.tabClick}
+            onSubmit={this.onRegisterFormSubmit}
+            onChange={this.onRegisterFormChange}
+            {...this.state.registerInput}
+          />
+          <RegisterNotification tabs={tabs} activeTab={this.state.activeTab} />
+          <SearchResults
+            tabs={tabs}
+            activeTab={this.state.activeTab}
+            searchResults={this.state.searchResults}
+            searchedTag={this.state.searchedTag}
+            searching={this.state.searching}
+            renderNote={this.renderNote}
+          />
+          <ViewNotes
+            tabs={tabs}
+            activeTab={this.state.activeTab}
+            searching={this.state.searching}
+            notes={this.state.notes}
+            renderNote={this.renderNote}
+          />
+          <ViewTags
+            tabs={tabs}
+            activeTab={this.state.activeTab}
+            tags={this.state.tags}
+            renderTag={this.renderTag}
+          />
+          <CreateNoteForm
+            tabs={tabs}
+            activeTab={this.state.activeTab}
+            onSubmit={this.onCreateNoteFormSubmit}
+            onChange={this.onNoteFormChange}
+            {...this.state.noteInput}
+          />
+          <CreateTagForm
+            tabs={tabs}
+            activeTab={this.state.activeTab}
+            onSubmit={this.onCreateTagFormSubmit}
+            onChange={this.onTagFormChange}
+            {...this.state.tagInput}
+          />
           {/* Edit Note Form */}
           <div
             className='edit-note'
