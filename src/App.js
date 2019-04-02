@@ -17,6 +17,7 @@ import RegisterNotification from './components/RegisterNotification';
 import SearchResults from './components/SearchResults';
 import ViewNotes from './components/ViewNotes';
 import ViewTags from './components/ViewTags';
+import Footer from './components/Footer';
 
 const API_ENDPOINT = 'https://kylbutlr-notes-api.herokuapp.com';
 const tabs = {
@@ -54,6 +55,7 @@ class App extends Component {
     this.renderNote = this.renderNote.bind(this);
     this.tabClick = this.tabClick.bind(this);
     this.capitalizeFirstChar = this.capitalizeFirstChar.bind(this);
+    this.logoutClick = this.logoutClick.bind(this);
     this.state = {
       activeTab: tabs.LOGIN,
       loggedIn: false,
@@ -1092,7 +1094,6 @@ class App extends Component {
             searching={this.state.searching}
           />
         </div>
-
         <div className='body'>
           <LoginForm
             tabs={tabs}
@@ -1146,76 +1147,29 @@ class App extends Component {
             onChange={this.onTagFormChange}
             {...this.state.tagInput}
           />
-          {/* Edit Note Form */}
-          <div
-            className='edit-note'
-            style={{
-              display: this.state.activeTab === tabs.EDIT_NOTE ? 'block' : 'none',
-            }}>
-            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Edit Note:</h2>
-            <EditNoteForm
-              onSubmit={this.onEditNoteFormSubmit}
-              onChange={this.onNoteFormChange}
-              {...this.state.noteInput}
-            />
-          </div>
-
-          {/* Edit Tag Form */}
-          <div
-            className='edit-tag'
-            style={{
-              display: this.state.activeTab === tabs.EDIT_TAG ? 'block' : 'none',
-            }}>
-            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Edit Tag:</h2>
-            <EditTagForm
-              onSubmit={this.onEditTagFormSubmit}
-              onChange={this.onTagFormChange}
-              {...this.state.tagInput}
-            />
-          </div>
+          <EditNoteForm
+            tabs={tabs}
+            activeTab={this.state.activeTab}
+            onSubmit={this.onEditNoteFormSubmit}
+            onChange={this.onNoteFormChange}
+            {...this.state.noteInput}
+          />
+          <EditTagForm
+            tabs={tabs}
+            activeTab={this.state.activeTab}
+            onSubmit={this.onEditTagFormSubmit}
+            onChange={this.onTagFormChange}
+            {...this.state.tagInput}
+          />
         </div>
-
-        {/* Footer */}
         <div className='footer'>
-          {/* Footer Buttons */}
-          <div className='footer-buttons'>
-            <div
-              className='delete-notes-button is-light has-text-dark'
-              style={{ display: this.state.activeTab === tabs.VIEW_NOTES ? 'flex' : 'none' }}>
-              <button className='button' onClick={this.handleDeleteAllNotes}>
-                Delete All
-              </button>
-            </div>
-            <div
-              className='delete-tags-button is-light has-text-dark'
-              style={{ display: this.state.activeTab === tabs.VIEW_TAGS ? 'flex' : 'none' }}>
-              <button className='button' onClick={this.handleDeleteAllTags}>
-                Delete All
-              </button>
-            </div>
-            <div
-              className='invisible-delete-button'
-              style={{
-                display:
-                  this.state.activeTab !== tabs.VIEW_NOTES &&
-                  this.state.activeTab !== tabs.VIEW_TAGS
-                    ? 'flex'
-                    : 'none',
-              }}
-            />
-            <div
-              className='logout-button is-light has-text-dark'
-              style={{
-                display:
-                  this.state.activeTab !== tabs.LOGIN && this.state.activeTab !== tabs.REGISTER
-                    ? 'flex'
-                    : 'none',
-              }}>
-              <button className='button' onClick={() => this.logoutClick()}>
-                Logout
-              </button>
-            </div>
-          </div>
+          <Footer
+            tabs={tabs}
+            activeTab={this.state.activeTab}
+            logoutClick={this.logoutClick}
+            handleDeleteAllNotes={this.handleDeleteAllNotes}
+            handleDeleteAllTags={this.handleDeleteAllTags}
+          />
         </div>
       </div>
     );
