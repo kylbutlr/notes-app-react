@@ -8,7 +8,7 @@ Created to be used with my [Notes App API](https://github.com/kylbutlr/notes-app
 
 Uses: React, Axios, RWD
 
-## Usage
+## How to Use
 
 ### [Click here for a live preview](https://kylbutlr-notes-react.herokuapp.com/)
 
