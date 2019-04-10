@@ -26,10 +26,6 @@ Alternatively, download this repository and run the front-end locally:
 
 [@kylbutlr](https://github.com/kylbutlr)
 
-#### Special Thanks: 
-
-[@NoumanSaleem](https://github.com/NoumanSaleem)
-
 ## License:
 
 MIT
