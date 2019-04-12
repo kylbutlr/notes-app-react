@@ -1,0 +1,681 @@
+$off-black: #111;
+$off-white: #ececec;
+$primary-color: #406e40;
+$secondary-color: #355c35;
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  overflow: hidden;
+}
+
+.app {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  width: 100vw;
+  font-family: Helvetica, Arial, sans-serif;
+  background: $off-black;
+  color: $off-black;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  justify-content: space-evenly;
+}
+
+.header {
+  background-image: linear-gradient(
+    to bottom,
+    rgba($primary-color, 0.35),
+    rgba($secondary-color, 0.35)
+  );
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem 0;
+  justify-content: center;
+}
+
+.body {
+  background: $off-black;
+  width: 100%;
+  height: 50vh;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.footer {
+  background: $off-black;
+  background-image: linear-gradient(
+    to bottom,
+    rgba($primary-color, 0.35),
+    rgba($secondary-color, 0.35)
+  );
+  width: 100%;
+  padding: 0.5rem 0 1rem;
+}
+
+button,
+.title {
+  cursor: pointer;
+}
+
+.title h1 {
+  padding-left: 0.5rem;
+}
+
+h1 {
+  font-size: 2.5rem !important;
+}
+
+h2,
+p {
+  cursor: default;
+}
+
+input[name='id'],
+.search-span {
+  display: none;
+}
+
+.search .input {
+  z-index: 1;
+}
+
+.search input[type='submit']:hover {
+  z-index: 2;
+}
+
+.p1 {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.p2 {
+  font-size: 1.125rem;
+}
+
+.p3 {
+  font-size: 1rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  padding: 0 0 0.5rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+}
+
+h4 {
+  font-size: 1.1rem;
+}
+
+.input:focus {
+  border-color: $off-white !important;
+  box-shadow: 0 0 1rem rgba($off-black, 0.25);
+}
+
+.header input[type='submit'] {
+  height: 2rem;
+  width: 15vw;
+}
+
+.title {
+  letter-spacing: 0.25rem;
+  margin-bottom: 0 !important;
+}
+
+.navigation {
+  display: flex;
+  justify-content: space-between;
+  width: 72.5vw;
+  button {
+    height: 2rem;
+    width: 35vw;
+  }
+}
+
+.body {
+  div {
+    display: flex;
+    flex-direction: column;
+    width: 85vw;
+  }
+
+  label span {
+    font-size: 90%;
+  }
+
+  ol {
+    list-style: none;
+  }
+
+  .view-notes li:first-child {
+    padding: 0;
+  }
+
+  li {
+    background: rgba($off-white, 0.9);
+    border-radius: 1rem;
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+  }
+
+  form {
+    padding: 0.5rem 0 0;
+  }
+}
+
+.search {
+  .input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.view-notes {
+  margin: 0.5rem auto;
+  h2 {
+    display: none;
+  }
+  h4 {
+    text-align: center;
+    &:first-child {
+      padding: 0 0 0.5rem;
+    }
+  }
+  .list-buttons {
+    flex-direction: row;
+  }
+}
+
+.view-tags {
+  margin: 0.5rem auto;
+  &-title {
+    border-radius: 1rem;
+  }
+  h2 {
+    margin: 0.5rem auto 0 !important;
+    padding: 0;
+    &:before {
+      border-radius: 1rem;
+    }
+  }
+  h4 {
+    text-align: center;
+    &:first-child {
+      padding: 0 0 0.5rem;
+    }
+  }
+  .list-buttons {
+    flex-direction: row;
+    button {
+      height: 2.5rem;
+      width: 4rem;
+      &:first-child {
+        margin: 0.25rem 0 0.25rem 0.25rem;
+        border-radius: 1rem 0 0 1rem;
+      }
+      &:nth-child(2) {
+        margin: 0.25rem 0.25rem 0.25rem 0;
+        border-radius: 0 1rem 1rem 0;
+      }
+    }
+  }
+  ol {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+.view-search {
+  margin: 0.5rem auto;
+  h2 {
+    margin: 0.5rem auto 0 !important;
+    padding: 0;
+  }
+  h3 {
+    text-align: center;
+    margin: 0 auto 0.5rem !important;
+  }
+  h4 {
+    text-align: center;
+    padding: 0 0 0.5rem;
+  }
+  .list-buttons {
+    flex-direction: row;
+  }
+}
+
+.login,
+.register {
+  background: rgba($off-white, 0.9);
+  border-radius: 1rem;
+  margin: 1.5rem auto 0;
+  padding: 1rem;
+  flex-direction: column;
+  align-items: center;
+  h2 {
+    margin-bottom: 0 !important;
+  }
+}
+
+.login form,
+.register form,
+.create-note form,
+.edit-note form,
+.create-tag form,
+.edit-tag form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login input[type='text'],
+.login input[type='password'],
+.register input[type='text'],
+.register input[type='password'],
+.create-note input[type='text'],
+.edit-note input[type='text'],
+.create-tag input[type='text'],
+.edit-tag input[type='text'],
+.header input[type='text'] {
+  height: 2rem;
+  box-sizing: border-box;
+  width: 75vw;
+  margin: 0 0 2vh;
+}
+
+.create-note input[name='tags'],
+.edit-note input[name='tags'] {
+  margin: 0;
+}
+
+.header input[type='text'] {
+  height: 2rem;
+  width: 57.5vw;
+  margin: 0 0 0.5rem;
+}
+
+.button,
+input[type='submit'] {
+  line-height: 0;
+}
+
+.login input[type='submit'],
+.login button,
+.register input[type='submit'],
+.register button,
+.create-note input[type='submit'],
+.edit-note input[type='submit'],
+.create-tag input[type='submit'],
+.edit-tag input[type='submit'] {
+  height: 2rem;
+  width: 50vw;
+  margin: 0.5rem auto 0;
+}
+
+.or {
+  background: transparent !important;
+  margin-top: 0.25rem;
+  text-align: center;
+}
+
+.loading-ol {
+  margin: auto;
+  width: 10vw;
+}
+
+.loading-li {
+  padding-top: 0.5rem !important;
+}
+
+.help {
+  opacity: 0.5;
+  margin-top: 0.1rem;
+}
+
+.note {
+  flex-direction: column;
+}
+
+.list-info {
+  flex: 1;
+  align-self: flex-start;
+  padding: 0.5rem 2vh;
+}
+
+.list-info p {
+  padding: 0.25rem 0 0.25rem;
+}
+
+.create-note,
+.create-tag,
+.edit-note,
+.edit-tag {
+  background: rgba($off-white, 0.9);
+  margin: 1.5rem auto;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.create-note h2,
+.create-tag h2,
+.edit-note h2,
+.edit-tag h2 {
+  margin-bottom: 0 !important;
+}
+
+.list-buttons {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  button {
+    width: 8rem;
+    height: 2.5rem;
+    &:first-child {
+      margin-right: 0.5rem;
+      border-radius: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    &:nth-child(2) {
+      margin-left: 0.5rem;
+      border-radius: 1rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+.invisible-delete-button {
+  height: 2rem;
+  width: 35vw;
+}
+
+.footer-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 72.5vw;
+  button {
+    @extend .invisible-delete-button;
+  }
+}
+
+label.field:not(:last-child),
+span.label:not(:last-child) {
+  margin-bottom: 0.25rem;
+}
+
+.list-info {
+  border-radius: 1rem 0 0 1rem;
+}
+
+.list-buttons {
+  border-radius: 0 1rem 1rem 0;
+}
+
+.search-title,
+.tags-title {
+  background: rgba($off-white, 0.9);
+  border-radius: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.notification {
+  background: rgba($off-white, 0.5);
+  color: rgba($off-black, 0.75);
+  box-shadow: 0 0 0.5rem $off-black;
+  z-index: 10;
+  position: absolute;
+  margin: 2.5rem 35vw;
+  width: 30vw !important;
+  text-align: center;
+  padding: 1rem 0 0.5rem;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.show {
+  opacity: 1;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+@media only screen and (min-width: 768px) {
+  h1 {
+    font-size: 3.5rem !important;
+  }
+
+  .title {
+    letter-spacing: 0.5rem;
+  }
+
+  .header input[type='text'] {
+    width: 60vw;
+  }
+
+  .header input[type='submit'] {
+    width: 15vw;
+  }
+
+  .body div {
+    width: 60vw;
+  }
+
+  .list-buttons button {
+    opacity: 0.75;
+    height: 2rem;
+  }
+
+  .view-tags .list-buttons button {
+    height: 2.5rem;
+    width: 12.5vw;
+  }
+
+  .create-note,
+  .create-tag,
+  .edit-note,
+  .edit-tag {
+    width: 55vw !important;
+  }
+
+  .login input[type='text'],
+  .login input[type='password'],
+  .register input[type='text'],
+  .register input[type='password'],
+  .create-note input[type='text'],
+  .edit-note input[type='text'],
+  .create-tag input[type='text'],
+  .edit-tag input[type='text'],
+  .header input[type='text'] {
+    width: 45vw;
+  }
+
+  .login input[type='submit'],
+  .login button,
+  .register input[type='submit'],
+  .register button,
+  .create-note input[type='submit'],
+  .edit-note input[type='submit'],
+  .create-tag input[type='submit'],
+  .edit-tag input[type='submit'] {
+    width: 30vw;
+  }
+
+  .navigation,
+  .footer-buttons {
+    width: 51vw;
+    button {
+      width: 25vw;
+    }
+  }
+
+  .login,
+  .register {
+    margin: 15vh auto 0;
+    padding: 0.5rem;
+    button {
+      margin: 0.25rem 9vh 0;
+    }
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .body div {
+    width: 30vw;
+  }
+
+  .header input[type='text'] {
+    width: 15vw;
+  }
+
+  .header input[type='submit'] {
+    width: 7.5vw;
+  }
+
+  .login,
+  .register {
+    margin: 10vh auto 0;
+    padding: 0.5rem;
+  }
+
+  .list-buttons button {
+    height: 6vh;
+    width: 12.5vw;
+  }
+
+  .view-tags .list-buttons button {
+    height: 2.5rem;
+    width: 6vw;
+  }
+
+  .create-note,
+  .create-tag,
+  .edit-note,
+  .edit-tag {
+    width: 30vw !important;
+  }
+
+  .login input[type='text'],
+  .login input[type='password'],
+  .register input[type='text'],
+  .register input[type='password'],
+  .create-note input[type='text'],
+  .edit-note input[type='text'],
+  .create-tag input[type='text'],
+  .edit-tag input[type='text'] {
+    width: 25vw;
+  }
+
+  .login input[type='submit'],
+  .login button,
+  .register input[type='submit'],
+  .register button,
+  .create-note input[type='submit'],
+  .edit-note input[type='submit'],
+  .create-tag input[type='submit'],
+  .edit-tag input[type='submit'] {
+    width: 15vw;
+  }
+
+  .navigation,
+  .footer-buttons {
+    width: 26vw;
+    button {
+      width: 12.5vw;
+    }
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .body div {
+    width: 25vw;
+  }
+
+  .list-buttons button {
+    width: 10vw;
+  }
+
+  .view-tags .list-buttons button {
+    height: 2.5rem;
+    width: 5vw;
+  }
+
+  .create-note,
+  .create-tag,
+  .edit-note,
+  .edit-tag {
+    width: 22.5vw !important;
+  }
+
+  .login input[type='text'],
+  .login input[type='password'],
+  .register input[type='text'],
+  .register input[type='password'],
+  .create-note input[type='text'],
+  .edit-note input[type='text'],
+  .create-tag input[type='text'],
+  .edit-tag input[type='text'] {
+    width: 17.5vw;
+  }
+
+  .login input[type='submit'],
+  .login button,
+  .register input[type='submit'],
+  .register button,
+  .create-note input[type='submit'],
+  .edit-note input[type='submit'],
+  .create-tag input[type='submit'],
+  .edit-tag input[type='submit'] {
+    width: 12.5vw;
+  }
+
+  .navigation,
+  .footer-buttons {
+    width: 21vw;
+    button {
+      width: 10vw;
+    }
+  }
+}
+
+@media (hover: hover) {
+  .list-buttons button {
+    opacity: 0.5;
+    transition: opacity 0.5s;
+  }
+
+  li:hover .edit-button,
+  li:hover .delete-button {
+    opacity: 0.5;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .header input[type='submit'],
+  .navigation button,
+  .footer-buttons button {
+    opacity: 0.9;
+    transition: all 0.25s;
+    &:hover {
+      opacity: 1;
+      border-color: $off-white;
+      box-shadow: 0 0 0.25rem $off-white;
+    }
+  }
+}
