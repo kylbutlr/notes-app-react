@@ -6,7 +6,7 @@ Register and login to a personal user account (no e-mail required), then create,
 
 Created to be used with [Notes App API](https://github.com/kylbutlr/notes-app-api)
 
-Uses: React, Axios, RWD
+Uses: React, Axios, Sass, Bulma, RWD
 
 ## How to Use:
 
