@@ -6,7 +6,7 @@ export default ({ tabs, activeTab, onSubmit, onChange, title, id }) => (
     style={{
       display: activeTab === tabs.EDIT_TAG ? 'block' : 'none',
     }}>
-    <h2 className='subtitle is-3 has-text-dark has-text-centered'>Edit Tag:</h2>
+    <h2 className='subtitle is-3 has-text-dark has-text-centered has-text-weight-semibold'>Edit Tag:</h2>
     <form onSubmit={onSubmit}>
       <label className='field'>
         <span className='label'>Name:</span>

@@ -12,7 +12,7 @@ export default class SearchResults extends Component {
               : 'none',
         }}>
         <div className='search-title'>
-          <h2 className='subtitle is-3 has-text-dark has-text-centered'>Search Results:</h2>
+          <h2 className='subtitle is-3 has-text-dark has-text-centered has-text-weight-semibold'>Search Results:</h2>
           <h3 className='subtitle is-4 has-text-dark has-text-centered'>
             {this.props.searchResults.length} found for {this.props.searchedTag.join(', ')}:
           </h3>

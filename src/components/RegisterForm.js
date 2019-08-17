@@ -6,7 +6,7 @@ export default ({ tabs, activeTab, tabClick, onSubmit, onChange, username, passw
     style={{
       display: activeTab === tabs.REGISTER ? 'flex' : 'none',
     }}>
-    <h2 className='subtitle is-3 has-text-dark has-text-centered'>Register:</h2>
+    <h2 className='subtitle is-3 has-text-dark has-text-centered has-text-weight-semibold'>Register:</h2>
     <form onSubmit={onSubmit}>
       <label className='field'>
         <span className='label'>Username:</span>

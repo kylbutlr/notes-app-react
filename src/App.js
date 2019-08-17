@@ -190,11 +190,18 @@ class App extends Component {
     });
   }
 
-  notifyRegisterSuccessful() {
-    document.getElementById('register-notification').classList.add('show');
+  notifyRegisterSuccessful(user) {
+    swal({
+      title: 'Register Successful',
+      text: 'Welcome, "' + user + '"!', 
+      type: 'success'
+    }).then(() => {
+      document.getElementById('login-password-input').focus();
+    });
+    /*document.getElementById('register-notification').classList.add('show');
     setTimeout(() => {
       document.getElementById('register-notification').classList.remove('show');
-    }, 3000);
+    }, 3000);*/
   }
 
   handleEditTag(id) {
@@ -209,6 +216,7 @@ class App extends Component {
           } else {
             swal('Error', err.message, 'error');
           }
+          this.setState({ loading: false });
         })
         .then(data => {
           if (data) {
@@ -244,6 +252,7 @@ class App extends Component {
           } else {
             swal('Error: ' + err.message);
           }
+          this.setState({ loading: false });
         })
         .then(data => {
           if (data) {
@@ -345,6 +354,7 @@ class App extends Component {
             } else {
               swal('Error', err.message, 'error');
             }
+            this.setState({ loading: false });
           })
           .then(() => {
             axios
@@ -374,6 +384,7 @@ class App extends Component {
           } else {
             swal('Error', err.message, 'error');
           }
+          this.setState({ loading: false });
         })
         .then(() => {
           axios
@@ -581,6 +592,7 @@ class App extends Component {
         swal('Error', 'New tag must not be blank.', 'error');
         this.resetTagInput();
         document.getElementById('create-tag-input').focus();
+        this.setState({ loading: false });
       } else {
         newTags[i] = {
           title: newTag.toLowerCase(),
@@ -600,6 +612,7 @@ class App extends Component {
               } else {
                 swal('Error', err.message, 'error');
               }
+              this.setState({ loading: false });
             })
             .then(res => {
               if (res) {
@@ -637,6 +650,7 @@ class App extends Component {
                 swal('Error', 'New note must not contain a blank title or text.', 'error');
                 this.resetNoteInput();
                 document.getElementById('create-note-input').focus();
+                this.setState({ loading: false });
               } else {
                 this.getConfig(this.state.loggedIn, config => {
                   axios
@@ -648,6 +662,7 @@ class App extends Component {
                       } else {
                         swal('Error', err.message, 'error');
                       }
+                      this.setState({ loading: false });
                     })
                     .then(res => {
                       if (res) {
@@ -698,6 +713,7 @@ class App extends Component {
           document.getElementById('edit-tag-input').focus();
         });
       });
+      this.setState({ loading: false });
     } else {
       this.setState({ loading: true });
       this.getConfig(this.state.loggedIn, config => {
@@ -717,6 +733,7 @@ class App extends Component {
                 } else {
                   swal('Error', err.message, 'error');
                 }
+                this.setState({ loading: false });
               });
             }
           }
@@ -742,6 +759,7 @@ class App extends Component {
             } else {
               swal('Error', err.message, 'error');
             }
+            this.setState({ loading: false });
           })
           .then(res => {
             if (res) {
@@ -788,6 +806,7 @@ class App extends Component {
                       } else {
                         swal('Error', err.message, 'error');
                       }
+                      this.setState({ loading: false });
                     })
                     .then(() => {
                       axios
@@ -838,12 +857,19 @@ class App extends Component {
           } else {
             swal('Error', err.message, 'error');
           }
+          this.setState({ loading: false });
         })
         .then(res => {
           if (res) {
             this.tabClick(tabs.LOGIN);
-            this.notifyRegisterSuccessful();
-            this.setState({ loading: false });
+            this.notifyRegisterSuccessful(newUser.username);
+            this.setState({
+              loginInput: {
+                username: this.state.registerInput.username,
+                password: '',
+              },
+              loading: false,
+            });
           }
         });
     } else {
@@ -872,6 +898,7 @@ class App extends Component {
             swal('Error', err.message, 'error');
           }
         }
+        this.setState({ loading: false });
       })
       .then(user => {
         if (user) {
@@ -1137,8 +1164,10 @@ class App extends Component {
   render() {
     return (
       <div className='app'>
-        <div className='header'>
+        <div className='header' style={{ display: this.state.loggedIn === false ? 'flex' : 'none', }}>
           <Title tabs={tabs} tabClick={this.tabClick} loggedIn={this.state.loggedIn} />
+        </div>
+        <div className='header hidden' style={{ display: this.state.loggedIn === false ? 'none' : 'flex', }}>
           <SearchForm
             tabs={tabs}
             activeTab={this.state.activeTab}

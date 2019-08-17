@@ -6,7 +6,7 @@ export default ({ tabs, activeTab, onSubmit, onChange, title }) => (
             style={{
               display: activeTab === tabs.CREATE_TAG ? 'block' : 'none',
             }}>
-            <h2 className='subtitle is-3 has-text-dark has-text-centered'>Create Tag(s):</h2>
+            <h2 className='subtitle is-3 has-text-dark has-text-centered has-text-weight-semibold'>Create Tag(s):</h2>
   <form onSubmit={onSubmit}>
     <label className='field'>
       <span className='label'>Tag Name(s):</span>
