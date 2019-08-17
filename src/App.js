@@ -4,6 +4,8 @@ import '../node_modules/bulma/css/bulma.min.css';
 import './css/App.css';
 import { faEdit, faTrashAlt, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import swal from 'sweetalert';
+
 import LoadingSpinner from './components/LoadingSpinner';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
@@ -150,6 +152,8 @@ class App extends Component {
         this.getSavedData(savedSession);
         this.tabClick(tabs.VIEW_NOTES);
       });
+    } else {
+      this.setState({ loading: false });
     }
   }
 
@@ -175,12 +179,13 @@ class App extends Component {
                 .then(notes => {
                   if (notes) {
                     notes = this.cleanTags(notes, cb => {
-                      this.setState({ notes: cb.data, loading: false });
+                      this.setState({ notes: cb.data });
                     });
                   }
                 });
             });
           }
+          this.setState({ loading: false });
         });
     });
   }
@@ -199,10 +204,10 @@ class App extends Component {
         .get(`${API_ENDPOINT}/tags/${id}`, config)
         .catch(err => {
           if (err.response.status === 401) {
-            alert('Error: Session has expired. Please log in again.');
+            swal('Error', 'Session has expired. Please log in again.', 'error');
             this.logoutUser('user');
           } else {
-            alert('Error: ' + err.message);
+            swal('Error', err.message, 'error');
           }
         })
         .then(data => {
@@ -234,10 +239,10 @@ class App extends Component {
         .get(`${API_ENDPOINT}/notes/${id}`, config)
         .catch(err => {
           if (err.response.status === 401) {
-            alert('Error: Session has expired. Please log in again.');
+            swal('Error: Session has expired. Please log in again.');
             this.logoutUser('user');
           } else {
-            alert('Error: ' + err.message);
+            swal('Error: ' + err.message);
           }
         })
         .then(data => {
@@ -290,52 +295,55 @@ class App extends Component {
         }
       }
       if (needConfirm === true) {
-        if (
-          window.confirm(
-            'That tag (' +
-              title.toLowerCase() +
-              ') has been attached to at least one note,\n' +
-              'Are you sure you want to delete this tag?'
-          )
-        ) {
-          confirmed = true;
-          for (let i = 0; i < notes.length; i++) {
-            const tagTitle = title;
-            if (notes[i].tags[0]) {
-              const t = notes[i].tags.findIndex(x => x.toLowerCase() === tagTitle);
-              if (t >= 0) {
-                for (let j = 0; j < notes[i].tags.length; j++) {
-                  notes[i].tags[j] = notes[i].tags[j].toLowerCase();
-                }
-                if (notes[i].tags.length === 1) {
-                  notes[i].tags[t] = '';
-                } else if (notes[i].tags.length > 1) {
-                  notes[i].tags.splice(t, 1);
-                }
-                notes[i].user_id = this.state.loggedIn.user_id;
-                axios.put(`${API_ENDPOINT}/notes/${notes[i].id}`, notes[i], config).catch(err => {
-                  if (err.response.status === 401) {
-                    alert('Error: Session has expired. Please log in again.');
-                    this.logoutUser('user');
-                  } else {
-                    alert('Error: ' + err.message);
+        swal({
+          title: 'Are you sure?',
+          text: 'The tag "' + title.toLowerCase() +
+          '" has been attached to a note,\n' +
+          'Are you sure you want to delete it?',
+          icon: 'warning',
+          buttons: true,
+        })
+        .then(willDelete => {
+          if (willDelete) {
+            confirmed = true;
+            for (let i = 0; i < notes.length; i++) {
+              const tagTitle = title;
+              if (notes[i].tags[0]) {
+                const t = notes[i].tags.findIndex(x => x.toLowerCase() === tagTitle);
+                if (t >= 0) {
+                  for (let j = 0; j < notes[i].tags.length; j++) {
+                    notes[i].tags[j] = notes[i].tags[j].toLowerCase();
                   }
-                });
+                  if (notes[i].tags.length === 1) {
+                    notes[i].tags[t] = '';
+                  } else if (notes[i].tags.length > 1) {
+                    notes[i].tags.splice(t, 1);
+                  }
+                  notes[i].user_id = this.state.loggedIn.user_id;
+                  axios.put(`${API_ENDPOINT}/notes/${notes[i].id}`, notes[i], config).catch(err => {
+                    if (err.response.status === 401) {
+                      swal('Error', 'Session has expired. Please log in again.', 'error');
+                      this.logoutUser('user');
+                    } else {
+                      swal('Error', err.message, 'error');
+                    }
+                  });
+                }
               }
             }
           }
-        }
-      }
+        });
+      } 
       if ((needConfirm === true && confirmed === true) || needConfirm === false) {
         this.setState({ loading: true });
         axios
           .delete(`${API_ENDPOINT}/tags/${id}`, config)
           .catch(err => {
             if (err.response.status === 401) {
-              alert('Error: Session has expired. Please log in again.');
+              swal('Error', 'Session has expired. Please log in again.', 'error');
               this.logoutUser('user');
             } else {
-              alert('Error: ' + err.message);
+              swal('Error', err.message, 'error');
             }
           })
           .then(() => {
@@ -361,10 +369,10 @@ class App extends Component {
         .delete(`${API_ENDPOINT}/notes/${id}`, config)
         .catch(err => {
           if (err.response.status === 401) {
-            alert('Error: Session has expired. Please log in again.');
+            swal('Error', 'Session has expired. Please log in again.', 'error');
             this.logoutUser('user');
           } else {
-            alert('Error: ' + err.message);
+            swal('Error', err.message, 'error');
           }
         })
         .then(() => {
@@ -390,41 +398,47 @@ class App extends Component {
 
   handleDeleteAllTags() {
     if (this.state.tags.length > 0) {
-      if (
-        window.confirm(
-          'Are you sure you want to delete all (' + this.state.tags.length + ') saved tags?'
-        )
-      ) {
-        if (this.state.tags) {
+      swal({
+        title: 'Are you sure?',
+        text: 'Are you sure you want to delete all (' + this.state.tags.length + ') saved tags?',
+        icon: 'warning',
+        buttons: true,
+      })
+      .then(willDelete => {
+        if (willDelete) {
           this.setState({ loading: true });
           for (let i = 0; i < this.state.tags.length; i++) {
             this.handleDeleteTag(this.state.tags[i].id, this.state.tags[i].title);
           }
           this.setState({ loading: false });
         }
-      }
+      });
     }
   }
 
   handleDeleteAllNotes() {
     if (this.state.notes.length > 0) {
-      if (
-        window.confirm(
-          'Are you sure you want to delete all (' + this.state.notes.length + ') saved notes?'
-        )
-      ) {
-        this.setState({ loading: true });
-        this.getConfig(this.state.loggedIn, config => {
-          axios
-            .delete(`${API_ENDPOINT}/notes/user/${this.state.loggedIn.user_id}`, config)
-            .then(() => {
-              this.setState({
-                notes: [],
-                loading: false,
+      swal({
+        title: 'Are you sure?',
+        text: 'Are you sure you want to delete all (' + this.state.notes.length + ') saved notes?',
+        icon: 'warning',
+        buttons: true,
+      })
+      .then(willDelete => {
+        if (willDelete) {
+          this.setState({ loading: true });
+          this.getConfig(this.state.loggedIn, config => {
+            axios
+              .delete(`${API_ENDPOINT}/notes/user/${this.state.loggedIn.user_id}`, config)
+              .then(() => {
+                this.setState({
+                  notes: [],
+                  loading: false,
+                });
               });
-            });
-        });
-      }
+          });
+        }
+      });
     }
   }
 
@@ -512,13 +526,13 @@ class App extends Component {
       this.capitalizeFirstChar(searchTag, capitalizedTag => {
         searchTags[i] = capitalizedTag;
         if (searchTag === '') {
-          alert('Warning: At least one searched tag was blank.');
+          swal('Warning', 'At least one searched tag was blank.', 'warning');
           searchTags.splice(i, 1);
         } else {
           searchTags[i] = '"' + searchTags[i] + '"';
           const t = this.state.tags.findIndex(x => x.title === searchTag);
           if (t < 0) {
-            alert('Error: Tag (' + capitalizedTag + ') does not exist.');
+            swal('Error', 'The tag "' + capitalizedTag + '" does not exist.', 'error');
             searchTags.splice(i, 1);
           } else {
             for (let j = 0; j < this.state.notes.length; j++) {
@@ -564,7 +578,7 @@ class App extends Component {
     for (let i = 0; i < newTags.length; i++) {
       const newTag = newTags[i].trim();
       if (newTag === '') {
-        alert('Error: New tag must not be blank.');
+        swal('Error', 'New tag must not be blank.', 'error');
         this.resetTagInput();
         document.getElementById('create-tag-input').focus();
       } else {
@@ -577,14 +591,14 @@ class App extends Component {
             .post(`${API_ENDPOINT}/tags`, newTags[i], config)
             .catch(err => {
               if (err.response.status === 401) {
-                alert('Error: Session has expired. Please log in again.');
+                swal('Error', 'Session has expired. Please log in again.', 'error');
                 this.logoutUser('user');
               } else if (err.response.status === 422) {
-                alert('Error: Tag (' + newTags[i].title + ') already exists.');
+                swal('Error', 'The tag "' + newTags[i].title + '" already exists.', 'error');
                 this.resetTagInput();
                 document.getElementById('create-tag-input').focus();
               } else {
-                alert('Error: ' + err.message);
+                swal('Error', err.message, 'error');
               }
             })
             .then(res => {
@@ -617,11 +631,10 @@ class App extends Component {
     this.checkTagsInput(input.tags, tags => {
       if (tags !== false) {
         this.convertTagsToId(tags, newTags => {
-          if (newTags !== false) {
             input.tags = newTags;
             if (input.tags !== false) {
               if (input.title === ' ' || input.text === ' ') {
-                alert('Error: New note must not contain a blank title or text.');
+                swal('Error', 'New note must not contain a blank title or text.', 'error');
                 this.resetNoteInput();
                 document.getElementById('create-note-input').focus();
               } else {
@@ -630,10 +643,10 @@ class App extends Component {
                     .post(`${API_ENDPOINT}/notes`, input, config)
                     .catch(err => {
                       if (err.response.status === 401) {
-                        alert('Error: Session has expired. Please log in again.');
+                        swal('Error', 'Session has expired. Please log in again.', 'error');
                         this.logoutUser('user');
                       } else {
-                        alert('Error: ' + err.message);
+                        swal('Error', err.message, 'error');
                       }
                     })
                     .then(res => {
@@ -665,9 +678,12 @@ class App extends Component {
                     });
                 });
               }
+            } else {
+              this.setState({ loading: false });
             }
-          }
         });
+      } else {
+        this.setState({ loading: false });
       }
     });
   }
@@ -675,7 +691,7 @@ class App extends Component {
   onEditTagFormSubmit(e) {
     e.preventDefault();
     if (this.state.tagInput.title.indexOf(',') >= 0) {
-      alert('Sorry, multiple tags not allowed when editing a tag. Please try again.');
+      swal('Error', 'Multiple tags not allowed when editing a tag. Please try again.', 'error');
       this.capitalizeFirstChar(this.state.tagInput.prevTag, cb => {
         this.resetTagInput(this.state.tagInput.id, cb, this.state.tagInput.prevTag);
         this.tabClick(tabs.EDIT_TAG, () => {
@@ -696,10 +712,10 @@ class App extends Component {
               notes[i].user_id = this.state.loggedIn.user_id;
               axios.put(`${API_ENDPOINT}/notes/${notes[i].id}`, notes[i], config).catch(err => {
                 if (err.response.status === 401) {
-                  alert('Error: Session has expired. Please log in again.');
+                  swal('Error', 'Session has expired. Please log in again.', 'error');
                   this.logoutUser('user');
                 } else {
-                  alert('Error: ' + err.message);
+                  swal('Error', err.message, 'error');
                 }
               });
             }
@@ -713,10 +729,10 @@ class App extends Component {
           .put(`${API_ENDPOINT}/tags/${this.state.tagInput.id}`, updatedTag, config)
           .catch(err => {
             if (err.response.status === 401) {
-              alert('Error: Session has expired. Please log in again.');
+              swal('Error', 'Session has expired. Please log in again.', 'error');
               this.logoutUser('user');
             } else if (err.response.status === 422) {
-              alert('Error: Tag (' + newTag + ') already exists.');
+              swal('Error', 'The tag "' + newTag + '" already exists.', 'error');
               this.resetTagInput(
                 this.state.tagInput.id,
                 this.state.tagInput.title,
@@ -724,7 +740,7 @@ class App extends Component {
               );
               document.getElementById('edit-tag-input');
             } else {
-              alert('Error: ' + err.message);
+              swal('Error', err.message, 'error');
             }
           })
           .then(res => {
@@ -753,13 +769,12 @@ class App extends Component {
         input.tags = '';
       }
       this.checkTagsInput(input.tags, tags => {
-        if (input.tags !== false) {
-          this.convertTagsToId(tags, newTags => {
-            if (tags !== false) {
+        if (tags !== false) {
+            this.convertTagsToId(tags, newTags => {
               input.tags = newTags;
               if (input.tags !== false) {
                 if (input.title === ' ' || input.text === ' ') {
-                  alert('New note must not contain a blank title or text.');
+                  swal('Error', 'New note must not contain a blank title or text.', 'error');
                   this.resetNoteInput();
                   document.getElementById('edit-note-input').focus();
                   this.setState({ loading: false });
@@ -768,10 +783,10 @@ class App extends Component {
                     .put(`${API_ENDPOINT}/notes/${this.state.noteInput.id}`, input, config)
                     .catch(err => {
                       if (err.response.status === 401) {
-                        alert('Error: Session has expired. Please log in again.');
+                        swal('Error', 'Session has expired. Please log in again.', 'error');
                         this.logoutUser('user');
                       } else {
-                        alert('Error: ' + err.message);
+                        swal('Error', err.message, 'error');
                       }
                     })
                     .then(() => {
@@ -794,9 +809,12 @@ class App extends Component {
                         });
                     });
                 }
+              } else {
+                this.setState({ loading: false });
               }
-            }
           });
+        } else {
+          this.setState({ loading: false });
         }
       });
     });
@@ -814,13 +832,11 @@ class App extends Component {
         .post(`${API_ENDPOINT}/register`, newUser)
         .catch(err => {
           if (err.response.status === 422) {
-            alert(
-              'Sorry, that username (' + this.state.registerInput.username + ') already exists.'
-            );
+            swal('Error', 'Sorry, the username "' + this.state.registerInput.username + '" is not available.', 'error');
             this.resetRegisterInput();
             document.getElementById('register-input').focus();
           } else {
-            alert('Error: ' + err.message);
+            swal('Error', err.message, 'error');
           }
         })
         .then(res => {
@@ -831,7 +847,7 @@ class App extends Component {
           }
         });
     } else {
-      alert('Sorry, passwords did not match. Please try again.');
+      swal('Error', 'Sorry, passwords did not match. Please try again.', 'error');
       this.resetRegisterInput('user');
       document.getElementById('register-password-input').focus();
     }
@@ -849,11 +865,11 @@ class App extends Component {
       .catch(err => {
         if (err) {
           if (err.response.status === 404) {
-            alert('Sorry, invalid username/password, please try again.');
+            swal('Error', 'Sorry, invalid username/password, please try again.', 'error');
             this.resetLoginInput('user');
             document.getElementById('login-password-input').focus();
           } else {
-            alert('Error: ' + err.message);
+            swal('Error', err.message, 'error');
           }
         }
       })
@@ -892,9 +908,17 @@ class App extends Component {
   }
 
   logoutClick() {
-    if (window.confirm('Are you sure you want to logout?')) {
-      this.logoutUser();
-    }
+    swal({
+      title: 'Are you sure?',
+      text: 'Are you sure you want to logout?',
+      icon: 'warning',
+      buttons: true,
+    })
+    .then(willDelete => {
+      if (willDelete) {
+        this.logoutUser();
+      }
+    });
   }
 
   getConfig(loggedIn, cb) {
@@ -942,10 +966,10 @@ class App extends Component {
       const anInput = input[i].trim().toLowerCase();
       const t = this.state.tags.findIndex(x => x.title === anInput);
       if (input.length > 1 && anInput === '') {
-        alert('Error: At least one entered tag was blank.');
+        swal('Error', 'At least one entered tag was blank.', 'error');
         input.splice(i, 1);
       } else if (input.length > 1 && t < 0) {
-        alert('Error: Tag (' + anInput + ') does not exist.');
+        swal('Error', 'The tag "' + anInput + '" does not exist.', 'error');
         input.splice(i, 1);
       } else {
         input[i] = anInput;
@@ -965,7 +989,7 @@ class App extends Component {
         const anInput = tags[i];
         const t = this.state.tags.findIndex(x => x.title === anInput);
         if (t < 0) {
-          alert('Error: Tag (' + anInput + ') does not exist');
+          swal('Error', 'The tag "' + anInput + '" does not exist', 'error');
           tags.splice(i, 1);
         } else {
           tags[i] = this.state.tags[t].id;
@@ -975,6 +999,7 @@ class App extends Component {
     if (tags.length === length) {
       cb(tags);
     } else {
+      this.setState({ loading: false });
       cb(false);
     }
   }
