@@ -166,6 +166,7 @@ class App extends Component {
         .catch(err => {
           this.logoutUser('user');
           document.getElementById('login-password-input').focus();
+          this.setState({ loading: false });
         })
         .then(tags => {
           if (tags) {
@@ -179,13 +180,14 @@ class App extends Component {
                 .then(notes => {
                   if (notes) {
                     notes = this.cleanTags(notes, cb => {
-                      this.setState({ notes: cb.data });
+                      this.setState({ notes: cb.data, loading: false });
                     });
                   }
                 });
             });
+          } else {
+            this.setState({ loading: false });
           }
-          this.setState({ loading: false });
         });
     });
   }
@@ -401,6 +403,8 @@ class App extends Component {
                   });
                 }
                 this.setState({ notes: notes.data, loading: false });
+              } else {
+                this.setState({ loading: false });
               }
             });
         });
@@ -755,7 +759,7 @@ class App extends Component {
                 this.state.tagInput.title,
                 this.state.tagInput.prevTag
               );
-              document.getElementById('edit-tag-input');
+              document.getElementById('edit-tag-input').focus();
             } else {
               swal('Error', err.message, 'error');
             }
@@ -1167,7 +1171,7 @@ class App extends Component {
         <div className='header' style={{ display: this.state.loggedIn === false ? 'flex' : 'none', }}>
           <Title tabs={tabs} tabClick={this.tabClick} loggedIn={this.state.loggedIn} />
         </div>
-        <div className='header hidden' style={{ display: this.state.loggedIn === false ? 'none' : 'flex', }}>
+        <div className='header' style={{ display: this.state.loggedIn === false ? 'none' : 'flex', }}>
           <SearchForm
             tabs={tabs}
             activeTab={this.state.activeTab}
