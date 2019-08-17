@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import '../node_modules/bulma/css/bulma.min.css';
 import './css/App.css';
-import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrashAlt, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import LoadingSpinner from './components/LoadingSpinner';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
 import SearchForm from './components/SearchForm';
@@ -54,12 +55,14 @@ class App extends Component {
     this.onEditNoteFormSubmit = this.onEditNoteFormSubmit.bind(this);
     this.renderTag = this.renderTag.bind(this);
     this.renderNote = this.renderNote.bind(this);
+    this.renderSpinner = this.renderSpinner.bind(this);
     this.tabClick = this.tabClick.bind(this);
     this.capitalizeFirstChar = this.capitalizeFirstChar.bind(this);
     this.logoutClick = this.logoutClick.bind(this);
     this.state = {
       activeTab: tabs.LOGIN,
       loggedIn: false,
+      loading: true,
       searching: false,
       tags: [],
       notes: [],
@@ -151,6 +154,7 @@ class App extends Component {
   }
 
   getSavedData(savedData) {
+    this.setState({ loading: true });
     const { user_id } = savedData;
     this.getConfig(this.state.loggedIn, config => {
       axios
@@ -171,7 +175,7 @@ class App extends Component {
                 .then(notes => {
                   if (notes) {
                     notes = this.cleanTags(notes, cb => {
-                      this.setState({ notes: cb.data });
+                      this.setState({ notes: cb.data, loading: false });
                     });
                   }
                 });
@@ -189,6 +193,7 @@ class App extends Component {
   }
 
   handleEditTag(id) {
+    this.setState({ loading: true });
     this.getConfig(this.state.loggedIn, config => {
       axios
         .get(`${API_ENDPOINT}/tags/${id}`, config)
@@ -210,6 +215,7 @@ class App extends Component {
                     title: newTag,
                     prevTag: data.data.title,
                   },
+                  loading: false,
                 },
                 () => {
                   this.tabClick(tabs.EDIT_TAG);
@@ -222,6 +228,7 @@ class App extends Component {
   }
 
   handleEditNote(id) {
+    this.setState({ loading: true });
     this.getConfig(this.state.loggedIn, config => {
       axios
         .get(`${API_ENDPOINT}/notes/${id}`, config)
@@ -256,6 +263,7 @@ class App extends Component {
                     tags: newTags.join(', '),
                     id: data.data.id,
                   },
+                  loading: false,
                 },
                 () => {
                   this.tabClick(tabs.EDIT_NOTE);
@@ -319,6 +327,7 @@ class App extends Component {
         }
       }
       if ((needConfirm === true && confirmed === true) || needConfirm === false) {
+        this.setState({ loading: true });
         axios
           .delete(`${API_ENDPOINT}/tags/${id}`, config)
           .catch(err => {
@@ -336,6 +345,7 @@ class App extends Component {
                 if (tags) {
                   this.setState({
                     tags: tags.data,
+                    loading: false,
                   });
                 }
               });
@@ -345,6 +355,7 @@ class App extends Component {
   }
 
   handleDeleteNote(id) {
+    this.setState({ loading: true });
     this.getConfig(this.state.loggedIn, config => {
       axios
         .delete(`${API_ENDPOINT}/notes/${id}`, config)
@@ -370,7 +381,7 @@ class App extends Component {
                     });
                   });
                 }
-                this.setState({ notes: notes.data });
+                this.setState({ notes: notes.data, loading: false });
               }
             });
         });
@@ -385,9 +396,11 @@ class App extends Component {
         )
       ) {
         if (this.state.tags) {
+          this.setState({ loading: true });
           for (let i = 0; i < this.state.tags.length; i++) {
             this.handleDeleteTag(this.state.tags[i].id, this.state.tags[i].title);
           }
+          this.setState({ loading: false });
         }
       }
     }
@@ -400,12 +413,14 @@ class App extends Component {
           'Are you sure you want to delete all (' + this.state.notes.length + ') saved notes?'
         )
       ) {
+        this.setState({ loading: true });
         this.getConfig(this.state.loggedIn, config => {
           axios
             .delete(`${API_ENDPOINT}/notes/user/${this.state.loggedIn.user_id}`, config)
             .then(() => {
               this.setState({
                 notes: [],
+                loading: false,
               });
             });
         });
@@ -541,6 +556,7 @@ class App extends Component {
 
   onCreateTagFormSubmit(e) {
     e.preventDefault();
+    this.setState({ loading: true });
     let newTags = [this.state.tagInput.title];
     if (newTags[0].indexOf(',') >= 0) {
       newTags = newTags[0].split(',');
@@ -579,6 +595,7 @@ class App extends Component {
                       title: res.data.title,
                       id: res.data.id,
                     }),
+                    loading: false,
                   },
                   () => {
                     this.resetTagInput();
@@ -594,6 +611,7 @@ class App extends Component {
 
   onCreateNoteFormSubmit(e) {
     e.preventDefault();
+    this.setState({ loading: true });
     const input = this.state.noteInput;
     input.user_id = this.state.loggedIn.user_id;
     this.checkTagsInput(input.tags, tags => {
@@ -633,6 +651,7 @@ class App extends Component {
                                 {
                                   noteInput: newNote,
                                   notes: this.state.notes.concat(newNote),
+                                  loading: false,
                                 },
                                 () => {
                                   this.resetNoteInput();
@@ -664,6 +683,7 @@ class App extends Component {
         });
       });
     } else {
+      this.setState({ loading: true });
       this.getConfig(this.state.loggedIn, config => {
         const newTag = this.state.tagInput.title.toLowerCase();
         const prevTag = this.state.tagInput.prevTag;
@@ -712,7 +732,7 @@ class App extends Component {
               axios
                 .get(`${API_ENDPOINT}/tags/user/${this.state.loggedIn.user_id}`, config)
                 .then(tags => {
-                  this.setState({ tags: tags.data }, () => {
+                  this.setState({ tags: tags.data, loading: false }, () => {
                     this.resetTagInput();
                     this.tabClick(tabs.VIEW_TAGS);
                   });
@@ -725,6 +745,7 @@ class App extends Component {
 
   onEditNoteFormSubmit(e) {
     e.preventDefault();
+    this.setState({ loading: true });
     this.getConfig(this.state.loggedIn, config => {
       const input = this.state.noteInput;
       input.user_id = this.state.loggedIn.user_id;
@@ -741,6 +762,7 @@ class App extends Component {
                   alert('New note must not contain a blank title or text.');
                   this.resetNoteInput();
                   document.getElementById('edit-note-input').focus();
+                  this.setState({ loading: false });
                 } else {
                   axios
                     .put(`${API_ENDPOINT}/notes/${this.state.noteInput.id}`, input, config)
@@ -765,7 +787,7 @@ class App extends Component {
                               });
                             });
                           }
-                          this.setState({ notes: notes.data }, () => {
+                          this.setState({ notes: notes.data, loading: false }, () => {
                             this.resetNoteInput();
                             this.tabClick(tabs.VIEW_NOTES);
                           });
@@ -783,6 +805,7 @@ class App extends Component {
   onRegisterFormSubmit(e) {
     e.preventDefault();
     if (this.state.registerInput.password === this.state.registerInput.confirmPass) {
+      this.setState({ loading: true });
       const newUser = {
         username: this.state.registerInput.username.toLowerCase(),
         password: this.state.registerInput.password,
@@ -804,6 +827,7 @@ class App extends Component {
           if (res) {
             this.tabClick(tabs.LOGIN);
             this.notifyRegisterSuccessful();
+            this.setState({ loading: false });
           }
         });
     } else {
@@ -1076,6 +1100,15 @@ class App extends Component {
     );
   }
 
+  renderSpinner() {
+    return (
+      <div className='spinner'>
+        <FontAwesomeIcon icon={faSpinner} spin />
+        <h2 className='spinner-text'>Loading...</h2> 
+      </div>
+    );
+  }
+
   render() {
     return (
       <div className='app'>
@@ -1095,7 +1128,16 @@ class App extends Component {
             searching={this.state.searching}
           />
         </div>
-        <div className='body'>
+        <div className='body' style={{
+          display: this.state.loading === true ? 'block' : 'none',
+        }}>
+          <LoadingSpinner
+            renderSpinner={this.renderSpinner}
+          />
+        </div>
+        <div className='body' style={{
+          display: this.state.loading === false ? 'block' : 'none',
+        }}>>
           <LoginForm
             tabs={tabs}
             activeTab={this.state.activeTab}

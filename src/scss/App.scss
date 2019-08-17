@@ -341,6 +341,22 @@ input[type='submit'] {
   padding-top: 0.5rem !important;
 }
 
+.spinner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 5rem;
+  padding: 5vh 0;
+}
+
+.spinner-text {
+  margin-top: 1rem;
+  font-size: 2.5rem;
+  font-weight: bold;
+  padding-bottom: 0;
+}
+
 .help {
   opacity: 0.5;
   margin-top: 0.1rem;
