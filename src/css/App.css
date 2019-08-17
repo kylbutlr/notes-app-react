@@ -193,7 +193,7 @@ h4 {
   background: rgba(236, 236, 236, 0.9);
   border-radius: 1rem;
   margin: 1.5rem auto 0;
-  padding: 1rem;
+  padding: 2rem 1rem;
   flex-direction: column;
   align-items: center; }
   .login h2,
@@ -271,7 +271,7 @@ input[type='submit'] {
 .list-info {
   flex: 1;
   align-self: flex-start;
-  padding: 0.5rem 2vh; }
+  padding: 1rem 2vh; }
 
 .list-info p {
   padding: 0.25rem 0 0.25rem; }
@@ -282,7 +282,7 @@ input[type='submit'] {
 .edit-tag {
   background: rgba(236, 236, 236, 0.9);
   margin: 1.5rem auto;
-  padding: 1rem;
+  padding: 1.5rem 1rem;
   border-radius: 1rem; }
 
 .create-note h2,
@@ -294,18 +294,19 @@ input[type='submit'] {
 .list-buttons {
   flex: 1;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  margin-right: 0.5rem; }
   .list-buttons button {
     width: 8rem;
     height: 2.5rem; }
     .list-buttons button:first-child {
       margin-right: 0.5rem;
       border-radius: 1rem;
-      margin-bottom: 0.5rem; }
+      margin-bottom: 1rem; }
     .list-buttons button:nth-child(2) {
       margin-left: 0.5rem;
       border-radius: 1rem;
-      margin-bottom: 0.5rem; }
+      margin-bottom: 1rem; }
 
 .invisible-delete-button, .footer-buttons button {
   height: 2rem;
@@ -403,7 +404,7 @@ span.label:not(:last-child) {
   .login,
   .register {
     margin: 15vh auto 0;
-    padding: 0.5rem; }
+    padding: 1.5rem 0.5rem; }
     .login button,
     .register button {
       margin: 0.25rem 9vh 0; } }
@@ -417,8 +418,7 @@ span.label:not(:last-child) {
     width: 7.5vw; }
   .login,
   .register {
-    margin: 10vh auto 0;
-    padding: 0.5rem; }
+    margin: 10vh auto 0; }
   .list-buttons button {
     height: 6vh;
     width: 12.5vw; }

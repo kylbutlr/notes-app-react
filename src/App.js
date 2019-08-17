@@ -52,6 +52,7 @@ class App extends Component {
     this.onCreateNoteFormSubmit = this.onCreateNoteFormSubmit.bind(this);
     this.onEditTagFormSubmit = this.onEditTagFormSubmit.bind(this);
     this.onEditNoteFormSubmit = this.onEditNoteFormSubmit.bind(this);
+    this.renderTag = this.renderTag.bind(this);
     this.renderNote = this.renderNote.bind(this);
     this.tabClick = this.tabClick.bind(this);
     this.capitalizeFirstChar = this.capitalizeFirstChar.bind(this);
