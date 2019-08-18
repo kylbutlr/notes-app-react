@@ -1199,7 +1199,7 @@ class App extends Component {
         </div>
         <div className='body' style={{
           display: this.state.loading === false ? 'block' : 'none',
-        }}>>
+        }}>
           <LoginForm
             tabs={tabs}
             activeTab={this.state.activeTab}
