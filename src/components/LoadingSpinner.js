@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default ({ renderSpinner }) => (
-  <div className='spinner-div'>
+  <div className='login'>
     {renderSpinner()}
   </div>
 );
