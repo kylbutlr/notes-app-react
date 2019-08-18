@@ -161,6 +161,9 @@ h4 {
 
   li {
     background: rgba($off-white, 0.9);
+    box-shadow: inset 0px 0px 5px #00000080; 
+    -moz-box-shadow: inset 0px 0px 5px #00000080;
+    -webkit-box-shadow: inset 0px 0px 5px #00000080;
     border-radius: 1rem;
     display: flex;
     justify-content: space-between;
@@ -261,6 +264,9 @@ h4 {
 .login,
 .register {
   background: rgba($off-white, 0.9);
+  box-shadow: inset 0px 0px 5px #00000080; 
+  -moz-box-shadow: inset 0px 0px 5px #00000080;
+  -webkit-box-shadow: inset 0px 0px 5px #00000080;
   border-radius: 1rem;
   margin: 1.5rem auto 0;
   padding: 2rem 1rem;
@@ -384,6 +390,9 @@ input[type='submit'] {
   margin: 1.5rem auto;
   padding: 1.5rem 1rem;
   border-radius: 1rem;
+  box-shadow: inset 0px 0px 5px #00000080; 
+  -moz-box-shadow: inset 0px 0px 5px #00000080;
+  -webkit-box-shadow: inset 0px 0px 5px #00000080;
 }
 
 .create-note h2,
@@ -445,6 +454,9 @@ span.label:not(:last-child) {
 .search-title,
 .tags-title {
   background: rgba($off-white, 0.9);
+  box-shadow: inset 0px 0px 5px #00000080; 
+  -moz-box-shadow: inset 0px 0px 5px #00000080;
+  -webkit-box-shadow: inset 0px 0px 5px #00000080;
   border-radius: 1rem;
   padding-bottom: 0.5rem;
 }
