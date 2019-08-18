@@ -26,9 +26,6 @@ html {
   padding: 0.5rem 0;
   justify-content: center; }
 
-.hidden {
-  display: none !important; }
-
 .body {
   background: #111;
   width: 100%;
@@ -263,6 +260,10 @@ input[type='submit'] {
 
 .loading-li {
   padding-top: 0.5rem !important; }
+
+.spinner-div {
+  width: 100%;
+  height: 100%; }
 
 .spinner {
   display: flex;

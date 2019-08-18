@@ -193,17 +193,21 @@ class App extends Component {
   }
 
   notifyRegisterSuccessful(user) {
-    swal({
-      title: 'Register Successful',
-      text: 'Welcome, "' + user + '"!', 
-      type: 'success'
-    }).then(() => {
+    this.setState({ 
+      loginInput: {
+        username: user,
+        password: '',
+      } 
+    }, () => {
       document.getElementById('login-password-input').focus();
+      swal({
+        title: 'Register Successful',
+        text: 'Welcome, "' + user + '"!', 
+        icon: 'success'
+      }).then(() => {
+        document.getElementById('login-password-input').focus();
+      });
     });
-    /*document.getElementById('register-notification').classList.add('show');
-    setTimeout(() => {
-      document.getElementById('register-notification').classList.remove('show');
-    }, 3000);*/
   }
 
   handleEditTag(id) {
