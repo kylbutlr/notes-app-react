@@ -249,10 +249,10 @@ class App extends Component {
         .get(`${API_ENDPOINT}/notes/${id}`, config)
         .catch(err => {
           if (err.response.status === 401) {
-            swal('Error: Session has expired. Please log in again.');
+            swal('Error', 'Session has expired. Please log in again.', 'error');
             this.logoutUser('user');
           } else {
-            swal('Error: ' + err.message);
+            swal('Error', err.message, 'error');
           }
           this.setState({ loading: false });
         })
