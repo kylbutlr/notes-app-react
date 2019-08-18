@@ -9,7 +9,7 @@ export default class Title extends Component {
             display: this.props.loggedIn === false ? 'block' : 'none',
           }}>
           <h1 className='title has-text-light' onClick={() => this.props.tabClick(this.props.tabs.LOGIN)}>
-            Notes
+            Notepad
           </h1>
         </div>
       </div>

@@ -1,10 +1,10 @@
-# Notes App (React)
+# Notepad App (React)
 
 #### React front-end for a basic note-taking application
 
 Register and login to a personal user account (no e-mail required), then create, edit, and delete tags and notes. Note entries can be associated with created tags, allowing for later searching by tags. Both tag creation and searching can be done by entering multiple tags, separated by commas. All notes and tags will be private and only saved/displayed for the corresponding logged in user account. Also features responsive web design for cross-device compatibility.
 
-Created to be used with [Notes App API](https://github.com/kylbutlr/notes-app-api)
+Created to be used with [Notepad App API](https://github.com/kylbutlr/notes-app-api)
 
 Uses: React, Axios, Sass, Bulma, RWD
 
