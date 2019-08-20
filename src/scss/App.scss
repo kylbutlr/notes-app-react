@@ -1,9 +1,9 @@
 $off-black: #111;
 $off-white: hsl(200, 5%, 88%);
 $off-white-btn: linear-gradient(15deg,hsl(200, 5%, 88%) 0%, hsl(200, 10%, 83%) 100%);
-$background: #ebe4df;
-$background-grad: linear-gradient(15deg,hsl(25, 20%, 85%) 0%, hsl(25, 25%, 90%) 100%);
-$primary-color: hsl(8, 25%, 50%);
+$background: hsl(25, 23%, 90%);
+$background-grad: linear-gradient(15deg,hsl(25, 20%, 85%) 0%, hsl(25, 30%, 95%) 100%);
+$primary-color: hsl(8, 30%, 55%);
 $secondary-color: hsl(8, 20%, 45%);
 
 * {
@@ -168,7 +168,7 @@ h4 {
   }
 
   li {
-    background: rgba($off-white, 0.9);
+    background: rgba($off-white, 1);
     border: 2px #00000040 solid;
     box-shadow: -2px 4px 15px #00000040; 
     -moz-box-shadow: -2px 4px 15px #00000040;
@@ -274,7 +274,7 @@ h4 {
 
 .login,
 .register {
-  background: rgba($off-white, 0.9);
+  background: rgba($off-white, 1);
   border: 2px #00000040 solid;
   box-shadow: -2px 4px 15px #00000040; 
   -moz-box-shadow: -2px 4px 15px #00000040;
@@ -402,7 +402,7 @@ input[type='submit'] {
 .create-tag,
 .edit-note,
 .edit-tag {
-  background: rgba($off-white, 0.9);
+  background: rgba($off-white, 1);
   margin: 1.5rem auto;
   padding: 1.5rem 1rem;
   border-radius: 1rem;
@@ -475,7 +475,7 @@ span.label:not(:last-child) {
 
 .search-title,
 .tags-title {
-  background: rgba($off-white, 0.9);
+  background: rgba($off-white, 1);
   border: 2px #00000040 solid;
   box-shadow: -2px 4px 15px #00000040; 
   -moz-box-shadow: -2px 4px 15px #00000040;
