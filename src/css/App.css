@@ -290,7 +290,8 @@ input[type='submit'] {
   padding-bottom: 0; }
 
 .spinner-div {
-  margin: 20vh auto 0; }
+  margin: 20vh auto 0;
+  opacity: 0.75; }
 
 .help {
   opacity: 0.5;
