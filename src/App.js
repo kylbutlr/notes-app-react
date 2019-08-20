@@ -1164,7 +1164,7 @@ class App extends Component {
     return (
       <div className='spinner'>
         <FontAwesomeIcon icon={faSpinner} spin />
-        <h2 className='spinner-text'>Loading...</h2> 
+        <h2 hidden className='spinner-text'>Loading...</h2> 
       </div>
     );
   }

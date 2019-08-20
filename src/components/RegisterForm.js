@@ -52,7 +52,7 @@ export default ({ tabs, activeTab, tabClick, onSubmit, onChange, username, passw
       <input
         className='button is-dark is-text-light has-text-weight-semibold'
         type='submit'
-        value='Register New User'
+        value='Register'
       />
     </form>
     <div className='or'>or</div>
