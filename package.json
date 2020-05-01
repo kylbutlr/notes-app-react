@@ -19,7 +19,8 @@
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-scripts": "^2.1.8",
-    "sweetalert": "^2.1.2"
+    "sweetalert": "^2.1.2",
+    "snyk": "^1.316.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,7 +28,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build-sass": "node-sass -o src/css src/scss",
-    "sass": "nodemon -e scss -x \"npm run build-sass\""
+    "sass": "nodemon -e scss -x \"npm run build-sass\"",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -50,5 +53,6 @@
   "bugs": {
     "url": "https://github.com/kylbutlr/notes-app-react/issues"
   },
-  "homepage": "https://github.com/kylbutlr/notes-app-react#readme"
+  "homepage": "https://github.com/kylbutlr/notes-app-react#readme",
+  "snyk": true
 }
